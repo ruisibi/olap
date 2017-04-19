@@ -1,1 +1,5 @@
 *.mv
+*.class
+*.hz
+*.mx
+app/cache
