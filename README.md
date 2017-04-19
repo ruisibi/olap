@@ -8,4 +8,4 @@
 5.  开发源码：客户可以任意使用。
 
 产品安装：
-产品安装:此项目为JAVA编写的Web项目，下载程序后直接把源码导入项目中，启动项目即可访问，更多信息请访问： http://www.ruisitech.com/olap2.html
+此项目为JAVA编写的Web项目，下载程序后直接把源码导入项目中，启动项目即可访问，更多信息请访问： http://www.ruisitech.com/olap2.html
