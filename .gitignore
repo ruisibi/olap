@@ -4,3 +4,4 @@
 *.mx
 app/cache
 *.hz
+*.class
