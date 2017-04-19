@@ -1,0 +1,1 @@
+select  '合计' xcol, '合计' xcolDesc,a0.RQ a0_RQ,sum(a0.JE) sum_1  from MX_DATAS_ar a0 join DEPT a1 on a0.JGID=a1.DEPT_ID  where 1=1  and a1.lv2_id = '0010102'  group by a0.RQ

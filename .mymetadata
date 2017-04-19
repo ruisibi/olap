@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="olap"
+  id="myeclipse.1365313628595"
+  context-root="/appraise"
+  j2ee-spec="5.0"
+  archive="olap.war">
+  <attributes>
+    <attribute name="webrootdir" value="app" />
+  </attributes>
+</project-module>
+

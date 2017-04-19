@@ -1,0 +1,1 @@
+select  a0.MONTH_ID as dm_kpi_w_card_pandect_m2_MONTH_ID, a0.PAY_MODE as dm_kpi_w_card_pandect_m2_PAY_MODE, sum(a0.A0001) as dm_kpi_w_card_pandect_m2_A0001 from dm_kpi_w_card_pandect_m2 a0 where 1=1  group by a0.MONTH_ID,a0.PAY_MODE

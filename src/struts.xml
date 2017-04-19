@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.action.extension" value="action" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.codebehind.pathPrefix" value="/pages/" />
+	<constant name="struts.configuration.classpath.forceLowerCase" value="false" />
+	<constant name="struts.configuration.classpath.defaultParentPackage" value="base-default" />
+	
+	<!-- 不用登录的拦截器 -->
+	<package name="guest-default-2" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor-stack name="guest">
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="guest" />
+	</package>
+	
+	<package name="index" namespace="/" extends="guest-default-2">
+		<action name="Login" class="com.ruisi.vdop.web.LoginAction">
+			<result name="success">/pages/Login.jsp</result>
+			<result name="login">/pages/Login-login.jsp</result>
+		</action>
+		<action name="Login3G" class="com.ruisi.vdop.web.Login3GAction">
+			<result name="success">/pages/Login3G.jsp</result>
+		</action>
+	</package>
+	
+	<package name="base-default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="authInterceptor" class="com.ruisi.vdop.ser.utils.LoginCheckInterceptor" />
+			<interceptor-stack name="boncDefaultStack">
+				<interceptor-ref name="authInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="boncDefaultStack" />
+	
+		<global-results>
+			<result name="noLogin">/pages/control/NoLogin.jsp</result>
+		</global-results>
+	</package>
+	
+</struts>

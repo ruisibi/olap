@@ -1,0 +1,1 @@
+select a0.browser a0_browser,count(a0.rid) count_1  from rs_logs2 a0 where 1=1  group by a0.browser

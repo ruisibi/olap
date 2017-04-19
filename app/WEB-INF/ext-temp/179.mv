@@ -1,0 +1,1 @@
+select sum(a0.JE) sum_1,year as d_6,月 as d_5,a0.RQ as a0_RQ  from MX_DATAS_ar a0 join DEPT a1 on a0.JGID=a1.DEPT_ID  where 1=1  and a1.lv2_id = '0010102'  group by year,月,a0.RQ

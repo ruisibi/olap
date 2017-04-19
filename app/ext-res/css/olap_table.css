@@ -1,0 +1,67 @@
+
+/* data grid0 用在数据集的表格显示中 *********************************/
+TABLE.grid3 {
+    border-collapse: separate;
+	border-top: 1px solid #CACACA;
+    border-left: 1px solid #CACACA;
+    border-right: 0;
+    border-bottom: 0;
+    border-spacing: 0px;
+    border-cellpadding: 0px;
+}
+TABLE.grid3 THEAD {color: black;text-align: center}
+TABLE.grid3 TH {
+	border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #CACACA;
+    border-bottom: 1px solid #CACACA;
+    PADDING: 3px;
+    font-size: 13px;
+    height:20px;
+    background-color: #EEEEEE;
+    text-align: center;
+}
+TABLE.grid3 TD.grid3-td {
+	border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #CACACA;
+    border-bottom: 1px solid #CACACA;
+    padding: 3px 2px 3px 2px;
+    font-size: 12px;
+    height:20px;
+}
+TABLE.grid3 TR:hover {BACKGROUND-COLOR: #F7F7F7;}
+
+TABLE.grid3 TR.link-selected {
+	BACKGROUND-COLOR: #EFEFEF;
+}
+
+TABLE.grid3 TR.row-link {
+	cursor: pointer;
+}
+
+TABLE.grid3 TR.row-embed{
+	BACKGROUND-COLOR: #FFFFFF !important;
+}
+
+
+/**指标着色**/
+.kpi_up {
+	color:red;
+}
+.extCurrPage{
+	width: 40px;
+}
+.kpi_down {
+	color:green;
+}
+
+/* kpiDescTbs 指标解释 *********************************/
+.kpiDesc {
+	margin-top:10px;
+	padding-left:10px;
+	line-height:23px;
+	font-weight:bold;
+}
+TABLE.kpiDescTbs {BORDER: 1px solid #E7E3D6;BORDER-COLLAPSE: collapse;border-spacing: 0;}
+TABLE.kpiDescTbs TD {BORDER: #E7E3D6 1px solid;padding: 3px 2px 3px 2px;font-size: 12px;white-space:nowrap;}

@@ -1,0 +1,1 @@
+select sum(a0.JE) sum_1,月 as d_5,a3.ID as a3_ID,a3.NAME as a3_NAME,a2.ID as a2_ID,a2.NAME as a2_NAME  from MX_DATAS_ar a0 join DEPT a1 on a0.JGID=a1.DEPT_ID  left join CODE_AREA a2 on a0.AREA=a2.ID  join CODE_INCOME a3 on a0.INCOME=a3.ID  where 1=1  and a1.lv2_id = '0010102'  and 月 in ('2014-01') and a3.ID in (1) group by 月,a3.ID,a3.NAME,a2.ID,a2.NAME

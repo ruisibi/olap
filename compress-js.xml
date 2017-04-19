@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="compress-js" basedir="." default="compress">
+	<description>
+		compress-js
+    </description>
+	
+	<property name="src.dir" value="app/resource/js" />
+	<property name="yuicompressor" value="bin/yuicompressor-2.4.7.jar" />
+	
+	<!-- 合并文件 -->
+	<target name="concat" depends="" description="concat code">
+		
+		<concat destfile="${src.dir}/rsbi.js" encoding="utf-8" fixlastline="on">
+		 	<fileset dir="${src.dir}" includes="bichart.js" />
+		 	<fileset dir="${src.dir}" includes="bidata.js" />
+		 	<fileset dir="${src.dir}" includes="bidrill.js" />
+		 	<fileset dir="${src.dir}" includes="bireport.js" />
+		</concat>
+		
+		<concat destfile="${src.dir}/rsdetail.js" encoding="utf-8" fixlastline="on">
+			<fileset dir="${src.dir}" includes="detail-chart.js" />
+		 	<fileset dir="${src.dir}" includes="detail-data.js" />
+		 	<fileset dir="${src.dir}" includes="detail-report.js" />
+		</concat>
+		
+	</target>
+	
+	<!-- 压缩文件 -->
+	 <target name="compress" depends="concat">  
+	        <apply executable="java" parallel="false" failonerror="true" dest="${src.dir}/" append="false" force="true">  
+	            <!--单个文件压缩-->     
+	        	<fileset dir='${src.dir}/' >
+	        		<include name="rsdetail.js"/>
+	        		<include name="rsbi.js"/>
+	        	</fileset>		                  
+	    
+	            <arg line="-jar" />  
+	            <arg path="${yuicompressor}" />  
+	            <arg line="--charset utf-8" />  
+	            <srcfile />  
+	            <arg line="-o" />  
+	            <mapper type="glob" from="*.js" to="*.js" />  
+	            <targetfile />  
+	        </apply>  
+	    </target>  
+
+</project>

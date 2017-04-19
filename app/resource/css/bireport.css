@@ -1,0 +1,523 @@
+.bi_tit{
+	height:57px;
+	background-image:url(../img/bireportlog.png);
+	background-repeat:no-repeat;
+	background-position:left center;
+	background-color:#FFFFFF;
+}
+.textpanel{
+	line-height:30px;
+	margin:10px;
+}
+.inputform {
+	width:160px;
+}
+span.inputtext {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:90px;
+}
+.comp_table{
+	border:dotted 1px #999999;
+	margin-bottom:6px;
+}
+
+.comp_table .title{
+	padding:3px;
+	background-color:#EFEFEF;
+	border-bottom:dotted 1px #999999;
+}
+.comp_table .title .tname{
+	float:left;
+}
+.comp_table .title .mvcomp{
+	height:18px;
+}
+.comp_table .title .ticon{
+	width:22px;
+	height:16px;
+	text-align:right;
+	float:right;
+	margin-top:-16px;
+}
+.comp_table .title .ticon a{
+	width:16px;
+	height:16px;
+	background-image:url("../img/closeme.png");
+	background-position:center center;
+	display:inline-block;
+	opacity:0.6;
+}
+.comp_table .ctx{
+	padding:5px;
+	background-color:#FFFFFF;
+}
+
+.txtctxdiv{
+	margin:1px;
+}
+.txtctxdiv textarea {
+	border:none;
+}
+.tabhelpr{
+	color:#999999;
+	font-size:14px;
+	padding:15px;
+}
+.tabhelpr2{
+	color:#999999;
+	font-size:14px;
+	padding:15px;
+}
+.indicator{
+	position:absolute;
+	font-size:14px;
+	width:50px;
+	height:10px;
+	display:none;
+	color:red;
+}
+table.d_table {
+    border-collapse:collapse;
+    border-spacing: 0px;
+    border-cellpadding: 0px;
+}
+table.d_table th {
+	border: 1px solid #CACACA;
+    padding: 0px;
+    font-size: 12px;
+	background-color: #eeeeee;
+}
+table.d_table td.onesel2 {
+	height:20px;
+	background-color: #F9F9F9;
+}
+table.d_table td.onesel {
+	height:20px;
+}
+table.d_table td.blank {
+	border:none;
+}
+TABLE.d_table TD {
+    border: 1px solid #CACACA;
+    padding: 0px;
+    font-size: 12px;
+}
+table.d_table2 {
+    border-collapse: separate;
+    border-spacing: 0px;
+    border-cellpadding: 0px;
+}
+table.d_table2 td.blank {
+	border:none;
+}
+TABLE.d_table2 TD {
+    border:none;
+    padding: 0px;
+    font-size: 12px;
+}
+#d_colDims,#d_rowDims{
+	background-color:#EEEEEE;
+}
+.colDimsList span{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:110px;
+	border:1px solid #CACACA;
+	padding:2px;
+	margin:3px 0px 3px 3px;
+	background-color:#FFFFCC;
+	text-align:center;
+}
+.rowDimsList span{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:112px;
+	border:1px solid #CACACA;
+	border-right:none;
+	background-color:#FFFFCC;
+	text-align:center;
+	padding:4px 2px 5px 2px;
+}
+.colDimsList span a, tr.scrollColThead th span a, .rowDimsList span a{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:18px;
+	height:16px;
+	background-image:url("../img/dimset.png");
+	background-repeat:no-repeat;
+	background-position:center center;
+	text-decoration:none;
+}
+.dimoptbtn {
+	opacity: 0.6;
+}
+tr.scrollColThead th span a.extKpibtn {
+	background-image:url("../img/closeme.png");
+}
+#databetween #datemodbtn {
+	font-weight:normal;
+	font-size:10px;
+}
+.chartselect .selleft{
+	width:100px;
+	float:left;
+}
+.chartselect .selright{
+	width:250px;
+	float:right;
+}
+.chartselect .selright .one{
+	margin:10px;
+	padding:10px;
+	display:none;
+	cursor:pointer;
+}
+.chartselect .selleft ul {
+	margin:0px;
+	padding:0px;
+}
+.chartselect .selleft ul li {
+	margin:0px;
+	padding:8px;
+	background-color:#EEE;
+	border-bottom:solid 1px #CCCCCC;
+	cursor:pointer;
+}
+.chartselect .selleft ul li.select {
+	background-color:#FFF;
+}
+.tsbd {
+	width:135px;
+	float:left;
+}
+.tsbd .ts_h{
+	font-size:14px;
+	margin:10px;
+	width:120px;
+}
+.tsbd .h_ctx{
+	border:1px solid #7F9DB9;
+	height:26px;
+	overflow:hidden;
+}
+.chartctx {
+	border:1px solid #CACACA;
+	height:170px;
+	margin-left:170px;
+}
+span.charttip {
+	color:#999999;
+	padding:3px;
+	display:block;
+}
+span.charttxt {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:90px;
+	padding:3px;
+}
+span.charticon {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:20px;
+	height:16px;
+	background-image:url("../img/dimset.png");
+	cursor:pointer;
+	background-position:center center;
+	background-repeat:no-repeat;
+	opacity: 0.6;
+}
+span.chartdel {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:20px;
+	height:16px;
+	background-image:url("../img/closeme.png");
+	cursor:pointer;
+	background-position:center center;
+	background-repeat:no-repeat;
+	opacity: 0.6;
+}
+.tsbd span.grouptype {
+	width:16px;
+	height:16px;
+	display:-moz-inline-box;  
+	display:inline-block;
+	background-image:url("../img/chartsumtype.gif");
+	cursor:pointer;
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:left;
+	padding:3px 0px 0px 0px;
+}
+.chartloading {
+	height:40px;
+	width:140px;
+	background-image:url("../../ext-res/image/large-loading.gif");
+	background-position:left center;
+	background-repeat:no-repeat;
+	background-color:#FFFFCC;
+	border:1px solid #CACACA;
+	position:absolute;
+	display:none;
+	font-size:14px;
+	z-index:10000;
+}
+.chartloading .ltxt{
+	margin:12px 0px 10px 40px;
+}
+.chartloading .ldclose {
+	float:right;
+	height:20px;
+	width:20px;
+	background-image:url("../img/closeme.png");
+	background-position:center center;
+	background-repeat:no-repeat;
+	cursor:pointer;
+}
+.exchangexs{
+	width:20px;
+	height:170px;
+	float:left;
+}
+.msginfo{
+	width:85%;
+	height:90%;
+	padding-left:40px;
+	line-height:20px;
+}
+.msgerr{
+	background-image:url(../img/icon-error.gif);
+	background-position:left center;
+	background-repeat:no-repeat;
+}
+.msgsuc{
+	background-image:url(../img/icon-suc.gif);
+	background-position:left center;
+	background-repeat:no-repeat;
+}
+#d_colDims span.colkpi{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:110px;
+	overflow:hidden;
+}
+#d_colDims div.coldim{
+	display:-moz-inline-box;  
+	display:inline-block;
+	overflow:hidden;
+}
+#d_kpi span.kpiValue{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:110px;
+	overflow:hidden;
+}
+#d_rowDims span.s_rowDim{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:110px;
+	overflow:hidden;
+	white-space: nowrap;
+}
+.exportpanel{
+	margin:30px 10px 10px 10px;
+}
+.exportpanel .exptp{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:68px;
+	text-align:center;
+	cursor:pointer;
+}
+.exportpanel .select{
+	border:solid 1px #990000;
+}
+.helpctx {
+	font-size:12px;
+	line-height:20px;
+	text-indent: 25px;
+}
+.chartdrillmenu{
+	margin-top:3px;
+	margin-left:5px;
+}
+.chartdrillDim{
+	display:-moz-inline-box;  
+	display:inline-block;
+	text-align:center;
+	background-color: #FFFFCC;
+	border: 1px solid #CACACA;
+	padding: 2px;
+	margin:0px 3px 0px 3px;
+}
+.chartdrillDim a {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:18px;
+	height:12px;
+	background-image:url("../../ext-res/image/minus.gif");
+	background-repeat:no-repeat;
+	background-position:center center;
+	text-decoration:none;
+}
+#d_colDims span.colkpi span.kpiname{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:90px;
+	overflow:hidden;
+	white-space:nowrap;
+}
+#optarea .param {
+	border: 1px dotted #999999;
+	margin-bottom:5px;
+}
+#optarea .param .ptabhelpr{
+	padding:7px;
+	color: #999999;
+    font-size: 14px;
+}
+#optarea #p_param span.pppp {
+	background-color: #FFFFCC;
+    border: 1px solid #CACACA;
+    display: inline-block;
+    padding: 2px;
+    text-align: center;
+	margin:5px;
+}
+#optarea #p_param span.text {
+	cursor:pointer;
+}
+#optarea #p_param b {
+	font-weight:normal;
+	margin-left:5px;
+	font-size:13px;
+	color:#555;
+}
+#optarea #p_param span.pppp a {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:18px;
+	height:12px;
+	background-image:url("../../ext-res/images/hmenu-del.gif");
+	background-repeat:no-repeat;
+	background-position:center center;
+	text-decoration:none;
+	float:right;
+}
+
+.tablesleft {
+	float:left;
+	width:220px;
+	height:250px;
+	overflow:hidden;
+	border:1px solid #999;
+}
+.tablesright {
+	width:220px;
+	height:250px;
+	float:right;
+	border:1px solid #999;
+	overflow:hidden;
+}
+.tablescenter {
+	width:46px;
+	height:250px;
+	float:left;
+	text-align:center;
+}
+.tabletitle {
+	padding-left:3px;
+	background-color:#E4E4E4;
+}
+#cubetabs .cubeleft{
+	width:200px;
+	height:410px;
+	float:left;
+	border:1px solid #999;
+	overflow:hidden;
+}
+#cubetabs .cubeleft #cubelefttree {
+	width:200px;
+	height:380px;
+	overflow:auto;
+}
+#cubetabs .cuberight {
+	width:200px;
+	height:410px;
+	float:left;
+	border:1px solid #999;
+	overflow:hidden;
+}
+#cubetabs .cuberight #cuberighttree{
+	width:200px;
+	height:380px;
+	overflow:auto;
+}
+#cubetabs .cubecenter{
+	width:40px;
+	height:410px;
+	float:left;
+	text-align:center;
+}
+#cubetabs .cubetitle {
+	padding-left:3px;
+	background-color:#E4E4E4;
+}
+.actColumn{
+	line-height:19px;
+}
+.actColumn .column {
+	border: 1px solid #FFD784;
+	background-color:#FF9;
+	cursor:pointer;
+	color:#333;
+	margin-right:3px;
+}
+#pdailog #valList {
+	width:225px;
+	height:132px;
+	overflow:auto;	
+}
+#pdailog #valList .fltone {
+	line-height:20px;
+	margin-left:5px;
+	color:#666666;
+	cursor:pointer;
+}
+#d_colDims span.s_colDim{
+	display:-moz-inline-box;  
+	display:inline-block;
+	white-space: nowrap;
+	overflow:hidden;
+}
+.dxwd {
+	width:230px;
+	float:left;
+	border:1px solid #999;
+	margin:3px;
+}
+.yxwd {
+	width:220px;
+	float:right;
+	border:1px solid #999;
+	margin:3px;
+}
+.xzwdbtn {
+	width:50px;
+	float:left;
+	text-align:center;
+}
+.dxwd .wdhead, .yxwd .wdhead{
+	padding:5px;
+	background-color: #e4e4e4;
+}
+.dxwd .wdlist, .yxwd .wdlist{
+	height:300px;
+	overflow:auto;
+}
+.dxwd .wdlist .fltone {
+	overflow:hidden;
+	height:20px;
+}

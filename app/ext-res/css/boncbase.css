@@ -1,0 +1,302 @@
+/* tag ================================================================*/
+
+/* pagiLink tag*/
+.pagiLink{font-size: 12px;padding-top:3px;padding-bottom:3px;text-align:right;}
+.xaContainer {}
+.mockLink{cursor:pointer;text-decoration:none;color:#2a5685;padding-top:0px;margin-top:0px;}
+.mockLink:hover{cursor:pointer;text-decoration:underline;color:#c61a1a;padding-top:0px;margin-top:0px;}
+
+/* applet box tag *********************************/
+.appletBox {text-align: left;width:100%border: 1px solid #EEDFCC;border-top:0px solid #00d352;}
+.appletBox .appletTitleBar {padding-bottom: 8px; FONT-WEIGHT: bold;TEXT-ALIGN: left;  }
+.appletBox .appletTitle {color: #000000;font-size: 12px;font-weight: bold;padding-left: 5px;vertical-align:middle;}
+.appletBox .appletIcon {filter: Alpha(opacity =   80);-moz-opacity: 0.8;}
+.appletBox .closeButton,.closeButton {background:transparent url(base/themes/default/img/tag/close_box.gif) no-repeat scroll 0 0;width:13px;height: 13px;cursor:pointer;}
+.appletBox .minButton,.minButton {background:transparent url(base/themes/default/img/tag/min_box.gif) no-repeat scroll 0 0;width:13px;height: 13px;cursor:pointer;}
+.appletBox .maxButton,.maxButton {background:transparent url(base/themes/default/img/tag/max_box.gif) no-repeat scroll 0 0;width:13px;height: 13px;cursor:pointer;}
+
+/* notice tag ***********************/
+.notice-error {BORDER: 2px solid;PADDING-left: 30px;PADDING-TOP: 10px;FONT-SIZE: 1.1em;MARGIN-BOTTOM: 12px;BORDER-COLOR: #dd0000;BACKGROUND:transparent url(base/themes/default/img/tag/false.png) #ffe3e3 no-repeat 8px 5px;}
+.notice-success {BORDER: 2px solid;PADDING-left: 30px;PADDING-TOP: 10px;FONT-SIZE: 1.1em;MARGIN-BOTTOM: 12px;BORDER-COLOR: #9fcf9f;BACKGROUND:transparent url(base/themes/default/img/tag/true.png) #dfffdf no-repeat 8px 5px;}
+
+#closeIcon {
+	cursor: pointer;
+}
+
+a {
+	color:#000000;
+	text-decoration:underline;
+}
+
+a:hover {
+	color:#ff0000;
+	text-decoration:underline;
+}
+
+.crossDirll{
+}
+
+.crossDirll-open {
+}
+
+.crossDirll-level {
+	float: left;
+}
+
+.tweek{
+	color : #ccc;
+	text-decoration:underline;
+}
+
+.linkPanelClose {
+	width:14px;
+	height: 14px;
+	cursor: pointer;
+	background-image:url(../images/hmenu-del.gif);
+	float: right;
+}
+
+/* common ================================================================*/
+
+/* form */
+form .required {color: red}
+
+.appletTitleTxt{
+font-size:14px;
+color:#0586C4;
+}
+.appletTitleImg{
+	margin-left:5px;
+}
+
+.firstload{
+	font-size:14px;
+	position:absolute;
+	padding:10px;
+	border: 1px solid #BBBBBB;
+	background-color:#FFF;
+	border-radius: 8px 8px 8px 8px;
+    box-shadow: 5px 5px 5px #DDDDDD;
+	width:100px;
+	text-align:center;
+}
+
+/* data grid0 用在数据集的表格显示中 *********************************/
+TABLE.grid3 {
+	width: 100%;
+	border-collapse:collapse;
+	table-layout:fixed;
+}
+TABLE.grid3 TH {
+	text-align: center;
+    border: 1px solid #CACACA;
+    PADDING: 3px;
+    font-size: 13px;
+    height:20px;
+    background-color: #EEEEEE;
+	font-weight:normal;
+	white-space:nowrap;
+}
+TABLE.grid3 TD.grid3-td {
+	border: 1px solid #CACACA;
+    padding: 3px 2px 3px 2px;
+    font-size: 12px;
+    height:20px;
+}
+
+
+TABLE.grid3 TR.link-selected {
+	BACKGROUND-COLOR: #EFEFEF;
+}
+
+TABLE.grid3 TR.row-link {
+	cursor: pointer;
+}
+
+TABLE.grid3 TR:hover {
+	background-color:#FFFF99;
+}
+
+TABLE.grid3 TR.row-embed{
+	BACKGROUND-COLOR: #FFFFFF !important;
+}
+.dataBox h2 {
+	height:30px;
+	line-height: 30px;
+	padding: 3px 3px 3px 10px; 
+	font-size: 14px;
+	color:#0586C4;
+}
+
+/**指标着色**/
+.kpi_up {
+	color:red;
+}
+.extCurrPage{
+	width: 40px;
+}
+.kpi_down {
+	color:green;
+}
+.ckbox {
+}
+
+/* kpiDescTbs 指标解释 *********************************/
+.kpiDesc {
+	margin-top:10px;
+	padding-left:10px;
+	line-height:23px;
+	font-weight:bold;
+}
+TABLE.kpiDescTbs {BORDER: 1px solid #E7E3D6;BORDER-COLLAPSE: collapse;border-spacing: 0;width: 100%;}
+TABLE.kpiDescTbs TD {BORDER: #E7E3D6 1px solid;padding: 3px 2px 3px 2px;font-size: 12px;white-space:nowrap;}
+
+/** olap 视图样式*/
+TABLE.grid5 {
+	width: 100%;
+    border-collapse:collapse;
+    border-spacing: 0px;
+    border-cellpadding: 0px;
+}
+TABLE.grid5 THEAD {color: black;text-align: center}
+TABLE.grid5 TH {
+    border: 1px solid #CACACA;
+    PADDING: 3px;
+    font-size: 13px;
+     height:20px;
+    background-color: #EEEEEE;
+    text-align: left;
+	font-weight:normal;
+}
+TABLE.grid5 TD.grid5-td {
+    border: 1px solid #CACACA;
+    padding: 3px 2px 3px 2px;
+    font-size: 12px;
+    height:20px;
+}
+TABLE.grid5 TD.kpiData1 {
+	background-color:#FFF;
+}
+TABLE.grid5 TD.kpiData2 {
+	background-color:#F7F7F7;
+}
+TABLE.grid5 td.pms, TABLE.grid3 td.pms {
+    color: #ff0000;
+    font-weight: bold;
+    text-align: center;
+}
+.dimDrill{
+	display: inline-block;
+    text-decoration: none;
+    width: 17px;
+	height:14px;
+	background-image:url(../image/plus.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor:pointer;
+	float:left;
+}
+.dimgoup{
+	display: inline-block;
+    text-decoration: none;
+    width: 17px;
+	height:14px;
+	background-image:url(../image/minus.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor:pointer;
+	float:left;
+}
+.pagesizeinfo{
+	text-align:right;
+	padding:3px;
+}
+.textClass {
+	padding:3px;
+	margin-bottom:3px;
+}
+.rpeortParam {
+	background-color:#FFF;
+	padding:5px;
+	text-align:left;
+}
+.rpeortParam input {
+	
+}
+table.mylayout td.layouttd {
+	padding:3px;
+}
+.bi_tit2 {
+	background-image:url(../image/white-top-bottom.gif);
+	padding:5px;
+	font-weight:bold;
+	font-size:13px;
+	color:#000033;
+}
+.bi_tit2_underline {
+	border-bottom:solid 1px #95B8E7;
+}
+.bi_tit_wb {
+	margin-bottom:5px;
+}
+.ext-el-mask-msg {
+    z-index: 20001;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border:1px solid;
+    background:repeat-x 0 -16px;
+    padding:2px;
+}
+.ext-el-mask-msg {
+    border-color:#6593cf;
+    background-color:#c3daf9;
+    background-image:url(../image/tb-blue.gif);
+}
+.ext-el-mask-msg div {
+    background-color: #eee;
+    border-color:#a3bad9;
+    color:#222;
+    font:normal 11px tahoma, arial, helvetica, sans-serif;
+}
+.ext-el-mask-msg div {
+    padding:5px 10px 5px 10px;
+    border:1px solid;
+    cursor:wait;
+}
+.x-mask-loading div {
+    padding:5px 10px 5px 25px;
+    background:no-repeat 5px 5px;
+    line-height:16px;
+    background-color:#fbfbfb;
+    background-image:url(../image/loading.gif);
+}
+#dateselectl {
+	display:none;
+}
+<!-- 数据门户的样式 -->
+.cbox {
+    margin-bottom: 5px;
+}
+.cbox .ctitle {
+    background-color: #eeeeee;
+    background-image: url("../../resource/img/portalbg.gif");
+    border-color: #cacaca;
+    border-style: solid;
+    border-width: 1px;
+    cursor: move;
+}
+.cbox .ctitleview {
+    background-image: url("../../resource/img/portalbg.gif");
+    border-color: #cacaca;
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px;
+}
+#jcbt {
+	padding:3px 5px 3px 8px;
+}
+.chartTitle {
+	font-size:16px;
+	font-weight:bold;
+}

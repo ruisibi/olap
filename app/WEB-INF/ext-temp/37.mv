@@ -1,0 +1,1 @@
+select date_format(date, '%Y') d_1,count(a0.rid) count_1  from rs_logs2 a0 where 1=1  group by date_format(date, '%Y')

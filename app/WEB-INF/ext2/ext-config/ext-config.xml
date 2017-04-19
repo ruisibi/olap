@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+	<constant name="devMode" value="false" />
+	
+	<constant name="highchartExport" value="http://112.124.13.251:8080/highcharts-export/" />
+	<constant name="resPath" value="http://bi.rosetech.cn" />
+	
+	<!--  鉴权的COOKIE ID 及 url  -->
+	<constant name="auth" value="auth.rsbi.cookieId" />
+	<constant name="authUrl" value="http://124.128.62.162:1234/heracles-web/a" />
+	
+	<constant name="xmlResource" value="/WEB-INF/ext2/ext-config/pages/" />
+	<constant name="securityClass" value="com.ruisi.vdop.ser.utils.ExtLoginChecker"/>
+	<constant name="loginUserClass" value="com.ruisi.vdop.ser.utils.ExtLoginInfoLoader"/>
+	<constant name="fieldLoader" value="com.ruisi.vdop.ser.ruisibi.MyCrossFieldLoader" />
+	<constant name="OlapWriter" value="com.ruisi.vdop.ser.ruisibi.UserDefinedOlapWriter"/>
+	<constant name="dataControl" value="com.ruisi.vdop.ser.ruisibi.DataControlImp"/>
+	<constant name="contextListener" value="com.ruisi.vdop.ser.ruisibi.AppInit"/>
+	
+	<service id="ext.sys.param.cascade" class="com.ruisi.ext.engine.service.impl.ParameterCascadeServiceImpl" result="global"></service>
+	 <service id="ext.sys.fenye.ajax" class="com.ruisi.ext.engine.service.impl.AjaxFenyeServiceImpl" result="global"></service>
+	 <service id="ext.sys.tab.ajax" class="com.ruisi.ext.engine.service.impl.TabAjaxService" result="global"></service>
+	 <service id="ext.sys.export" class="com.ruisi.ext.engine.service.impl.ExportServiceImpl" result="global"></service>
+	 <service id="ext.sys.chart.rebuild" class="com.ruisi.ext.engine.service.impl.ChartRebuildServiceImpl" result="global"></service>
+	 <service id="ext.sys.cross.loadData" class="com.ruisi.ext.engine.service.impl.CrossDataLoadServiceImpl" result="global"></service>
+	 <service id="ext.sys.cross.rebuild" class="com.ruisi.ext.engine.service.impl.CrossRebuildServiceImpl" result="global"></service>
+	 <service id="ext.sys.emitter.text" class="com.ruisi.ext.engine.service.impl.TextEmitterServiceImpl" result="global"></service>
+	 <service id="ext.sys.cross.export" class="com.ruisi.ext.engine.service.impl.CrossExportServiceImpl" result="global"></service>
+	 <service id="ext.sys.mv.export" class="com.ruisi.ext.engine.service.impl.MVExportServiceImpl" result="global"></service>
+	
+</ext-config>
