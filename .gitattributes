@@ -1,1 +1,5 @@
 *.java linguist-language=java
+*.jsp linguist-language=java
+*.js linguist-language=java
+*.css linguist-language=java
+*.jar linguist-language=java
