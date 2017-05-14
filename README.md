@@ -8,7 +8,7 @@
 5.  开放源码：客户可以任意使用，并不需要我们的授权。
 
 产品安装：<br/>
-此项目为JAVA编写的Web项目，下载程序后直接把源码导入eclipse中，编译程序并配置到tomcat中，启动tomcat即可访问，更多信息请访问： <br/>
+此项目为JAVA编写的Web项目，直接把rsbi.war放入tomcat的webapp目录即可访问，也可下载程序后把源码导入eclipse中，编译程序并配置到tomcat中，启动tomcat访问，更多信息请访问： <br/>
 http://www.ruisitech.com/olap2.html<br/>
 
 演示地址： <br/> http://bi.rosetech.cn/bireport/ReportDesign.action?token=c64106e1-4bef-41d2-a9ce-8b20f4044f26
