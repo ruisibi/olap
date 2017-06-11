@@ -1,1 +1,1 @@
-select  '合计' as xcol, sum(a0.A0001) as dm_kpi_w_card_pandect_m2_A0001 from dm_kpi_w_card_pandect_m2 a0 where 1=1 
+select a0.PROV_ID a0_PROV_ID,sum(a0.A0002) sum_2  from dm_kpi_w_card_pandect_m2 a0 where 1=1  group by a0.PROV_ID

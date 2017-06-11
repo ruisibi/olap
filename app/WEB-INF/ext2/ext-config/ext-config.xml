@@ -15,7 +15,6 @@
 	<constant name="fieldLoader" value="com.ruisi.vdop.ser.ruisibi.MyCrossFieldLoader" />
 	<constant name="OlapWriter" value="com.ruisi.vdop.ser.ruisibi.UserDefinedOlapWriter"/>
 	<constant name="dataControl" value="com.ruisi.vdop.ser.ruisibi.DataControlImp"/>
-	<constant name="contextListener" value="com.ruisi.vdop.ser.ruisibi.AppInit"/>
 	
 	<service id="ext.sys.param.cascade" class="com.ruisi.ext.engine.service.impl.ParameterCascadeServiceImpl" result="global"></service>
 	 <service id="ext.sys.fenye.ajax" class="com.ruisi.ext.engine.service.impl.AjaxFenyeServiceImpl" result="global"></service>

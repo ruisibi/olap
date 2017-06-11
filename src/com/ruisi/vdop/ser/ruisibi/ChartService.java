@@ -26,10 +26,6 @@ import com.ruisi.ext.engine.view.context.dsource.DataSourceContext;
 import com.ruisi.ext.engine.view.context.form.InputField;
 import com.ruisi.ext.engine.view.context.html.TextContext;
 import com.ruisi.ext.engine.view.context.html.TextContextImpl;
-import com.ruisi.vdop.ser.cache.CacheDimVO;
-import com.ruisi.vdop.ser.cache.CacheKeyVO;
-import com.ruisi.vdop.ser.cache.CacheManager;
-import com.ruisi.vdop.ser.division.DivisionQueryService;
 import com.ruisi.vdop.ser.utils.DBUtils;
 import com.ruisi.vdop.ser.utils.DataService;
 import com.ruisi.vdop.util.VDOPUtils;
@@ -293,8 +289,8 @@ public class ChartService {
 		//创建chart
 		ChartContext cr = this.json2Chart();
 	
-		String sql = createSql(params, divison);
-		GridDataCenterContext dc = this.createDataCenter(sql, params, cubeId, dsetJson.getString("master"), divison);
+		String sql = createSql(params);
+		GridDataCenterContext dc = this.createDataCenter(sql, params, cubeId, dsetJson.getString("master"));
 		cr.setRefDataCenter(dc.getId());
 		if(mv.getGridDataCenters() == null){
 			mv.setGridDataCenters(new HashMap<String, GridDataCenterContext>());
@@ -330,93 +326,16 @@ public class ChartService {
 		return mv;
 	}
 	
-	private CacheKeyVO createCacheKey(JSONArray pms, String cubeId, String master){
-		CacheKeyVO vo = new CacheKeyVO();
-		List<CacheDimVO> dims = new ArrayList<CacheDimVO>();
-		JSONObject xcol = (JSONObject)chartJson.get("xcol");
-		if(xcol != null && !xcol.isEmpty()){
-			JSONObject col = xcol;
-			CacheDimVO d = new CacheDimVO();
-			d.setDimId(col.getString("id"));
-			d.setValue((String)col.get("vals"));
-			d.setOrd(col.getInt("ord"));
-			dims.add(d);
-		}
-		JSONObject scol = (JSONObject)chartJson.get("scol");
-		if(scol != null && !scol.isEmpty()){
-			JSONObject row = scol;
-			CacheDimVO d = new CacheDimVO();
-			d.setDimId(row.getString("id"));
-			d.setValue((String)row.get("vals"));
-			d.setOrd(row.getInt("ord"));
-			dims.add(d);
-		}
-		JSONArray params = (JSONArray)chartJson.get("params");
-		if(params != null && params.size() > 0){
-			for(int i=0; i<params.size(); i++){
-				JSONObject p = params.getJSONObject(i);
-				CacheDimVO d = new CacheDimVO();
-				d.setDimId(p.getString("id"));
-				d.setValue((String)p.get("vals"));
-				d.setOrd(p.getInt("ord"));
-				dims.add(d);
-			}
-		}
-		//处理全局参数
-		for(int i=0; pms != null && i<pms.size(); i++){
-			JSONObject p = pms.getJSONObject(i);
-			CacheDimVO d = new CacheDimVO();
-			d.setDimId(p.getString("id"));
-			d.setValue((String)p.get("vals"));
-			d.setOrd(p.getInt("ord"));
-			dims.add(d);
-		}
-		vo.setCubeId(cubeId);
-		vo.setCacheKey(dims);
-		//数据权限控制筛选
-		if(dataControl != null){
-			String ret = dataControl.process(VDOPUtils.getLoginedUser(), tableAlias, master);
-			vo.setDataControlKey(ret);
-		}
-		return vo;
-	}
 	
-	public GridDataCenterContext createDataCenter(String sql, JSONArray params, String cubeId, String master, JSONObject divison) throws Exception{
+	
+	public GridDataCenterContext createDataCenter(String sql, JSONArray params, String cubeId, String master) throws Exception{
 		GridDataCenterContext ctx = new GridDataCenterContextImpl();
 		GridSetConfContext conf = new GridSetConfContext();
 		conf.setRefDsource(dsourceJson.getString("dsid"));
 		
-		if(cubeId != null && cubeId.length() > 0){  //只有cubeId 存在的时候才启用缓存，不然不启动缓存
-			//判断是否有缓存，如果有直接读取缓存对象
-			CacheManager.createInstance(VDOPUtils.getServletContext());
-			CacheKeyVO keyvo = this.createCacheKey(params, cubeId, master);
-			List dt = CacheManager.getInstance().getCache(keyvo);
-			if(dt == null){
-				//创建缓存
-				if(divison != null && !divison.isEmpty()){ 
-					DivisionQueryService ser = new DivisionQueryService(sql, dsourceJson, divison, master, kpiJson);
-					dt = ser.process();
-				}else{
-					DataService ser = new DataService();
-					DataService.RSDataSource rsds = ser.json2datasource(dsourceJson);
-					dt = DBUtils.querySql(sql, rsds);
-				}
-				CacheManager.getInstance().putCache(keyvo, dt);
-			}
-			VDOPUtils.getRequest().setAttribute("dt", dt);
-			conf.setDataKey("dt");
-		}else{ //不启用缓存
-			if(divison != null && !divison.isEmpty()){ 
-				//是否分表，如果启用分表，进行多线程查询
-				DivisionQueryService ser = new DivisionQueryService(sql, dsourceJson, divison, master, kpiJson);
-				List dt = ser.process();
-				VDOPUtils.getRequest().setAttribute("dt", dt);
-				conf.setDataKey("dt");
-			}else{  //普通查询
-				String name = TemplateManager.getInstance().createTemplate(sql);
-				conf.setTemplateName(name);
-			}
-		}
+		String name = TemplateManager.getInstance().createTemplate(sql);
+		conf.setTemplateName(name);
+		
 		ctx.setConf(conf);
 		ctx.setId("DC-" + IdCreater.create());
 		
@@ -495,7 +414,7 @@ public class ChartService {
 	/**
 	 * 创建sql语句所用函数，图形用这个函数创建SQL
 	 */
-	public String createSql(JSONArray paramJson, JSONObject divison) {
+	public String createSql(JSONArray paramJson) {
 		JSONArray joinTabs = dsetJson.getJSONArray("joininfo");
 		List<String> groupCols = new ArrayList<String>(); //需要进行分组的字段
 		List<JSONObject> filterCols = new ArrayList<JSONObject>(); //需要进行过滤的维度
@@ -680,12 +599,9 @@ public class ChartService {
 		}
 		String master = dsetJson.getString("master");
 		sql.append(" from ");
-		if(divison != null && !divison.isEmpty()){ //在分表查询时，表名用 tableName 替换
-			sql.append(" [tableName] " + tableAlias.get(master));
-		}else{
-			String aggreTable = (String)dsetJson.get("aggreTable");
-			sql.append((aggreTable == null || aggreTable.length() == 0 ? master : aggreTable) + " " + tableAlias.get(master));
-		}
+		String aggreTable = (String)dsetJson.get("aggreTable");
+		sql.append((aggreTable == null || aggreTable.length() == 0 ? master : aggreTable) + " " + tableAlias.get(master));
+
 		for(int i=0; i<joinTabs.size(); i++){  //通过主表关联
 			JSONObject tab = joinTabs.getJSONObject(i);
 			String ref = tab.getString("ref");

@@ -26,7 +26,6 @@ public class TableViewAction {
 	private String dset;
 	private String cubeId;  //在缓存对象的时候使用
 	private String cubeKpis; //立方体的所有指标，用在数据缓存的时候
-	private String divison; //分表信息
 
 	public String execute() throws Exception{
 		
@@ -38,7 +37,6 @@ public class TableViewAction {
 		JSONObject dsourcej = JSONObject.fromObject(dsource);
 		JSONObject dsetj = JSONObject.fromObject(dset);
 		JSONArray cacheKpi = JSONArray.fromObject(cubeKpis);
-		JSONObject divisonj = JSONObject.fromObject(divison);
 		
 		//放入request,方便访问
 		VDOPUtils.getRequest().setAttribute("tablej", tablej);
@@ -51,7 +49,7 @@ public class TableViewAction {
 		tser.setTableJson(tablej);
 		tser.setKpiJson(kpij);
 		
-		MVContext mv = tser.json2MV(divisonj, cacheKpi, parj,cubeId);
+		MVContext mv = tser.json2MV(cacheKpi, parj,cubeId);
 		
 		CompPreviewService ser = new CompPreviewService();
 		ser.setParams(tser.getMvParams());
@@ -139,18 +137,5 @@ public class TableViewAction {
 	public void setCubeKpis(String cubeKpis) {
 		this.cubeKpis = cubeKpis;
 	}
-
-
-
-	public String getDivison() {
-		return divison;
-	}
-
-
-
-	public void setDivison(String divison) {
-		this.divison = divison;
-	}
-
 	
 }

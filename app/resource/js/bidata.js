@@ -1886,234 +1886,24 @@ function newcube(isupdate, cubeId){
 			str = str + "</div>";
 			$(pp).html(str);
 		}else if(cubeObj != null && b == 3){ //分表
-			var pp = $('#cubetabs').tabs('getSelected');
-			if($(pp).html() != ""){
-				return;
-			}
-			//查询主表字段：
-			var dset = findDatasetById(cubeObj.datasetid);
-			var cols = "<option value=\"\"></option>";
-			for(j=0; j<dset.cols.length; j++){
-				var c = dset.cols[j];
-				if(c.tname != dset.master){
-					continue;
-				}
-				cols =cols + "<option value=\""+c.name+"\" "+(cubeObj.divison && cubeObj.divison.col == c.name?"selected":"")+">"+(c.dispName == '' ?c.name:c.dispNames)+"</option>"
-			}
-			//分表数
-			var tbs = "<option value=\"\"></option>";
-			for(j=2; j<=16; j++){
-				tbs = tbs + "<option value=\""+j+"\" "+(cubeObj.divison && cubeObj.divison.number == j ?"selected":"")+">"+j+"</option>";
-			}
-		    var str = "<div class=\"textpanel\"><fieldset><legend>通过对立方体分多个子表来提高查询效率</legend><label><input type=\"radio\" value=\"y\" name=\"division\" id=\"division\" "+(cubeObj!=null&&cubeObj.divison?"checked":"")+">启用分表</label> <label><input type=\"radio\" value=\"n\" name=\"division\" id=\"division\" "+(cubeObj==null||!cubeObj.divison?"checked":"")+">禁用分表</label> <div id=\"divisionDiv\">分表字段：<select id=\"divisonCol\">"+cols+"</select> &nbsp; 分表数量：<select id=\"divisonNumber\">"+tbs+"<select> &nbsp; (数量应该对应CPU核数)<br/><div id=\"divisonInfo\"></div><input type='button' id='exeDivison' value='执行分表'></div></div></fieldset></div>";
-			$(pp).html(str);
-			if(cubeObj==null||!cubeObj.divison){
-				$("#divisionDiv").hide();
-			}
-			$("#pdailog input[name='division']:radio").click(function(){
-				if($(this).val() == "y"){
-					$("#divisionDiv").show();
-				}else{
-					$("#divisionDiv").hide();
-				}
-			});
-			/**
-			根据序号查询分表对象
-			**/
-			var findTabByIdx = function(idx){
-				var ret = null;
-				for(k=0; cubeObj.divison&&cubeObj.divison.tabs&&k<cubeObj.divison.tabs.length; k++){
-					if(k == idx){
-						ret = cubeObj.divison.tabs[k];
-						break;
-					}
-				}
-				return ret;
-			}
-			var resetDivision = function(wback){
-				var divisonNumber = $("#pdailog #divisonNumber").val();
-				var divisonCol = $("#pdailog #divisonCol").val();
-				if(divisonNumber != "" && divisonCol != ""){
-					var s = "";
-					for(i=0; i<Number(divisonNumber); i++){
-						var t = findTabByIdx(i);
-						s = s + "<div>第"+(i+1)+"个表, "+divisonCol+" 数据区间：<input name=\"divisonST\" type='text' value='"+(wback?t.st:"")+"' style='width:80px;'> 到 <input name=\"divisonEND\" type='text' style='width:80px;' value='"+(wback?t.end:"")+"'> </div>";
-					}
-					$("#pdailog #divisonInfo").html(s);
-				}else{
-					$("#pdailog #divisonInfo").html("");
-				}
-			};
-			$("#pdailog #divisonCol,#pdailog #divisonNumber").change(function(){
-				resetDivision(false);
-			});
-			resetDivision(true);
-			//执行分表
-			$("#pdailog #exeDivison").click(function(){
-				var p = {col:$("#pdailog #divisonCol").val(), number:$("#pdailog #divisonNumber").val(), tabs:[]};
-				var endls = $("#pdailog input[name='divisonEND']");
-				$("#pdailog input[name='divisonST']").each(function(index, element) {
-					var val = $(this).val();
-                    p.tabs.push({idx:index, st:val, end:endls.get(index).value});
-                });
-				var dset = findDatasetById($("#pdailog #datasetid").val());
-				var ds = findDatasourceById(dset.dsid);
-				$.messager.progress({
-					title:'请稍后...',
-					msg:'正在划分立方体子表...'
-				});
-				$.ajax({
-					type:"POST",
-					url: "Division.action",
-					dataType:"html",
-					data: {division:JSON.stringify(p), "dset":JSON.stringify(dset),"dsource":JSON.stringify(ds),"cube":JSON.stringify(cubeObj)},
-					success: function(resp){
-						$.messager.progress('close');
-						alert("立方体生成子表成功。");
-					},
-					error:function(a,b,c){
-						$.messager.progress('close');
-						alert("立方体分表失败，请查看后台日志。");
-					}
-				});
-				
-			});
+			 var pp = $('#cubetabs').tabs('getSelected');
+		    var str = "开源版无此功能。";
+		    $(pp).html(str);
 		}else
 		if(cubeObj != null && b == 4){ //缓存
 		    var pp = $('#cubetabs').tabs('getSelected');
-		    var str = "<div class=\"textpanel\"><fieldset><legend>立方体缓存</legend><label><input type=\"radio\" value=\"true\" name=\"cache\" id=\"cache\" "+(cubeObj!=null&&cubeObj.cache==true?"checked":"")+">启用缓存</label> <label><input type=\"radio\" value=\"false\" name=\"cache\" id=\"cache\" "+(cubeObj==null||!cubeObj.cache||cubeObj.cache==false?"checked":"")+">停用缓存</label> &nbsp; <input type='button' value='删除已缓存数据' id='delcache'></fieldset></div>";
+		    var str = "开源版无此功能。";
 		    $(pp).html(str);
-			var cube = cubeObj;
-			$("#pdailog #delcache").click(function(){
-				showloading();
-				$.ajax({
-					type:"POST",
-					url: "Cache!delCache.action",
-					dataType:"html",
-					data: {"cubeId":cube.id},
-					success: function(resp){
-						hideLoading();
-						alert("删除立方体缓存成功。");
-					},
-					error:function(a,b,c){
-						hideLoading();
-						alert("删除立方体缓存出错，请稍后再试。");
-					}
-				});
-			});
+			
 		}else if(cubeObj != null && b == 5){ //定时任务
 		    var pp = $('#cubetabs').tabs('getSelected');
-			var job = cubeObj.job; //自动聚集的定时任务
-			//小时字符串
-			var hour = "";
-			for(i=0; i<=23; i++){
-				hour = hour + "<option value=\""+i+"\" "+(job&&job.hour==i?"selected":"")+">" + i + "</option>";
-			}
-			//分钟字符串
-			var minute = "";
-			for(i=0; i<60; i++){
-				minute = minute + "<option value=\""+i+"\" "+(job&&job.minute==i?"selected":"")+">"+i+"</option>";
-			}
-			//周字符串
-			var week = "";
-			for(i=0; i<=6; i++){
-				week =week + "<option value=\""+(i + 1)+"\" "+(job&&job.week==(i + 1)?"selected":"")+">"+(i == 0 ? "日": i)+"</option>";
-			}
-			//日字符串
-			var day = "";
-			for(i=1; i<=31; i++){
-				day = day + "<option value=\""+i+"\" "+(job&&job.day==i?"selected":"")+">"+i+"</option>";
-			}
-			var str = "<div class=\"textpanel\" style=\"\"><fieldset><legend>设置定时任务自动执行</legend><label><input type='radio' value='yes' name='autoAggre' id='autoAggre' "+(job?"checked":"")+">启用定时任务</label> &nbsp; <label><input type='radio' value='no' name='autoAggre' id='autoAggre' "+(!job?"checked":"")+">关闭定时任务</label><div id=\"jobdiv\"><select id=\"period\" name=\"period\" style=\"width:70px;\"><option value=\"day\" "+(job&&job.period=="day"?"selected":"")+">每天</option><option value=\"week\" "+(job&&job.period=="week"?"selected":"")+">每周</option><option value=\"month\" "+(job&&job.period=="month"?"selected":"")+">每月</option></select> <div id=\"weekdiv\">星期<select id=\"week\" name=\"week\">"+week+"</select></div> <div id=\"daydiv\"><select id=\"day\" name=\"day\">"+day+"</select>号</div> <div id=\"timediv\"><select id=\"hour\" name=\"hour\">"+hour+"</select>点：<select id=\"minute\" name=\"minute\">"+minute+"</select>分</div><div>执行内容：<br/>1.删除聚集表并重新聚集数据。<br/>2.删除立方体子表并生成新的表。<br/>3.删除已有缓存。</div></div></fieldset></div>";
-			//alert(str);
-			$(pp).html(str);
-			var changeevent = function(v){
-				if(v == "day"){
-					$("#pdailog #weekdiv").hide();
-					$("#pdailog #daydiv").hide();
-					$("#pdailog #hourdiv").hide();
-					$("#pdailog #timediv").show();
-				}else if(v == "month"){
-					$("#pdailog #weekdiv").hide();
-					$("#pdailog #hourdiv").hide();
-					$("#pdailog #daydiv").show();
-					$("#pdailog #timediv").show();
-				}else if(v == "week"){
-					$("#pdailog #weekdiv").show();
-					$("#pdailog #hourdiv").hide();
-					$("#pdailog #daydiv").hide();
-					$("#pdailog #timediv").show();
-				}
-			};
-			$("#pdailog #period").change(function(){
-				var v = $(this).val();
-				changeevent(v);
-			});
-			changeevent($("#pdailog #period").val());
-			var showjobdiv = function(v){
-				if(v == "yes"){ //启用自动聚集
-					/**
-					if(!cubeObj.aggreTable || cubeObj.aggreTable == ''){
-						msginfo("请先聚集立方体，再启用自动聚集。");
-						$("#pdailog input[name=autoAggre]:eq(1)").attr("checked",'checked'); 
-						return;
-					}
-					**/
-					$("#pdailog #jobdiv").show();
-				}else{  //关闭自动聚集
-					$("#pdailog #jobdiv").hide();
-				}
-			}
-			
-			$("#pdailog input[name='autoAggre']:radio").click(function(){
-				var val = $(this).val();
-				showjobdiv(val);
-			});
-			showjobdiv($("#pdailog input[name='autoAggre']:radio:checked").val());
+			 var str = "开源版无此功能。";
+		    $(pp).html(str);
 		}else
 		if(cubeObj != null && b == 2){  //立方体聚集
 			var pp = $('#cubetabs').tabs('getSelected');
-			var str = "<div class=\"textpanel\" style=\"\"><fieldset><legend>通过聚集立方体提高查询效率</legend><input type=\"button\" value=\"聚集立方体\" id=\"aggrecube\"> &nbsp; <input type=\"button\" value=\"取消聚集\" id=\"notAggre\"><div align=\"center\" id=\"aggremsg\">"+(cubeObj.aggreTable?"当前聚集表："+cubeObj.aggreTable:"")+"</div></fieldset></div>";
-			//alert(str);
-			$(pp).html(str);
-			var dset = findDatasetById($("#pdailog #datasetid").val());
-			var ds = findDatasourceById(dset.dsid);
-			var cube = cubeObj;
-			$("#pdailog #aggrecube").click(function(){
-				$(this).attr("disabled", "disabled");
-				$.messager.progress({
-					title:'请稍后...',
-					msg:'立方体数据聚集中...'
-				});
-				$.ajax({
-					type:"POST",
-					url: "AggreCube.action",
-					dataType:"html",
-					data: {"dset":JSON.stringify(dset),"dsource":JSON.stringify(ds),"cube":JSON.stringify(cube)},
-					success: function(resp){
-						$.messager.progress('close');
-						alert("立方体聚集成功。");
-						$("#pdailog #aggremsg").html("立方体聚集后生成表： <b>"  + resp +"</b>");
-						//给立方体回写表名
-						cube.aggreTable = resp;
-						savepage(false,undefined, true);
-					},
-					error:function(a,b,c){
-						$.messager.progress('close');
-						alert("立方体聚集出错，请稍后再试。");
-					}
-				});
-			});
-			$("#pdailog #notAggre").click(function(){
-				delete cube.aggreTable;
-				delete cube.job;  //删除任务
-				//关闭自动聚集
-				$("#pdailog input[name=autoAggre]:eq(1)").attr("checked",'checked'); 
-				$("#pdailog #jobdiv").hide();
-				$("#pdailog #aggremsg").html("");
-				savepage(false,undefined, true);
-				alert("取消立方体聚集成功。");
-			});
+			 var str = "开源版无此功能。";
+		    $(pp).html(str);
 			
 		}else
 		if(b == 1){

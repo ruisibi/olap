@@ -33,12 +33,6 @@ import com.ruisi.ext.engine.view.context.form.InputField;
 import com.ruisi.ispire.dc.grid.GridFilter;
 import com.ruisi.ispire.dc.grid.GridProcContext;
 import com.ruisi.ispire.dc.grid.GridShift;
-import com.ruisi.vdop.ser.cache.CacheDimVO;
-import com.ruisi.vdop.ser.cache.CacheKeyVO;
-import com.ruisi.vdop.ser.cache.CacheManager;
-import com.ruisi.vdop.ser.division.DivisionQueryService;
-import com.ruisi.vdop.ser.utils.DBUtils;
-import com.ruisi.vdop.ser.utils.DataService;
 import com.ruisi.vdop.util.VDOPUtils;
 
 public class TableService {
@@ -74,7 +68,7 @@ public class TableService {
 		}
 	}
 	
-	public String createSql(JSONArray cacheKpi, JSONArray paramsJson, JSONObject divison) {
+	public String createSql(JSONArray cacheKpi, JSONArray paramsJson) {
 		//判断是否需要计算上期、同期值
 		int jstype = this.getKpiComputeType(kpiJson);
 		JSONArray joinTabs = dset.getJSONArray("joininfo");
@@ -233,13 +227,10 @@ public class TableService {
 		
 		String master = dset.getString("master");
 		sb.append(" from ");
-		//如果启用了分表， 此处表名不写, 在后面进行替换
-		if(divison != null && !divison.isEmpty()){
-			sb.append(" [tableName] " + tableAlias.get(master));
-		}else{
-			String aggreTable = (String)dset.get("aggreTable");
-			sb.append((aggreTable == null || aggreTable.length() == 0 ? master : aggreTable)  + " " + tableAlias.get(master));
-		}
+		
+		String aggreTable = (String)dset.get("aggreTable");
+		sb.append((aggreTable == null || aggreTable.length() == 0 ? master : aggreTable)  + " " + tableAlias.get(master));
+		
 		for(int i=0; i<joinTabs.size(); i++){  //通过主表关联
 			JSONObject tab = joinTabs.getJSONObject(i);
 			String ref = tab.getString("ref");
@@ -467,7 +458,7 @@ public class TableService {
 		return ctx;
 	}
 	
-	public MVContext json2MV(JSONObject divison, JSONArray cacheKpi, JSONArray params, String cubeId) throws Exception{
+	public MVContext json2MV(JSONArray cacheKpi, JSONArray params, String cubeId) throws Exception{
 		//先获取需要关联的表及表别名字段
 		JSONArray joinTabs = dset.getJSONArray("joininfo");
 		tableAlias.put(dset.getString("master"), "a0");
@@ -492,8 +483,8 @@ public class TableService {
 		cr.setShowData(true);
 		
 		//创建数据中心
-		String sql = this.createSql(cacheKpi, params, divison);
-		GridDataCenterContext dc = this.createDataCenter(divison, cacheKpi, sql, params, cubeId, dset.getString("master"));
+		String sql = this.createSql(cacheKpi, params);
+		GridDataCenterContext dc = this.createDataCenter(cacheKpi, sql, params, cubeId, dset.getString("master"));
 		cr.setRefDataCetner(dc.getId());
 		if(mv.getGridDataCenters() == null){
 			mv.setGridDataCenters(new HashMap<String, GridDataCenterContext>());
@@ -529,104 +520,18 @@ public class TableService {
 		return mv;
 	}
 	
-	private CacheKeyVO createCacheKey(JSONArray params, String cubeId, String master){
-		CacheKeyVO vo = new CacheKeyVO();
-		List<CacheDimVO> dims = new ArrayList<CacheDimVO>();
-		JSONArray cols = tableJson.getJSONArray("cols");
-		for(int i=0; i<cols.size(); i++){
-			JSONObject col = cols.getJSONObject(i);
-			String type = col.getString("type");
-			if("kpiOther".equalsIgnoreCase(type)){  //忽略指标
-				continue;
-			}
-			CacheDimVO d = new CacheDimVO();
-			d.setDimId(col.getString("id"));
-			d.setValue((String)col.get("vals"));
-			d.setOrd(col.getInt("ord"));
-			dims.add(d);
-		}
-		JSONArray rows = tableJson.getJSONArray("rows");
-		for(int i=0 ;i<rows.size(); i++){
-			JSONObject row = rows.getJSONObject(i);
-			CacheDimVO d = new CacheDimVO();
-			d.setDimId(row.getString("id"));
-			d.setValue((String)row.get("vals"));
-			d.setOrd(row.getInt("ord"));
-			dims.add(d);
-		}
-		//处理参数
-		for(int i=0; params != null && i<params.size(); i++){
-			JSONObject p = params.getJSONObject(i);
-			CacheDimVO d = new CacheDimVO();
-			d.setDimId(p.getString("id"));
-			d.setValue((String)p.get("vals"));
-			d.setOrd(p.getInt("ord"));
-			dims.add(d);
-		}
-		vo.setCubeId(cubeId);
-		vo.setCacheKey(dims);
-		int jstype = this.getKpiComputeType(kpiJson);
-		if(jstype != 0){
-			vo.setJstype(jstype);
-		}
-		//数据权限控制, 作为key的一部分
-		if(dataControl != null){
-			String ret = dataControl.process(VDOPUtils.getLoginedUser(), tableAlias, master);
-			vo.setDataControlKey(ret);
-		}
-		
-		return vo;
-	}
-	
 	/**
 	 * 创建表格datacenter
 	 * @param sql
 	 * @return
 	 * @throws Exception 
 	 */
-	public GridDataCenterContext createDataCenter(JSONObject divison, JSONArray cacheKpi, String sql, JSONArray params, String cubeId, String master) throws Exception{
+	public GridDataCenterContext createDataCenter(JSONArray cacheKpi, String sql, JSONArray params, String cubeId, String master) throws Exception{
 		GridDataCenterContext ctx = new GridDataCenterContextImpl();
 		GridSetConfContext conf = new GridSetConfContext();
 		conf.setRefDsource(dsourceJson.getString("dsid"));
-		
-		if(cubeId != null && cubeId.length() > 0){  //只有cubeId 存在的时候才启用缓存，不然不启动缓存
-			//判断是否有缓存，如果有直接读取缓存对象
-			CacheManager.createInstance(VDOPUtils.getServletContext());
-			CacheKeyVO keyvo = this.createCacheKey(params, cubeId, master);
-			List dt = CacheManager.getInstance().getCache(keyvo);
-			if(dt == null){
-				//创建缓存
-				if(divison != null && !divison.isEmpty()){ 
-					//是否分表，如果启用分表，进行多线程查询
-					if(cacheKpi != null && !cacheKpi.isEmpty()){
-						kpiJson.addAll(cacheKpi);
-					}
-					DivisionQueryService ser = new DivisionQueryService(sql, dsourceJson, divison, master, kpiJson);
-					dt = ser.process();
-				}else{
-					DataService ser = new DataService();
-					DataService.RSDataSource rsds = ser.json2datasource(dsourceJson);
-					dt = DBUtils.querySql(sql, rsds);
-				}
-				CacheManager.getInstance().putCache(keyvo, dt);
-			}
-			VDOPUtils.getRequest().setAttribute("dt", dt);
-			conf.setDataKey("dt");
-		}else{ //不启用缓存
-			if(divison != null && !divison.isEmpty()){ 
-				//是否分表，如果启用分表，进行多线程查询
-				if(cacheKpi != null && !cacheKpi.isEmpty()){
-					kpiJson.addAll(cacheKpi);
-				}
-				DivisionQueryService ser = new DivisionQueryService(sql, dsourceJson, divison, master, kpiJson);
-				List dt = ser.process();
-				VDOPUtils.getRequest().setAttribute("dt", dt);
-				conf.setDataKey("dt");
-			}else{  //普通查询
-				String name = TemplateManager.getInstance().createTemplate(sql);
-				conf.setTemplateName(name);
-			}
-		}
+		String name = TemplateManager.getInstance().createTemplate(sql);
+		conf.setTemplateName(name);
 		ctx.setConf(conf);
 		ctx.setId("DC-" + IdCreater.create());
 		
@@ -912,9 +817,7 @@ public class TableService {
 						cf.setAlias(this.tableAlias.get(obj.getString("tableName")) + "_" + obj.getString("tableColKey")); //别名+列
 						cf.setAliasDesc(this.tableAlias.get(obj.getString("tableName")) + "_" + obj.getString("tableColName")); //别名+列
 					}
-					if("y".equals(casparent)){
-						cf.setCasParent(true);
-					}
+					cf.setCasParent(true);
 					cf.setValue((String)obj.get("vals"));
 					cf.setMulti(true);
 					cf.setSubs(new ArrayList<CrossField>());			
@@ -993,9 +896,7 @@ public class TableService {
 							cf.setAlias(this.tableAlias.get(obj.getString("tableName")) + "_" + obj.getString("tableColKey")); //别名+列
 							cf.setAliasDesc(this.tableAlias.get(obj.getString("tableName")) + "_" + obj.getString("tableColName")); //别名+列
 						}
-						if("y".equals(casparent)){
-							cf.setCasParent(true);
-						}
+						cf.setCasParent(true);
 						cf.setValue((String)obj.get("vals"));
 						cf.setMulti(true);
 						cf.setSubs(new ArrayList<CrossField>());

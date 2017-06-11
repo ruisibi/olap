@@ -51,7 +51,6 @@ public class ReportService {
 		tableSer.setDsourceJson(dsource);
 		tableSer.setKpiJson(kpiJson);
 		tableSer.setTableJson(tableJson);
-		JSONObject divison = (JSONObject)cube.get("divison");
 		JSONArray joinTabs = dset.getJSONArray("joininfo");
 		tableSer.getTableAlias().clear();
 		String aggreTable = (String)cube.get("aggreTable");
@@ -71,13 +70,13 @@ public class ReportService {
 		cr.setShowData(true);
 		
 		//创建数据中心
-		String sql = tableSer.createSql(null, params, divison);
+		String sql = tableSer.createSql(null, params );
 		Object cache = cube.get("cache");
 		String cubeId = null;   //其中cacheId 用来表示立方体是否缓存
 		if(cache != null && "true".equals(cache.toString())){
 			cubeId = cube.getString("id");
 		}
-		GridDataCenterContext dc = tableSer.createDataCenter(divison, kpiJson, sql, params, cubeId, dset.getString("master"));
+		GridDataCenterContext dc = tableSer.createDataCenter( kpiJson, sql, params, cubeId, dset.getString("master"));
 		cr.setRefDataCetner(dc.getId());
 		if(mv.getGridDataCenters() == null){
 			mv.setGridDataCenters(new HashMap<String, GridDataCenterContext>());
@@ -111,10 +110,9 @@ public class ReportService {
 			JSONObject tab = joinTabs.getJSONObject(i);
 			ser.getTableAlias().put(tab.getString("ref"), "a" + (i+1));
 		}
-		JSONObject divison = (JSONObject)cube.get("divison");
 		ChartContext cr = ser.json2Chart();
-		String sql = ser.createSql(params, divison);
-		GridDataCenterContext dc = ser.createDataCenter(sql, params, cube.getString("id"), dset.getString("master"), divison);
+		String sql = ser.createSql(params);
+		GridDataCenterContext dc = ser.createDataCenter(sql, params, cube.getString("id"), dset.getString("master"));
 		cr.setRefDataCenter(dc.getId());
 		if(mv.getGridDataCenters() == null){
 			mv.setGridDataCenters(new HashMap<String, GridDataCenterContext>());

@@ -1,1 +1,1 @@
-select a0.browser a0_browser,count(a0.rid) count_1  from rs_logs2 a0 where 1=1  group by a0.browser
+select a0.PROV_ID a0_PROV_ID,sum(a0.A0001) sum_1  from dm_kpi_w_card_pandect_m2 a0 where 1=1  group by a0.PROV_ID

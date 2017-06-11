@@ -1,1 +1,1 @@
-select a0.isok a0_isok,count(a0.rid) count_1  from rs_logs2 a0 where 1=1  group by a0.isok
+select a0.MONTH_ID a0_MONTH_ID,sum(a0.A0001) sum_1  from dm_kpi_w_card_pandect_m2 a0 where 1=1  group by a0.MONTH_ID

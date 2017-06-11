@@ -30,7 +30,6 @@
 	<classpathentry kind="lib" path="app/WEB-INF/lib/tagsoup-1.2.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/thumbelina.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/velocity-1.5.jar"/>
-	<classpathentry kind="lib" path="app/WEB-INF/lib/ojdbc14.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/struts2-codebehind-plugin-2.3.15.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/struts2-core-2.3.15.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/struts2-spring-plugin-2.3.15.1.jar"/>
@@ -49,5 +48,6 @@
 	<classpathentry kind="lib" path="app/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/slf4j-log4j12-1.6.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/ext3-jdk5.jar"/>
+	<classpathentry kind="lib" path="app/WEB-INF/lib/ojdbc6-12.1.0.2.jar"/>
 	<classpathentry kind="output" path="app/WEB-INF/classes"/>
 </classpath>
