@@ -14,8 +14,8 @@
 
 <body>
 <br/><br/>
-<p><a href="ruisibi/ReportDesign.action?open=1">多维分析</a></p>
+<p><a href="ruisibi/ReportDesign.action">多维分析 - 建模页面</a></p>
 
-<p><a href="detail/Report.action?open=1">明细查询</a></p>
+<p><a href="ruisibi/ReportDesign!view.action">多维分析 - 查询页面</a></p>
 </body>
 </html>

@@ -10,9 +10,6 @@
    <title><s:if test="pageName != null && pageName !=''">${pageName} - </s:if>睿思BI|OLAP多维分析</title>
    <link rel="shortcut icon" type="image/x-icon" href="../resource/img/rs_favicon.ico">
    <script type="text/javascript" src="../ext-res/js/jquery.min.js"></script>
-    <!--
-   <script language="javascript" src="../resource/js/rsbi.js?v1"></script>
-   -->
     <script language="javascript" src="../resource/js/bireport.js?v5"></script>
     <script language="javascript" src="../resource/js/bidata.js?v5"></script>
     <script language="javascript" src="../resource/js/bichart.js?v5"></script>
@@ -26,9 +23,9 @@
 	<script language="javascript" src="../resource/js/json.js"></script>
 
 
-<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.3.4/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.3.4/themes/icon.css">
-	<script type="text/javascript" src="../resource/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/icon.css">
+	<script type="text/javascript" src="../resource/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../ext-res/js/echarts.min.js"></script>
    
 </head>
@@ -73,53 +70,18 @@ $(function(){
 	}
 	//初始化datatree(数据中心)
 	initmydatatree();
-	
-	//初始化关闭按钮图标颜色,及删除动作事件
-	$(".comp_table .title .ticon a").live("mouseover", function(){
-		$(this).css("opacity", 1);
-	}).live("mouseout", function(){
-		$(this).css("opacity", 0.6);
-	}).live("click", function(){
-		var id = $(this).attr("pid"); 
-		//从全局对象中移除
-		delComp(id);
-	});
-	$(".dimoptbtn,.one_p,.charticon").live("mouseover", function(){
-		$(this).css("opacity", 1);
-	}).live("mouseout", function(){
-		$(this).css("opacity", 0.6);
-	});
-	$(".dimDrill,.dimgoup,.chartdrillDim a").live("mouseover", function(){
-		$(this).css("opacity", 1);
-	}).live("mouseout",function(){
-		$(this).css("opacity", 0.5);
-	});
-	
+
 	//判断是否有msg信息
 	<s:if test="msg != null && msg !=''">
 	showmsg('${msg}');
 	</s:if>
-	
-	//获取登录用户数
-	/**
-	$(function(){
-		jQuery("#usercnt").load("../frame/OnlineUser.action?T="+Math.random());
-		window.setInterval(function(){
-			jQuery("#usercnt").load("../frame/OnlineUser.action?T="+Math.random());
-		},20000);
-	});
-	**/
 });
 
 </script>
 
 <body class="easyui-layout">
 
-	<div region="north" border="false" style="height:65px;background:#E6EEF8;padding:1px">
-		<div class="bi_tit2">
-        <s:if test="pageName != null && pageName !=''">${pageName} - </s:if>
-        睿思BI|OLAP多维分析
-        </div>
+	<div region="north" border="false">
         
         <div class="panel-header" style="padding:3px;">
             <a href="javascript:openreport(true);" id="mb8" class="easyui-linkbutton" plain="true" iconCls="icon-open">打开</a>

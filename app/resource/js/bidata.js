@@ -81,6 +81,7 @@ function selectAllcube(){
 			content:ctx,
 			buttons:[{
 						text:'确定',
+						iconCls:"icon-ok",
 						handler:function(){
 							var chk = $("input[name='selectdataset']:radio:checked");
 							var val = chk.val();
@@ -95,6 +96,7 @@ function selectAllcube(){
 						}
 					},{
 						text:'取消',
+						iconCls:"icon-cancel",
 						handler:function(){
 							$('#pdailog').dialog('close');
 						}
