@@ -26,9 +26,9 @@
 	<script language="javascript" src="../resource/js/json.js"></script>
 
 
-<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.3.4/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.3.4/themes/icon.css">
-	<script type="text/javascript" src="../resource/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/icon.css">
+	<script type="text/javascript" src="../resource/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../ext-res/js/echarts.min.js"></script>
    
 </head>
@@ -65,13 +65,8 @@ $(function(){
 
 <body class="easyui-layout">
 
-	<div region="north" border="false" style="height:65px;background:#E6EEF8;padding:1px">
-		<div class="bi_tit2">
-        <s:if test="pageName != null && pageName !=''">${pageName} - </s:if>
-        睿思BI|OLAP多维分析
-		</div>
-        
-        <div class="panel-header" style="padding:3px;">
+	<div region="north" border="false" style="background:#efefef;padding:1px">
+		<div class="panel-header">
             <a href="javascript:openreport(false);" id="mb8" class="easyui-linkbutton" plain="true" iconCls="icon-open">打开</a>
             <a href="javascript:newpage(false)" id="mb1" class="easyui-linkbutton" plain="true" iconCls="icon-newpage" >新建</a>
             <a href="javascript:;" menu="#saveinfo" id="mb2" class="easyui-menubutton" plain="true" iconCls="icon-save" >保存</a>

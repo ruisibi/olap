@@ -26,6 +26,7 @@ function selectcube(){
 		content:ctx,
 		buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						var chk = jQuery("input[name='selectdataset']:checkbox:checked");
 						var ret = "";
@@ -49,6 +50,7 @@ function selectcube(){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -255,6 +257,7 @@ function newdatasource(isupdate){
 			}
 		},{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					var tab = $('#dsource_tab').tabs('getSelected');
 					var index = $('#dsource_tab').tabs('getTabIndex',tab);
@@ -275,9 +278,9 @@ function newdatasource(isupdate){
 							}
 							pageInfo.datasource.push(ds);
 							//给tree添加节点
-							$("#mydatatree").tree("append", {parent:$("#mydatatree div[node-id='sjy']"), data:[{id:ds.dsid, text:ds.dsname, iconCls:"icon-dsource",attributes:{showmenu:true,type:'dsource'}}]});
+							$("#mydatatree").tree("append", {parent:$("#mydatatree").tree("find", "sjy").target, data:[{id:ds.dsid, text:ds.dsname, iconCls:"icon-dsource",attributes:{showmenu:true,type:'dsource'}}]});
 							//展开节点
-							$("#mydatatree").tree("expand", $("#mydatatree div[node-id='sjy']"));
+							$("#mydatatree").tree("expand", $("#mydatatree").tree("find", "sjy").target);
 							$("#l_tab").tabs("select", 1);
 						}else{
 							for(i=0;i<pageInfo.datasource.length;i++){
@@ -312,9 +315,9 @@ function newdatasource(isupdate){
 							}
 							pageInfo.datasource.push(ds);
 							//给tree添加节点
-							$("#mydatatree").tree("append", {parent:$("#mydatatree div[node-id='sjy']"), data:[{id:ds.dsid, text:ds.jndiname, iconCls:"icon-dsource",attributes:{showmenu:true,type:'dsource'}}]});
+							$("#mydatatree").tree("append", {parent:$("#mydatatree").tree("find", "sjy").target, data:[{id:ds.dsid, text:ds.jndiname, iconCls:"icon-dsource",attributes:{showmenu:true,type:'dsource'}}]});
 							//展开节点
-							$("#mydatatree").tree("expand", $("#mydatatree div[node-id='sjy']"));
+							$("#mydatatree").tree("expand", $("#mydatatree").tree("find", "sjy").target);
 							$("#l_tab").tabs("select", 1);
 						}else{
 							for(i=0;i<pageInfo.datasource.length;i++){
@@ -334,6 +337,7 @@ function newdatasource(isupdate){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#pdailog').dialog('close');
 				}
@@ -347,7 +351,7 @@ function newdatasource(isupdate){
 		if(val == "mysql"){
 			$("#pdailog #linkurl").val("jdbc:mysql://ip/database?useUnicode=true&characterEncoding=UTF8");
 		}else if(val == "oracle"){
-			$("#pdailog #linkurl").val("jdbc:oracle:thin:@ip:1521:sid");
+			$("#pdailog #linkurl").val("jdbc:oracle:thin:@ip:1521/sid");
 		}else if(val == "sqlserver"){
 			$("#pdailog #linkurl").val("jdbc:jtds:sqlserver://ip:1433/database");
 		}
@@ -659,6 +663,7 @@ function newdataset(){
 		content: ctx,
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					var name = $("#pdailog #datasetname").val();
 					var dsid = $("#pdailog #dsid").val();
@@ -706,7 +711,7 @@ function newdataset(){
 							var ndt = {id:obj.datasetid, text:obj.name, iconCls:'icon-dataset2', attributes:{drag:'n', showmenu:true,type:'dset'}};
 							var ret = initdatasetview(dt, obj.datasetid);
 							ndt.children = ret;
-							$("#mydatatree").tree("append", {parent:$("#mydatatree div[node-id='sjj']"), data:ndt});
+							$("#mydatatree").tree("append", {parent:$("#mydatatree").tree("find","sjj").target, data:ndt});
 						}
 					});
 					$("#l_tab").tabs("select", 1);
@@ -715,6 +720,7 @@ function newdataset(){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#pdailog').dialog('close');
 				}
@@ -928,6 +934,7 @@ function jointableFunc(){
 		},
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					//建立关联关系
 					node.attributes.ref = $("#dsColumn_div #slavetable").val();
@@ -941,6 +948,7 @@ function jointableFunc(){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#dsColumn_div').dialog('close');
 				}
@@ -971,6 +979,7 @@ function editdataset(dset_id){
 		},
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					//dset.dsid = $("#dsid").val();
 					dset.name = $("#datasetname").val();
@@ -1016,6 +1025,7 @@ function editdataset(dset_id){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					delete curTmpInfo.curDset;
 					$('#pdailog').dialog('close');
@@ -1278,6 +1288,7 @@ function editdataset(dset_id){
 			},
 			buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						//建立关联关系
 						var ref = $("#dsColumn_div #slavetable").val();  //关联表 
@@ -1305,6 +1316,7 @@ function editdataset(dset_id){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						$('#dsColumn_div').dialog('close');
 					}
@@ -1440,6 +1452,7 @@ function reloadDynamicCol(dataset){
 			},
 			buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						if(ccol){
 							ccol.dispName = $("#dsColumn_div #dispname").val();
@@ -1459,6 +1472,7 @@ function reloadDynamicCol(dataset){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						$('#dsColumn_div').dialog('close');
 					}
@@ -1553,6 +1567,7 @@ function newdatasetparam(isupdate, paramId){
 		},
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					if(!dset.param){
 						dset.param = [];
@@ -1579,6 +1594,7 @@ function newdatasetparam(isupdate, paramId){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#dsColumn_div').dialog('close');
 				}
@@ -1642,6 +1658,7 @@ function editDsColumn(colId, datasetid, tname, income){
 		},
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					tmp.dispName = $("#dsColumn_div #coldispname").val();
 					tmp.type = $("#dsColumn_div #coltype").val();
@@ -1659,6 +1676,7 @@ function editDsColumn(colId, datasetid, tname, income){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#dsColumn_div').dialog('close');
 				}
@@ -1687,6 +1705,7 @@ function newcube(isupdate, cubeId){
 		},
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					//判断是否填名字
 					if($("#pdailog #cubename").val() == ''){
@@ -1848,7 +1867,7 @@ function newcube(isupdate, cubeId){
 							}
 						}
 						//添加节点
-						$("#mydatatree").tree("append", {parent:$("#mydatatree div[node-id='lft']"), data:[{id:cube.id, text:cube.name,iconCls:'icon-cube',attributes:{showmenu:true,type:'cube'}, children:child}]});
+						$("#mydatatree").tree("append", {parent:$("#mydatatree").tree("find", "lft").target, data:[{id:cube.id, text:cube.name,iconCls:'icon-cube',attributes:{showmenu:true,type:'cube'}, children:child}]});
 						pageInfo.cube.push(cube);
 						$("#l_tab").tabs("select", 1);
 					}
@@ -1859,6 +1878,7 @@ function newcube(isupdate, cubeId){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#pdailog').dialog('close');
 				}
@@ -2000,6 +2020,7 @@ function newcube(isupdate, cubeId){
 					},
 					buttons:[{
 						text:'确定',
+						iconCls:"icon-ok",
 						handler:function(){
 							var name = $("#dsColumn_div #groupname").val();
 							var grouptype = $("#dsColumn_div #grouptype").val();
@@ -2008,13 +2029,14 @@ function newcube(isupdate, cubeId){
 								$("#dsColumn_div #groupname").focus();
 								return;
 							}
-							var cid = findCubeMaxId($("#cuberighttree  div[node-id='cubewd']"));
+							var cid = findCubeMaxId($("#cuberighttree").tree("find", "cubewd").target);
 							var dt = {id:cid,text:name, "iconCls":"icon-group", attributes:{tp:'group',dispName:name,drag:true, grouptype:grouptype}};
-							$("#cuberighttree").tree("append",{parent:$("#cuberighttree div[node-id='cubewd']"), data:[dt]});
+							$("#cuberighttree").tree("append",{parent:$("#cuberighttree").tree("find", "cubewd").target, data:[dt]});
 							$('#dsColumn_div').dialog('close');
 						}
 					},{
 						text:'取消',
+						iconCls:"icon-cancel",
 						handler:function(){
 							$('#dsColumn_div').dialog('close');
 						}
@@ -2172,7 +2194,7 @@ function editCalcKpi(update, kpiId){
 	}
 	//查询已选指标
 	var kpiStr = "";
-	var ls = $("#cuberighttree").tree("getChildren", $("#cuberighttree  div[node-id='cubedl']"));
+	var ls = $("#cuberighttree").tree("getChildren", $("#cuberighttree").tree("find", "cubedl").target);
 	for(i=0; i<ls.length; i++){
 		var k = ls[i].attributes;
 		if(k.calc != true){
@@ -2198,6 +2220,7 @@ function editCalcKpi(update, kpiId){
 		},
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					var name = $("#dsColumn_div #kpiname").val();
 					var expression = $("#dsColumn_div #expression").val();
@@ -2220,14 +2243,15 @@ function editCalcKpi(update, kpiId){
 						kpi.attributes.col = expression;
 						$("#cuberighttree").tree("update", {target:kpi.target, text:kpi.attributes.aggre+"("+name+")"});
 					}else{
-						var cid = findCubeMaxId($("#cuberighttree  div[node-id='cubedl']"));
+						var cid = findCubeMaxId($("#cuberighttree").tree("find", "cubedl").target);
 						var o = {id:cid, text:$("#dsColumn_div #kpiaggre").val()+"("+name+")",attributes:{tp:"kpi",calc:true,drag:true,aggre:$("#dsColumn_div #kpiaggre").val(),col:expression, dispName:name,tname:"",fmt:$("#dsColumn_div #kpifmt").val(),unit:$("#dsColumn_div #kpiunit").val(),kpinote:$("#dsColumn_div #kpinote").val(),dyna:false},iconCls:"icon-ckpi"};
-						$("#cuberighttree").tree("append", {parent:$("#cuberighttree  div[node-id='cubedl']"), data:[o]});
+						$("#cuberighttree").tree("append", {parent:$("#cuberighttree").tree("find", "cubedl").target, data:[o]});
 					}
 					$('#dsColumn_div').dialog('close');
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#dsColumn_div').dialog('close');
 				}
@@ -2299,6 +2323,7 @@ function editcubecol(datasetid){
 		},
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					if(right.attributes.tp == 'kpi'){
 						right.attributes.aggre = $("#dsColumn_div #kpiaggre").val();
@@ -2343,6 +2368,7 @@ function editcubecol(datasetid){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#dsColumn_div').dialog('close');
 				}
@@ -2456,6 +2482,7 @@ function editcubecol2(tp, id, node){
 		},
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					if(tp == 'kpi'){
 						var kpi = findCubeKpiById(cube, id);
@@ -2506,6 +2533,7 @@ function editcubecol2(tp, id, node){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#dsColumn_div').dialog('close');
 				}
@@ -2583,7 +2611,7 @@ function ds2cube(){
 	var parent = $("#cuberighttree").tree("getParent", right.target);
 	if(right.text == '度量' || parent.text == '度量'){
 		//生成ID
-		var cid = findCubeMaxId($("#cuberighttree  div[node-id='cubedl']"));
+		var cid = findCubeMaxId($("#cuberighttree").tree("find", "cubedl").target);
 		var o = {id:cid, text:'sum('+left.text+")",attributes:{tp:"kpi",drag:true,aggre:"sum",col:left.attributes.col, dispName:left.text,tname:left.attributes.tname,dyna:left.attributes.dyna},iconCls:"icon-kpi"};
 		if(right.text == '度量'){
 			$("#cuberighttree").tree("append",  {parent:right.target,data:o});
@@ -2592,7 +2620,7 @@ function ds2cube(){
 		}
 		$(left.target).attr("hide", "y").hide();
 	}else if(right.text == '维度' || parent.text == '维度' || parent.attributes.tp == 'group'){
-		var cid = findCubeMaxId($("#cuberighttree  div[node-id='cubewd']"));
+		var cid = findCubeMaxId($("#cuberighttree").tree("find", "cubewd").target);
 		var o = {id:cid, text:left.text, attributes:{tp:"dim",drag:true,col:left.attributes.col,dispName:left.text,tname:left.attributes.tname,vtype:left.attributes.vtype,dyna:left.attributes.dyna, refId:left.id},iconCls:"icon-dim"};
 		if(right.text == '维度' || (parent.text == '维度' && right.attributes.tp == 'group')){
 			$("#cuberighttree").tree("append",  {parent:right.target,data:o});

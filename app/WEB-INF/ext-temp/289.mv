@@ -1,1 +1,0 @@
-select sum(a0.JE) sum_1,a0.RQ as a0_RQ,a1.LV3_ID as a1_LV3_ID,a1.LV3_NAME as a1_LV3_NAME,a1.DEPT_ID as a1_DEPT_ID,a1.DEPT_NAME as a1_DEPT_NAME  from MX_DATAS_ar a0 join DEPT a1 on a0.JGID=a1.DEPT_ID  where 1=1  and a1.lv2_id = '0010102'  and a0.RQ in ('2013-06-14') and a1.LV3_ID in ('00101') group by a0.RQ,a1.LV3_ID,a1.LV3_NAME,a1.DEPT_ID,a1.DEPT_NAME

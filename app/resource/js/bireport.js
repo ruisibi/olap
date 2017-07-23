@@ -25,27 +25,6 @@ function initpage(){
 	}
 	//初始化datatree(数据中心)
 	initmydatatree();
-	
-	//初始化关闭按钮图标颜色,及删除动作事件
-	$(".comp_table .title .ticon a").live("mouseover", function(){
-		$(this).css("opacity", 1);
-	}).live("mouseout", function(){
-		$(this).css("opacity", 0.6);
-	}).live("click", function(){
-		var id = $(this).attr("pid"); 
-		//从全局对象中移除
-		delComp(id);
-	});
-	$(".dimoptbtn,.one_p,.charticon").live("mouseover", function(){
-		$(this).css("opacity", 1);
-	}).live("mouseout", function(){
-		$(this).css("opacity", 0.6);
-	});
-	$(".dimDrill,.dimgoup,.chartdrillDim a").live("mouseover", function(){
-		$(this).css("opacity", 1);
-	}).live("mouseout",function(){
-		$(this).css("opacity", 0.5);
-	});
 }
 
 //view 表示当前是 view 状态
@@ -204,6 +183,7 @@ function paramFilter(id, type, name){
 		content: ctx,
 		buttons:[{
 				text:'确定',
+				iconCls:'icon-ok',
 				handler:function(){
 					var vals = "";
 					var valStrs = "";
@@ -235,6 +215,7 @@ function paramFilter(id, type, name){
 				}
 			},{
 				text:'取消',
+				iconCls:'icon-cancel',
 				handler:function(){
 					$('#pdailog').dialog('close');
 				}
@@ -363,10 +344,12 @@ function initviewTree(){
 			});
 		},
 		onClick: function(node){
+			/**
 			if(node.attributes.type == 'compview'){
 				compBorderSet($("#"+node.id));
 				setProp($("#"+node.id).parent().attr("id").split("_")[1], node.id);
 			}
+			**/
 		}
 	});
 }
@@ -383,6 +366,7 @@ function openreport(view){
 		onLoad:function(){},
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					var r = $("input[name=\"reportId\"]:checked").val();
 					if(!r || r == null){
@@ -405,6 +389,7 @@ function openreport(view){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#pdailog').dialog('close');
 				}
@@ -475,7 +460,7 @@ function addComp(id, name, ctx, ispush, tp, curComp){
 		curTmpInfo.isupdate= true;
 		initviewTree();
 	}
-	$("<div class=\"comp_table\" tp=\""+tp+"\" id=\"T"+id+"\"><div class=\"title\"><div title=\"双击改名\" class=\"tname\">"+name +"</div><div title=\"移动组件\" class=\"mvcomp\"></div><div class=\"ticon\"><a title='删除组件' pid='"+id+"' href='javascript:;'></a></div></div><div class=\"ctx\""+ (tp =='text' ? "title=\"双击修改文本内容\"" : "") +">"+(ctx == null ? "" : ctx)+"</div></div>").appendTo("#optarea");
+	$("<div class=\"comp_table\" tp=\""+tp+"\" id=\"T"+id+"\"><div class=\"title\"><div title=\"双击改名\" class=\"tname\">"+name +"</div><div title=\"移动组件\" class=\"mvcomp\"></div><div class=\"ticon\"><a title='删除组件' onclick=delComp('"+id+"')  href='javascript:;'></a></div></div><div class=\"ctx\""+ (tp =='text' ? "title=\"双击修改文本内容\"" : "") +">"+(ctx == null ? "" : ctx)+"</div></div>").appendTo("#optarea");
 	
 	//如果是表格或图形，增加接受拖拽事件
 	if(tp == 'table'){
@@ -771,6 +756,7 @@ function insertText(state, compId){
 		content: '<div class="txtctxdiv"><textarea name="txtctx" id="txtctx" cols=\"84\" rows=\"8\"></textarea></div>',
 		buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						if(state == 'insert'){
 							var txt = $("#txtctx").val().replace(/\n/g,"<br>");
@@ -789,6 +775,7 @@ function insertText(state, compId){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -1217,6 +1204,7 @@ function kpiFilter(tp){
 		content: ctx,
 		buttons:[{
 					text:'确定',
+					iconCls:'icon-ok',
 					handler:function(){
 						var ft = $("#pdailog #ftype").val();
 						var sv = $("#pdailog #startval").val();
@@ -1237,6 +1225,7 @@ function kpiFilter(tp){
 					}
 				},{
 					text:'取消',
+					iconCls:'icon-cancel',
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -1436,6 +1425,7 @@ function updateQDate(ts, compId, tp){
 		toolbar:null,
 		buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						var comp = findCompById(compId);
 						if(tp == 'table'){
@@ -1452,6 +1442,7 @@ function updateQDate(ts, compId, tp){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -1521,6 +1512,7 @@ function filterDims(){
 		content:ctx,
 		buttons:[{
 					text:'确定',
+					iconCls:'icon-ok',
 					handler:function(){
 						//获取勾选值
 						var vals = "";
@@ -1542,6 +1534,7 @@ function filterDims(){
 					}
 				},{
 					text:'取消',
+					iconCls:'icon-cancel',
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -1794,6 +1787,7 @@ function showmsg(msg){
 		content: ctx,
 		buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -1857,6 +1851,7 @@ function kpiproperty(){
 		content: ctx,
 		buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						kpi.fmt = $("#pdailog #fmt").val();
 						//kpi.aggre = $("#pdailog #aggreType").val();
@@ -1867,6 +1862,7 @@ function kpiproperty(){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -1915,6 +1911,7 @@ function aggreDim(){
 		content: ctx,
 		buttons:[{
 					text:'确定',
+					iconCls:'icon-ok',
 					handler:function(){
 						if(dim.issum == 'y'){
 							dim.issum = "n";
@@ -1929,6 +1926,7 @@ function aggreDim(){
 					}
 				},{
 					text:'取消',
+					iconCls:'icon-cancel',
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -2000,6 +1998,7 @@ function exportPage(){
 		content: ctx,
 		buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						resortComp();
 						var tp = curTmpInfo.expType;
@@ -2028,6 +2027,7 @@ function exportPage(){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -2068,6 +2068,7 @@ function kpidesc(){
 		content: ctx,
 		buttons:[{
 					text:'关闭',
+					iconCls:"icon-ok",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -2087,6 +2088,7 @@ function helper(){
 		content: ctx,
 		buttons:[{
 					text:'关闭',
+					iconCls:"icon-ok",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}

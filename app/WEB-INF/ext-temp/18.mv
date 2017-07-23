@@ -1,1 +1,0 @@
-select a0.MONTH_ID as a0_MONTH_ID  from dm_kpi_w_card_pandect_m2 a0 where 1=1  group by a0.MONTH_ID

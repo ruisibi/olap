@@ -1,1 +1,0 @@
-select sum(a0.JE) sum_1,月 as d_5,year as d_6  from MX_DATAS_ar a0 join DEPT a1 on a0.JGID=a1.DEPT_ID  where 1=1  and a1.lv2_id = '0010102'  and 月 in ('2013-02') group by 月,year

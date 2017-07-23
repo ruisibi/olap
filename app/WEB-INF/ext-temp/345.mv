@@ -1,1 +1,0 @@
-select a2.ID a2_ID,a2.NAME a2_NAME,sum(a0.JE) sum_1  from MX_DATAS_ar a0 join DEPT a1 on a0.JGID=a1.DEPT_ID  left join CODE_AREA a2 on a0.AREA=a2.ID  where 1=1  and a1.lv2_id = '0010102'  and year in ('2014') group by a2.ID,a2.NAME

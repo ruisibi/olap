@@ -57,6 +57,7 @@ function insertChart(){
 		toolbar:null,
 		buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						if(curTmpInfo.selectChart == undefined){
 							msginfo("您还未选择图形，请点击图形示意图片，再点确认按钮。");
@@ -69,6 +70,7 @@ function insertChart(){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						//清除数据
 						delete curTmpInfo.selectChart;
@@ -656,6 +658,7 @@ function setChartKpi(){
 		toolbar:null,
 		buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						kpi.fmt = $("#pdailog #fmt").val();
 						kpi.rate = Number($("#pdailog #kpiunit").val());
@@ -665,6 +668,7 @@ function setChartKpi(){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -726,6 +730,7 @@ function chartfilterDims(){
 		content:ctx,
 		buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						//获取勾选值
 						var vals = "";
@@ -747,6 +752,7 @@ function chartfilterDims(){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -947,6 +953,7 @@ function crtChartfromTab(){
 		toolbar:null,
 		buttons:[{
 					text:'确定',
+					iconCls:'icon-ok',
 					handler:function(){
 						var tp = $("#charttype").val();
 						var xcol = $("#hz").val();
@@ -991,6 +998,7 @@ function crtChartfromTab(){
 					}
 				},{
 					text:'取消',
+					iconCls:'icon-cancel',
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}

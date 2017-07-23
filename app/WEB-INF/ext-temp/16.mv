@@ -1,1 +1,0 @@
-select a0.PAY_MODE as a0_PAY_MODE,a0.AREA_NO as a0_AREA_NO  from dm_kpi_w_card_pandect_m2 a0 where 1=1  group by a0.PAY_MODE,a0.AREA_NO

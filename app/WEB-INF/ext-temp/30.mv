@@ -1,1 +1,0 @@
-select sum(a0.kl) sum_1  from d3_dm_klcl a0 where 1=1  
