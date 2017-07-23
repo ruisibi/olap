@@ -17,10 +17,10 @@
     <script language="javascript" src="../resource/js/detail-report.js"></script>
     <script language="javascript" src="../resource/js/detail-data.js"></script>
     <script language="javascript" src="../resource/js/detail-chart.js"></script>
-	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.3.4/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.3.4/themes/icon.css">
-	<script type="text/javascript" src="../resource/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../resource/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
+	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/icon.css">
+	<script type="text/javascript" src="../resource/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../resource/jquery-easyui-1.4.4/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="../ext-res/js/echarts.min.js"></script>
 	<script type="text/javascript" src="../ext-res/My97DatePicker/WdatePicker.js"></script>
    
