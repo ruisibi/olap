@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="olap"
+  id="myeclipse.1500705059718"
+  j2ee-spec="1.4"
+  archive="olap.war">
+  <attributes>
+    <attribute name="webrootdir" value="frame" />
+  </attributes>
+</project-module>
+

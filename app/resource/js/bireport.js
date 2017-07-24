@@ -49,22 +49,22 @@ function insertTable(){
 function initparam(){
 	//回写参数值
 	if(pageInfo.params && pageInfo.params.length>0){
-		$("#optarea #p_param div.ptabhelpr").remove();
-		$("#optarea #p_param").append("<b>参数： </b>");
+		$("#p_param div.ptabhelpr").remove();
+		$("#p_param").append("<b>参数： </b>");
 		for(i=0; i<pageInfo.params.length; i++){
-			var obj = $("#optarea #p_param");
+			var obj = $("#p_param");
 			var str = "<span class=\"pppp\" id=\"pa_"+pageInfo.params[i].id+"\"><span title=\"筛选\" onclick=\"paramFilter('"+pageInfo.params[i].id+"', '"+pageInfo.params[i].type+"', '"+pageInfo.params[i].name+"')\" class=\"text\">"+pageInfo.params[i].name+"(";
 			//if(pageInfo.params[i].type == 'frd'){
 				str = str  + (!pageInfo.params[i].valStrs || pageInfo.params[i].valStrs == ''?"无":pageInfo.params[i].valStrs);
 			//}else {
 				//str = str + pageInfo.params[i].st + " 至 " + pageInfo.params[i].end;
 			//}
-			str = str + ")</span><a class=\"one_p\" title=\"删除\" onclick=\"deleteParam('"+pageInfo.params[i].id+"')\" href=\"javascript:;\" style=\"opacity: 0.6;\"> &nbsp; </a></span>";
+			str = str + ")</span> <button class=\"btn btn-outline btn-danger btn-xs\" title=\"删除\" onclick=\"deleteParam('"+pageInfo.params[i].id+"')\" href=\"javascript:;\" ><i class=\"fa fa-times\"></i></button></span>";
 			obj.append(str);
 		}
 	}
 	//注册接收维度拖拽事件
-	$("#optarea #p_param").droppable({
+	$("#p_param").droppable({
 		accept:"#selectdatatree .tree-node",
 		onDragEnter:function(e,source){
 			var node = $("#selectdatatree").tree("getNode", source);
@@ -108,7 +108,7 @@ function initparam(){
 				if(obj.find("b").size() == 0){
 					obj.append("<b>参数： </b>");
 				}
-				obj.append("<span class=\"pppp\" id=\"pa_"+id+"\"><span title=\"筛选\" onclick=\"paramFilter('"+id+"', '"+node.attributes.dim_type+"','"+node.text+"')\" class=\"text\">"+node.text+"(无)</span><a class=\"one_p\" title=\"删除\" onclick=\"deleteParam('"+id+"')\" href=\"javascript:;\" style=\"opacity: 0.6;\"> &nbsp; </a></span>");
+				obj.append("<span class=\"pppp\" id=\"pa_"+id+"\"><span title=\"筛选\" onclick=\"paramFilter('"+id+"', '"+node.attributes.dim_type+"','"+node.text+"')\" class=\"text\">"+node.text+"(无)</span> <button class=\"btn btn-outline btn-danger btn-xs\" title=\"删除\" onclick=\"deleteParam('"+id+"')\" href=\"javascript:;\" style=\"opacity: 0.6;\"><i class=\"fa fa-times\"></i></button></span>");
 				initviewTree();
 				//弹出筛选窗口
 				paramFilter(id, p.type, p.name);
@@ -125,7 +125,7 @@ function loadDimFunc(cube,dsource, dim, keyword){
 		success: function(dt){
 			var ctx = "";
 			for(i=0; i<dt.length; i++){
-				ctx = ctx + "<div class=\"fltone\"><input type=\"checkbox\" id=\"D"+dt[i].id+"\" name=\"dimval\" value=\""+dt[i].id+"\" desc=\""+dt[i].text+"\"><label for=\"D"+dt[i].id+"\">"+dt[i].text+"</label></div>";
+				ctx = ctx + "<div class=\"checkbox checkbox-info\"><input type=\"checkbox\" id=\"D"+dt[i].id+"\" name=\"dimval\" value=\""+dt[i].id+"\" desc=\""+dt[i].text+"\"><label for=\"D"+dt[i].id+"\">"+dt[i].text+"</label></div>";
 			}
 			$("#pdailog .dxwd .wdlist").html(ctx);
 		}
@@ -141,7 +141,7 @@ function loadDimFunc2(cube,dsource, dim, keyword){
 		success: function(dt){
 			var str = "";
 			for(i=0; i<dt.length; i++){
-				str = str + "<div class=\"fltone\"><input type=\"checkbox\" desc=\""+dt[i].text+"\" value=\""+dt[i].id+"\" name=\"dimval\" id=\"D"+dt[i].id+"\"><label for=\"D"+dt[i].id+"\">"+dt[i].text+"</label></div>";
+				str = str + "<div class=\"checkbox checkbox-info\"><input type=\"checkbox\" desc=\""+dt[i].text+"\" value=\""+dt[i].id+"\" name=\"dimval\" id=\"D"+dt[i].id+"\"><label for=\"D"+dt[i].id+"\">"+dt[i].text+"</label></div>";
 			}
 			$("#pdailog .dxwd .wdlist").html(str);
 		}
@@ -170,13 +170,13 @@ function paramFilter(id, type, name){
 	var selectDim = "";
 	var valStr = param.valStrs ? param.valStrs.split(",") : [];
 	for(j=0; j<vals.length; j++){
-		selectDim = selectDim + "<div class=\"fltone\"><input type=\"checkbox\" id=\"S"+vals[j]+"\" name=\"dimselcet\" value=\""+vals[j]+"\" desc=\""+valStr[j]+"\"><label for=\"S"+vals[j]+"\">"+valStr[j]+"</label></div>";
+		selectDim = selectDim + "<div class=\"checkbox checkbox-info\"><input type=\"checkbox\" id=\"S"+vals[j]+"\" name=\"dimselcet\" value=\""+vals[j]+"\" desc=\""+valStr[j]+"\"><label for=\"S"+vals[j]+"\">"+valStr[j]+"</label></div>";
 	}
-	ctx = "<div class=\"dxwd\"><div class=\"wdhead\">待选维度</div><input id=\"dimsearch\" style=\"width:230px;\"></input><div class=\"wdlist\" style=\"height:278px;\"></div></div><div class=\"xzwdbtn\"><input type=\"button\" value=\">\" id=\"xzwd\" style=\"margin-top:120px;\" title=\"选择\"><br/><input type=\"button\" value=\"<\" id=\"scwd\" title=\"删除\"></div><div class=\"yxwd\"><div class=\"wdhead\">已选维度</div><div class=\"wdlist\">"+selectDim+"</div></div>";
+	ctx = "<div class=\"dxwd\"><div class=\"wdhead\">待选维度</div><input id=\"dimsearch\" style=\"width:230px;\"></input><div class=\"wdlist\" style=\"height:278px;\"></div></div><div class=\"xzwdbtn\"><button type=\"button\" id=\"xzwd\" style=\"margin-top:120px;\" title=\"选择\" class=\"btn btn-success btn-circle\">></button><br/><br/><button type=\"button\" id=\"scwd\" title=\"删除\" class=\"btn btn-success btn-circle\"><</button></div><div class=\"yxwd\"><div class=\"wdhead\">已选维度</div><div class=\"wdlist\">"+selectDim+"</div></div>";
 	$('#pdailog').dialog({
 		title: name+' - 参数值筛选',
 		width: 546,
-		height: 400,
+		height: 410,
 		closed: false,
 		cache: false,
 		modal: true,
@@ -242,7 +242,7 @@ function paramFilter(id, type, name){
 		}
 		$("#pdailog input[name='dimval']:checkbox:checked").each(function(index, element) {
 			if(!isExist($(element).val())){
-				var str = "<div class=\"fltone\"><input type=\"checkbox\" desc=\""+$(element).attr("desc")+"\" value=\""+$(element).val()+"\" name=\"dimselcet\" id=\"S"+$(element).val()+"\"><label for=\"S"+$(element).val()+"\">"+$(element).attr("desc")+"</label></div>";
+				var str = "<div class=\"checkbox checkbox-info\"><input type=\"checkbox\" desc=\""+$(element).attr("desc")+"\" value=\""+$(element).val()+"\" name=\"dimselcet\" id=\"S"+$(element).val()+"\"><label for=\"S"+$(element).val()+"\">"+$(element).attr("desc")+"</label></div>";
 				$("#pdailog .yxwd .wdlist").append(str);
 			}
         });
@@ -277,7 +277,7 @@ function flushPage(){
 	}
 }
 function deleteParam(id){
-	$("#optarea #p_param #pa_" + id).remove();
+	$("#p_param #pa_" + id).remove();
 	var idx = -1;
 	for(i=0; pageInfo.params&&i<pageInfo.params.length; i++){
 		var p = pageInfo.params[i];
@@ -288,7 +288,7 @@ function deleteParam(id){
 	}
 	pageInfo.params.splice(idx, 1);
 	if(pageInfo.params.length == 0){
-		$("#optarea #p_param").html("<div class=\"ptabhelpr\">拖拽维度到此处作为页面参数</div>");
+		$("#p_param").html("<div class=\"ptabhelpr\">拖拽维度到此处作为页面参数</div>");
 	}
 	initviewTree();
 	flushPage();
@@ -460,7 +460,7 @@ function addComp(id, name, ctx, ispush, tp, curComp){
 		curTmpInfo.isupdate= true;
 		initviewTree();
 	}
-	$("<div class=\"comp_table\" tp=\""+tp+"\" id=\"T"+id+"\"><div class=\"title\"><div title=\"双击改名\" class=\"tname\">"+name +"</div><div title=\"移动组件\" class=\"mvcomp\"></div><div class=\"ticon\"><a title='删除组件' onclick=delComp('"+id+"')  href='javascript:;'></a></div></div><div class=\"ctx\""+ (tp =='text' ? "title=\"双击修改文本内容\"" : "") +">"+(ctx == null ? "" : ctx)+"</div></div>").appendTo("#optarea");
+	$("<div class=\"comp_table ibox\" tp=\""+tp+"\" id=\"T"+id+"\"><div class=\"title ibox-title\"><h5>"+name +"</h5><div class=\"ibox-tools\"><button title='删除组件' class=\"btn btn-outline btn-danger btn-xs\" onclick=delComp('"+id+"') ><i class=\"fa fa-times\"></i></button></div></div><div class=\"ctx ibox-content\""+ (tp =='text' ? "title=\"双击修改文本内容\"" : "") +">"+(ctx == null ? "" : ctx)+"</div></div>").appendTo("#optarea");
 	
 	//如果是表格或图形，增加接受拖拽事件
 	if(tp == 'table'){
@@ -1499,13 +1499,13 @@ function filterDims(){
 	var selectDim = "";
 	var valStr = dim.valStrs ? dim.valStrs.split(",") : [];
 	for(j=0; j<vals.length; j++){
-		selectDim = selectDim + "<div class=\"fltone\"><input type=\"checkbox\" id=\"S"+vals[j]+"\" name=\"dimselcet\" value=\""+vals[j]+"\" desc=\""+valStr[j]+"\"><label for=\"S"+vals[j]+"\">"+valStr[j]+"</label></div>";
+		selectDim = selectDim + "<div class=\"checkbox checkbox-info\"><input type=\"checkbox\" id=\"S"+vals[j]+"\" name=\"dimselcet\" value=\""+vals[j]+"\" desc=\""+valStr[j]+"\"><label for=\"S"+vals[j]+"\">"+valStr[j]+"</label></div>";
 	}
-	ctx = "<div class=\"dxwd\"><div class=\"wdhead\">待选维度</div><input id=\"dimsearch\" style=\"width:230px;\"></input><div class=\"wdlist\" style=\"height:278px;\"></div></div><div class=\"xzwdbtn\"><input type=\"button\" value=\">\" id=\"xzwd\" style=\"margin-top:120px;\" title=\"选择\"><br/><input type=\"button\" value=\"<\" id=\"scwd\" title=\"删除\"></div><div class=\"yxwd\"><div class=\"wdhead\">已选维度</div><div class=\"wdlist\">"+selectDim+"</div></div>";
+	ctx = "<div class=\"dxwd\"><div class=\"wdhead\">待选维度</div><input id=\"dimsearch\" style=\"width:230px;\"></input><div class=\"wdlist\" style=\"height:278px;\"></div></div><div class=\"xzwdbtn\"><button type=\"button\" class=\"btn btn-success btn-circle\" id=\"xzwd\" style=\"margin-top:120px;\" title=\"选择\">></button><br/><br/><button type=\"button\" id=\"scwd\" title=\"删除\" class=\"btn btn-success btn-circle\"><</button></div><div class=\"yxwd\"><div class=\"wdhead\">已选维度</div><div class=\"wdlist\">"+selectDim+"</div></div>";
 	$('#pdailog').dialog({
 		title: name + ' - 维度筛选',
 		width: 546,
-		height: 400,
+		height: 410,
 		closed: false,
 		cache: false,
 		modal: true,
@@ -1561,7 +1561,7 @@ function filterDims(){
 		}
 		$("#pdailog input[name='dimval']:checkbox:checked").each(function(index, element) {
 			if(!isExist($(element).val())){
-				var str = "<div class=\"fltone\"><input type=\"checkbox\" desc=\""+$(element).attr("desc")+"\" value=\""+$(element).val()+"\" name=\"dimselcet\" id=\"S"+$(element).val()+"\"><label for=\"S"+$(element).val()+"\">"+$(element).attr("desc")+"</label></div>";
+				var str = "<div class=\"checkbox checkbox-info\"><input type=\"checkbox\" desc=\""+$(element).attr("desc")+"\" value=\""+$(element).val()+"\" name=\"dimselcet\" id=\"S"+$(element).val()+"\"><label for=\"S"+$(element).val()+"\">"+$(element).attr("desc")+"</label></div>";
 				$("#pdailog .yxwd .wdlist").append(str);
 			}
         });
@@ -1838,12 +1838,12 @@ function kpiproperty(){
 	var kpi = findKpiById(kpiId, comp.kpiJson);
 	var cube = fundCubeById(kpi.tid);
 	var cubeKpi = findCubeKpiById(cube, kpiId);
-	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">度量名称：</span>"+kpi.kpi_name+"<br><span class=\"inputtext\">所属表/字段：</span>"+kpi.tname+" / "+kpi.col_name+"<br><span class=\"inputtext\">度量单位：</span><select id=\"kpiunit\" name=\"kpiunit\" class=\"inputform\"><option value='1'></option><option value='1000'>千</option><option value='10000'>万</option><option value='1000000'>百万</option><option value='100000000'>亿</option></select>"+(kpi.unit?kpi.unit:"")+"<br><span class=\"inputtext\">格 式 化：</span>"+
-		"<select id=\"fmt\" name=\"fmt\" class=\"inputform\"><option value=\"\"></option><option value=\"###,##0\">整数</option><option value=\"###,##0.00\">小数</option><option value=\"0.00%\">百分比</option></select><br/><span class=\"inputtext\">度量解释：</span>"+(cubeKpi.kpinote?unescape(cubeKpi.kpinote):"无")+"</div>";
+	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">度量名称：</span>"+kpi.kpi_name+"<br><span class=\"inputtext\">所属表/字段：</span>"+kpi.tname+" / "+kpi.col_name+"<br><span class=\"inputtext\">度量单位：</span><select id=\"kpiunit\" name=\"kpiunit\" class=\"inputform2\"><option value='1'></option><option value='1000'>千</option><option value='10000'>万</option><option value='1000000'>百万</option><option value='100000000'>亿</option></select>"+(kpi.unit?kpi.unit:"")+"<br><span class=\"inputtext\">格 式 化：</span>"+
+		"<select id=\"fmt\" name=\"fmt\" class=\"inputform2\"><option value=\"\"></option><option value=\"###,##0\">整数</option><option value=\"###,##0.00\">小数</option><option value=\"0.00%\">百分比</option></select><br/><span class=\"inputtext\">度量解释：</span>"+(cubeKpi.kpinote?unescape(cubeKpi.kpinote):"无")+"</div>";
 	$('#pdailog').dialog({
 		title: '度量属性',
-		width: 320,
-		height: 245,
+		width: 350,
+		height: 265,
 		closed: false,
 		cache: false,
 		modal: true,
@@ -1899,7 +1899,7 @@ function aggreDim(){
 		return;
 	}
 	
-	var ctx = "<div style='line-height:30px; margin:20px 20px 20px 40px;'>聚合方式：<select id=\"dimaggre\" name=\"dimaggre\"><option value=\"sum\">求和</option><option value=\"count\">计数</option><option value=\"avg\">平均</option><option value=\"max\">最大</option><option value=\"min\">最小</option><option value=\"var\">方差</option><option value=\"sd\">标准差</option><option value=\"middle\">中位数</option></select></div>";
+	var ctx = "<div style='line-height:30px; margin:20px 20px 20px 40px;'>聚合方式：<select id=\"dimaggre\" name=\"dimaggre\" class=\"inputform2\"><option value=\"sum\">求和</option><option value=\"count\">计数</option><option value=\"avg\">平均</option><option value=\"max\">最大</option><option value=\"min\">最小</option><option value=\"var\">方差</option><option value=\"sd\">标准差</option><option value=\"middle\">中位数</option></select></div>";
 	$('#pdailog').dialog({
 		title: '维度聚合',
 		width: 280,
@@ -2095,13 +2095,26 @@ function helper(){
 				}]
 	});
 }
+function initOptareaWidth(){
+	var h = $(window).height() - 170 ;
+	$("#optarea").css("height", h + "px");
+	$(window).resize(function(){
+		var h = $(window).height() - 170 ;
+		$("#optarea").css("height", h + "px");
+	});
+}
 function showloading(){
-	var doc = jQuery(document);
-	var win = jQuery(window);
-	var t = doc.scrollTop() +  60;
-	var l = doc.scrollLeft() + win.width() - 200;
-	$("#Cloading").css({'top':t, 'left':l, 'display':'block'});
+	var sload = $('#loadingdiv');
+	if(sload.size() == 0){
+		sload = $('<div id="loadingdiv" class="sk-spinner sk-spinner-three-bounce" style="position:absolute;z-index:9999"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div>').appendTo('body');
+	}
+	var doc = $(document);
+	var win = $(window);
+	var t = doc.scrollTop() + win.height()/2 - 50;
+	var l = doc.scrollLeft() + win.width()/2 - 50;
+	sload.css({'top':t, 'left':l});
+	sload.show();
 }
 function hideLoading(){
-	$("#Cloading").css("display", "none");
+	$("#loadingdiv").remove();
 }

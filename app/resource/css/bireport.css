@@ -1,58 +1,3 @@
-.bi_tit{
-	height:57px;
-	background-image:url(../img/bireportlog.png);
-	background-repeat:no-repeat;
-	background-position:left center;
-	background-color:#FFFFFF;
-}
-.textpanel{
-	line-height:30px;
-	margin:10px;
-}
-.inputform {
-	width:160px;
-}
-span.inputtext {
-	display:-moz-inline-box;  
-	display:inline-block;
-	width:90px;
-}
-.comp_table{
-	border:dotted 1px #999999;
-	margin-bottom:6px;
-}
-
-.comp_table .title{
-	padding:3px;
-	background-color:#EFEFEF;
-	border-bottom:dotted 1px #999999;
-}
-.comp_table .title .tname{
-	float:left;
-}
-.comp_table .title .mvcomp{
-	height:18px;
-}
-.comp_table .title .ticon{
-	width:22px;
-	height:16px;
-	text-align:right;
-	float:right;
-	margin-top:-16px;
-}
-.comp_table .title .ticon a{
-	width:16px;
-	height:16px;
-	background-image:url("../img/closeme.png");
-	background-position:center center;
-	display:inline-block;
-	opacity:0.6;
-}
-.comp_table .ctx{
-	padding:5px;
-	background-color:#FFFFFF;
-}
-
 .txtctxdiv{
 	margin:1px;
 }
@@ -132,12 +77,12 @@ TABLE.d_table2 TD {
 .rowDimsList span{
 	display:-moz-inline-box;  
 	display:inline-block;
-	width:112px;
+	width:117px;
 	border:1px solid #CACACA;
 	border-right:none;
 	background-color:#FFFFCC;
 	text-align:center;
-	padding:4px 2px 5px 2px;
+	padding:6px 2px 5px 2px;
 }
 .colDimsList span a, tr.scrollColThead th span a, .rowDimsList span a{
 	display:-moz-inline-box;  
@@ -214,7 +159,7 @@ span.charttip {
 span.charttxt {
 	display:-moz-inline-box;  
 	display:inline-block;
-	width:90px;
+	width:97px;
 	padding:3px;
 }
 span.charticon {
@@ -298,10 +243,10 @@ span.chartdel {
 	background-repeat:no-repeat;
 }
 #d_colDims span.colkpi{
-	display:-moz-inline-box;  
-	display:inline-block;
+	display:block;
 	width:110px;
 	overflow:hidden;
+	padding: 5px 0px 0px 3px;
 }
 #d_colDims div.coldim{
 	display:-moz-inline-box;  
@@ -309,17 +254,16 @@ span.chartdel {
 	overflow:hidden;
 }
 #d_kpi span.kpiValue{
-	display:-moz-inline-box;  
-	display:inline-block;
 	width:110px;
 	overflow:hidden;
+	display:block;
 }
 #d_rowDims span.s_rowDim{
-	display:-moz-inline-box;  
-	display:inline-block;
+	display:block;
 	width:110px;
 	overflow:hidden;
 	white-space: nowrap;
+	margin:3px;
 }
 .exportpanel{
 	margin:30px 10px 10px 10px;
@@ -365,37 +309,39 @@ span.chartdel {
 #d_colDims span.colkpi span.kpiname{
 	display:-moz-inline-box;  
 	display:inline-block;
-	width:90px;
+	width:88px;
 	overflow:hidden;
 	white-space:nowrap;
 }
-#optarea .param {
-	border: 1px dotted #999999;
+.param {
+	border: 1px solid #dee5e7;
+    border-radius: 4px;
 	margin-bottom:5px;
 }
-#optarea .param .ptabhelpr{
+.param .ptabhelpr{
 	padding:7px;
 	color: #999999;
     font-size: 14px;
 }
-#optarea #p_param span.pppp {
+#p_param span.pppp {
 	background-color: #FFFFCC;
     border: 1px solid #CACACA;
     display: inline-block;
-    padding: 2px;
+    padding: 4px;
     text-align: center;
-	margin:5px;
+    margin: 2px;
+    border-radius: 3px;
 }
-#optarea #p_param span.text {
+#p_param span.text {
 	cursor:pointer;
 }
-#optarea #p_param b {
+#p_param b {
 	font-weight:normal;
 	margin-left:5px;
 	font-size:13px;
 	color:#555;
 }
-#optarea #p_param span.pppp a {
+#p_param span.pppp a {
 	display:-moz-inline-box;  
 	display:inline-block;
 	width:18px;
@@ -465,27 +411,6 @@ span.chartdel {
 	padding-left:3px;
 	background-color:#E4E4E4;
 }
-.actColumn{
-	line-height:19px;
-}
-.actColumn .column {
-	border: 1px solid #FFD784;
-	background-color:#FF9;
-	cursor:pointer;
-	color:#333;
-	margin-right:3px;
-}
-#pdailog #valList {
-	width:225px;
-	height:132px;
-	overflow:auto;	
-}
-#pdailog #valList .fltone {
-	line-height:20px;
-	margin-left:5px;
-	color:#666666;
-	cursor:pointer;
-}
 #d_colDims span.s_colDim{
 	display:-moz-inline-box;  
 	display:inline-block;
@@ -493,7 +418,7 @@ span.chartdel {
 	overflow:hidden;
 }
 .dxwd {
-	width:230px;
+	width:234px;
 	float:left;
 	border:1px solid #999;
 	margin:3px;
@@ -517,7 +442,57 @@ span.chartdel {
 	height:300px;
 	overflow:auto;
 }
-.dxwd .wdlist .fltone {
-	overflow:hidden;
-	height:20px;
+/** olap 视图样式*/
+TABLE.grid5 {
+	width: 100%;
+    border-collapse:collapse;
+    border-spacing: 0px;
+    border-cellpadding: 0px;
+}
+TABLE.grid5 THEAD {color: black;text-align: center}
+TABLE.grid5 TH {
+    border: 1px solid #CACACA;
+    font-size: 13px;
+     height:26px;
+    background-color: #EEEEEE;
+    text-align: left;
+	font-weight:normal;
+}
+TABLE.grid5 TD.grid5-td {
+    border: 1px solid #CACACA;
+    font-size: 12px;
+    height: 26px;
+    overflow: hidden;
+    padding: 3px;
+}
+TABLE.grid5 TD.kpiData1 {
+	background-color:#FFF;
+}
+TABLE.grid5 TD.kpiData2 {
+	background-color:#F7F7F7;
+}
+TABLE.grid5 td.pms, TABLE.grid3 td.pms {
+    color: #ff0000;
+    font-weight: bold;
+    text-align: center;
+}
+.dimDrill{
+	display: inline-block;
+    text-decoration: none;
+    width: 17px;
+	height:14px;
+	background-image:url(../../ext-res/image/plus.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor:pointer;
+}
+.dimgoup{
+	display: inline-block;
+    text-decoration: none;
+    width: 17px;
+	height:14px;
+	background-image:url(../../ext-res/image/minus.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor:pointer;	
 }

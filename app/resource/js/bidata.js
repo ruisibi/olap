@@ -651,7 +651,7 @@ function newdataset(){
 		sel = sel + "<option value=\""+pageInfo.datasource[i].dsid+"\">"+(pageInfo.datasource[i].use=='jdbc'?pageInfo.datasource[i].dsname:pageInfo.datasource[i].jndiname)+"</option>";
 	}
 	sel = sel + "</select>";
-	var ctx = "<div id=\"crtdataset\" class=\"easyui-tabs\" data-options=\"fit:true,border:false,tabPosition:'left'\"><div title=\"基本信息\"><div class=\"textpanel\"><span class=\"inputtext\">数据集名称：</span><input type=\"text\" id=\"datasetname\" name=\"datasetname\" class=\"inputform\"><br/><span class=\"inputtext\">连接数据源：</span>"+sel+"<br/><span class=\"inputtext\" style=\"width:120px;\">选择需要分析的表：</span><br/><div class=\"tablesleft\"><div class=\"tabletitle\">待选表</div><ul id=\"allTablesTree\" style=\"height:220px; width:100%; overflow:auto\"></ul></div><div class=\"tablescenter\"><input id=\"left2right\" type=\"button\" style=\"margin-top:120px;\" value=\">\" title=\"选择\"><br/><input type=\"button\" id=\"right2left\"  value=\"<\" title=\"移除\"></div><div class=\"tablesright\"><div class=\"tabletitle\">已选表</div><ul id=\"selTablesTree\" class=\"easyui-tree\" style=\"height:220px; width:100%; overflow:auto\"></ul></div></div></div><div title=\"表关联\"><div class=\"textpanel\"><div style=\"float:right\"><input type=\"button\" id=\"jointable\" value=\"关联\"> <br/> <input type=\"button\" id=\"unjointable\" value=\"取消\"></div><span class=\"inputtext\">主表： </span><select id=\"mastertable\" style=\"width:300px;\"></select><br/><ul class=\"easyui-tree\" id=\"masterTableTree\" style=\"margin-left:90px;border:1px solid #999; width:300px; height:320px; overflow:auto\"></ul></div></div></div>";
+	var ctx = "<div id=\"crtdataset\" class=\"easyui-tabs\" data-options=\"fit:true,border:false,tabPosition:'left'\"><div title=\"基本信息\"><div class=\"textpanel\"><span class=\"inputtext\">数据集名称：</span><input type=\"text\" id=\"datasetname\" name=\"datasetname\" class=\"inputform\"><br/><span class=\"inputtext\">连接数据源：</span>"+sel+"<br/><span class=\"inputtext\" style=\"width:160px;\">选择需要分析的表：</span><br/><div class=\"tablesleft\"><div class=\"tabletitle\">待选表</div><ul id=\"allTablesTree\" style=\"height:220px; width:100%; overflow:auto\"></ul></div><div class=\"tablescenter\"><button id=\"left2right\" type=\"button\" style=\"margin-top:120px;\" class=\"btn btn-success btn-circle\" title=\"选择\">></button><br/><br/><button type=\"button\" id=\"right2left\"  title=\"移除\" class=\"btn btn-success btn-circle\"><</button></div><div class=\"tablesright\"><div class=\"tabletitle\">已选表</div><ul id=\"selTablesTree\" class=\"easyui-tree\" style=\"height:220px; width:100%; overflow:auto\"></ul></div></div></div><div title=\"表关联\"><div class=\"textpanel\"><div style=\"float:right\"><button type=\"button\" id=\"jointable\" class=\"btn btn-primary btn-xs\">关联</button> <br/> <button type=\"button\" class=\"btn btn-primary btn-xs\" id=\"unjointable\" >取消</button></div><span class=\"inputtext\">主表： </span><select id=\"mastertable\" class=\"inputform\" style=\"width:300px;\"></select><br/><ul class=\"easyui-tree\" id=\"masterTableTree\" style=\"margin-left:100px;border:1px solid #999; width:300px; height:320px; overflow:auto\"></ul></div></div></div>";
 	$('#pdailog').dialog({
 		title: '创建数据集',
 		width: 680,
@@ -976,7 +976,7 @@ function editdataset(dset_id){
 		cache: false,
 		modal: true,
 		toolbar:null,
-		content:'<div id="datasettabs" ><div title="基本信息" ><div class="textpanel"><span class="inputtext">数据集名称：</span><input type="text" class="inputform" name="datasetname" id="datasetname" value="'+dset.name+'"><br/><span class="inputtext">连接数据源：</span><input type="text" class="inputform" value="'+(dsource.use=='jndi'?dsource.jndiname:dsource.dsname)+'" readOnly=true>(不能更改)<br/><span class="inputtext">已选分析表：</span><br/><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="70%" valign="top"><ul id=\"selectTables\"></ul></td><td valign="top" align="right"><a id=\"addtable\" href=\"#\">添加表</a><br/><a id=\"deltable\" href=\"#\">删除表</a></td></tr></table></div></div><div title="表关联" ><div class="textpanel"><div style="float:right"><input type="button" value="关联" id="jointable"><br/><input type="button" value="删除" id="deljointable"></div><span class="inputtext">主表： </span><input type="text" class="inputform" value="'+dset.master+'" style="width:300px;"><input type="button" id="reloadcols" value="刷新字段"><br/><ul id="masterTableTree" style="margin-left:90px;border:1px solid #999; width:300px; height:320px; overflow:auto"></ul></div></div><div title="字段信息"></div><div title="动态字段"></div><div title="数据筛选"></div><div title="数据预览"></div></div>',
+		content:'<div id="datasettabs" ><div title="基本信息" ><div class="textpanel"><span class="inputtext">数据集名称：</span><input type="text" class="inputform" name="datasetname" id="datasetname" value="'+dset.name+'"><br/><span class="inputtext">连接数据源：</span><input type="text" class="inputform" value="'+(dsource.use=='jndi'?dsource.jndiname:dsource.dsname)+'" readOnly=true>(不能更改)<br/><span class="inputtext">已选分析表：</span><br/><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="70%" valign="top"><ul id=\"selectTables\"></ul></td><td valign="top" align="right"><a id=\"addtable\" href=\"#\">添加表</a><br/><a id=\"deltable\" href=\"#\">删除表</a></td></tr></table></div></div><div title="表关联" ><div class="textpanel"><div style="float:right"><button type="button" id="jointable" class=\"btn btn-primary btn-xs\">关联</button><br/><button type="button" id="deljointable" class=\"btn btn-primary btn-xs\">删除</button></div><span class="inputtext">主表： </span><input type="text" class="inputform" value="'+dset.master+'" style="width:300px;"><button type="button" id="reloadcols" class=\"btn btn-w-m btn-success\">刷新字段</button><br/><ul id="masterTableTree" style="margin-left:100px;border:1px solid #999; width:300px; height:320px; overflow:auto"></ul></div></div><div title="字段信息"></div><div title="动态字段"></div><div title="数据筛选"></div><div title="数据预览"></div></div>',
 		onLoad:function(){
 		},
 		buttons:[{
@@ -1198,6 +1198,10 @@ function editdataset(dset_id){
 	//表关联 -- 取消关联按钮
 	$("#pdailog #deljointable").click(function(){
 		var node = $("#masterTableTree").tree("getSelected");
+		if(node == null){
+			msginfo("请选择删除字段。");
+			return;
+		}
 		var joininfo = null;
 		for(i=0; i<dset.joininfo.length; i++){
 			if(dset.joininfo[i].ref == node.attributes.ref){
@@ -1374,7 +1378,7 @@ function editdataset(dset_id){
 			str = str + "<tr><th width='20%'>字段名</th><th width='17%'>显示名</th><th width='17%'>类型</th><th width='30%'>来源表</th><th width='15%'>操作</th></tr>";
 			for(var i=0; i<dset.cols.length; i++){
 				m = dset.cols[i];
-				str = str + "<tr><td class='kpiData1 grid3-td'>"+m.name+"</td><td class='kpiData1 grid3-td'><div id=\""+m.tname+"_"+m.name+"_disp\">"+(m.dispName == '' ? "&nbsp;":m.dispName)+"</div></td><td class='kpiData1 grid3-td'><div id=\""+m.tname+"_"+m.name+"_tp\">"+m.type+"</div></td><td class='kpiData1 grid3-td'>"+m.tname+"</td><td class='kpiData1 grid3-td'><a href=\"javascript:;\" onclick=\"editDsColumn('"+m.name+"', null, '"+m.tname+"', 'panel')\">编辑</a></td></tr>";
+				str = str + "<tr><td class='kpiData1 grid3-td'>"+m.name+"</td><td class='kpiData1 grid3-td'><div id=\""+m.tname+"_"+m.name+"_disp\">"+(m.dispName == '' ? "&nbsp;":m.dispName)+"</div></td><td class='kpiData1 grid3-td'><div id=\""+m.tname+"_"+m.name+"_tp\">"+m.type+"</div></td><td class='kpiData1 grid3-td'>"+m.tname+"</td><td class='kpiData1 grid3-td'><button onclick=\"editDsColumn('"+m.name+"', null, '"+m.tname+"', 'panel')\" class=\"btn btn-primary btn-xs\"><i class=\"fa fa-edit\"></i></button></td></tr>";
 			}
 			str = str + "</table>";
 			$(pp).html(str);
@@ -1401,7 +1405,7 @@ function reloadDatasetFilter(dataset){
 	str = str + "<tr><th>筛选字段</th><th>判断条件</th><th>筛选值</th><th>值类型</th><th>操作</th></tr>";
 			
 	for(var i=0; dataset.param&&i<dataset.param.length; i++){
-		str = str + "<tr><td class=\"kpiData1 grid3-td\">"+dataset.param[i].col+"</td><td class=\"kpiData1 grid3-td\">"+dataset.param[i].type+"</td><td class=\"kpiData1 grid3-td\">"+(dataset.param[i].val+(dataset.param[i].val2 =='' ? "":"/"+dataset.param[i].val2))+"</td><td class=\"kpiData1 grid3-td\">"+dataset.param[i].valuetype+"</td><td class=\"kpiData1 grid3-td\"><a href=\"javascript:newdatasetparam(true,'"+dataset.param[i].id+"');\">编辑</a> <a href=\"javascript:delDatasetFilter('"+dataset.param[i].id+"');\">删除</a></td></tr>";
+		str = str + "<tr><td class=\"kpiData1 grid3-td\">"+dataset.param[i].col+"</td><td class=\"kpiData1 grid3-td\">"+dataset.param[i].type+"</td><td class=\"kpiData1 grid3-td\">"+(dataset.param[i].val+(dataset.param[i].val2 =='' ? "":"/"+dataset.param[i].val2))+"</td><td class=\"kpiData1 grid3-td\">"+dataset.param[i].valuetype+"</td><td class=\"kpiData1 grid3-td\"><button onclick=\"newdatasetparam(true,'"+dataset.param[i].id+"');\" class=\"btn btn-primary btn-xs\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"delDatasetFilter('"+dataset.param[i].id+"');\" class=\"btn btn-danger btn-xs\"><i class=\"fa fa-remove\"></i></button></td></tr>";
 	}
 	if(!dataset.param || dataset.param.length==0){
 		str = str + "<tr><td class=\"kpiData1 grid3-td\" align=\"center\" colspan=\"5\">无数据.</td></tr>";
@@ -1421,7 +1425,7 @@ function reloadDynamicCol(dataset){
 			
 	for(var i=0; dataset.dynamic && i<dataset.dynamic.length; i++){
 		var o = dataset.dynamic[i];
-		str = str + "<tr><td class=\"kpiData1 grid3-td\">"+o.name+"</td><td class=\"kpiData1 grid3-td\">"+o.dispName+"</td><td class=\"kpiData1 grid3-td\">"+o.expression.replace(/@/g,"'")+"</td><td class=\"kpiData1 grid3-td\">"+o.type+"</td><td class=\"kpiData1 grid3-td\"><a href=\"javascript:;\" col=\""+o.name+"\" id=\"dynamiccolupdate\">编辑</a> <a href=\"javascript:;\" col=\""+o.name+"\" id=\"dynamiccoldel\">删除</a></td></tr>";
+		str = str + "<tr><td class=\"kpiData1 grid3-td\">"+o.name+"</td><td class=\"kpiData1 grid3-td\">"+o.dispName+"</td><td class=\"kpiData1 grid3-td\">"+o.expression.replace(/@/g,"'")+"</td><td class=\"kpiData1 grid3-td\">"+o.type+"</td><td class=\"kpiData1 grid3-td\"><button col=\""+o.name+"\" id=\"dynamiccolupdate\" class=\"btn btn-primary btn-xs\"><i class=\"fa fa-edit\"></i></button> <button col=\""+o.name+"\" id=\"dynamiccoldel\" class=\"btn btn-danger btn-xs\"><i class=\"fa fa-remove\"></i></button></td></tr>";
 	}
 	if(!dataset.dynamic || dataset.dynamic.length==0){
 		str = str + "<tr><td class=\"kpiData1 grid3-td\" align=\"center\" colspan=\"5\">无数据.</td></tr>";
@@ -1435,7 +1439,7 @@ function reloadDynamicCol(dataset){
 		for(var i=0; i<dataType.length; i++){
 			tps = tps + "<option value=\""+dataType[i]+"\" "+( ccol && ccol.type == dataType[i] ? "selected" : "")+">"+dataType[i]+"</option>";
 		}
-		var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">字段名：</span><input type=\"text\" id=\"colname\" name=\"colname\" class=\"inputform\" value=\""+(ccol?ccol.name:"")+"\">(添加后不能更改)<br/><span class=\"inputtext\">显示名：</span><input type=\"text\" id=\"dispname\" name=\"dispname\" class=\"inputform\" value=\""+(ccol?ccol.dispName:"")+"\"><br/><table cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td valign=\"top\"><span class=\"inputtext\">表 达 式：</span></td><td><textarea name=\"expression\" id=\"expression\" cols=\"40\" style=\"height:52px;\">"+(ccol?ccol.expression.replace(/@/g,"'"):"")+"</textarea></td></tr></tbody></table><span class=\"inputtext\">值类型：</span><select id=\"valtype\" class=\"inputform\">"+tps+"</select></div>";
+		var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">字段名：</span><input type=\"text\" id=\"colname\" name=\"colname\" class=\"inputform2\" value=\""+(ccol?ccol.name:"")+"\" placeholder=\"添加后不能更改\"><br/><span class=\"inputtext\">显示名：</span><input type=\"text\" id=\"dispname\" name=\"dispname\" class=\"inputform2\" value=\""+(ccol?ccol.dispName:"")+"\"><br/><table cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td valign=\"top\"><span class=\"inputtext\">表 达 式：</span></td><td><textarea name=\"expression\" id=\"expression\" cols=\"40\" style=\"height:52px;\" class=\"inputform2\">"+(ccol?ccol.expression.replace(/@/g,"'"):"")+"</textarea></td></tr></tbody></table><span class=\"inputtext\">值类型：</span><select id=\"valtype\" class=\"inputform2\">"+tps+"</select></div>";
 		if($("#dsColumn_div").size() == 0){
 			$("<div id=\"dsColumn_div\" class=\"easyui-menu\"></div>").appendTo("body");
 		}
@@ -1538,7 +1542,7 @@ function newdatasetparam(isupdate, paramId){
 	if($("#dsColumn_div").size() == 0){
 		$("<div id=\"dsColumn_div\" class=\"easyui-menu\"></div>").appendTo("body");
 	}
-	var cols = "<select id=\"filtercolumn\" name=\"filtercolumn\" class=\"inputform\">";
+	var cols = "<select id=\"filtercolumn\" name=\"filtercolumn\" class=\"inputform2\">";
 	for(i=0; i<dset.cols.length; i++){ //只筛选主表
 		if(dset.cols[i].tname != dset.master){
 			continue;
@@ -1547,13 +1551,13 @@ function newdatasetparam(isupdate, paramId){
 	}
 	cols = cols + "</select>";
 	var colLogic = ["=",">", ">=","<", "<=", "!=", "between"];
-	var ftp = "<select id=\"filtertype\" name=\"filtertype\" class=\"inputform\">";
+	var ftp = "<select id=\"filtertype\" name=\"filtertype\" class=\"inputform2\">";
 	for(i=0; i<colLogic.length; i++){
 		ftp = ftp + "<option value=\""+colLogic[i]+"\" "+(t!=null&&t.type==colLogic[i]?"selected":"")+">"+colLogic[i]+"</option>";
 	}
 	ftp = ftp + "</select>";
 	
-	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">筛选字段：</span>"+cols+"<br/><span class=\"inputtext\">判断条件：</span>"+ftp+"<br/><span class=\"inputtext\">筛选值：</span><input type=\"text\" name=\"filtervalue\" id=\"filtervalue\" value=\""+(t!=null?t.val:"")+"\" class=\"inputform\"><br><div style=\""+(t!=null&&t.val2!=''?"":"display:none")+"\"><span class=\"inputtext\">筛选值2：</span><input type=\"text\" name=\"filtervalue2\" id=\"filtervalue2\" value=\""+(t!=null?t.val2:"")+"\" "+" class=\"inputform\"></div><span class=\"inputtext\">筛选值类型：</span><select name=\"valuetype\" id=\"valuetype\" class=\"inputform\"><option value=\"number\" "+(t!=null&&t.valuetype=='number'?"selected":"")+">数字类型</option><option value=\"string\" "+(t!=null&&t.valuetype=='string'?"selected":"")+">字符类型</option><option value=\"datetime\" "+((t!=null&&t.valuetype=='datetime'?"selected":""))+">日期类型</option></select></div>";
+	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">筛选字段：</span>"+cols+"<br/><span class=\"inputtext\">判断条件：</span>"+ftp+"<br/><span class=\"inputtext\">筛选值：</span><input type=\"text\" name=\"filtervalue\" id=\"filtervalue\" value=\""+(t!=null?t.val:"")+"\" class=\"inputform2\"><br><div style=\""+(t!=null&&t.val2!=''?"":"display:none")+"\"><span class=\"inputtext\">筛选值2：</span><input type=\"text\" name=\"filtervalue2\" id=\"filtervalue2\" value=\""+(t!=null?t.val2:"")+"\" "+" class=\"inputform2\"></div><span class=\"inputtext\">筛选值类型：</span><select name=\"valuetype\" id=\"valuetype\" class=\"inputform2\"><option value=\"number\" "+(t!=null&&t.valuetype=='number'?"selected":"")+">数字类型</option><option value=\"string\" "+(t!=null&&t.valuetype=='string'?"selected":"")+">字符类型</option><option value=\"datetime\" "+((t!=null&&t.valuetype=='datetime'?"selected":""))+">日期类型</option></select></div>";
 	$('#dsColumn_div').dialog({
 		title: (isupdate == false ? '添加筛选条件':'编辑筛选条件'),
 		width: 380,
@@ -1644,7 +1648,7 @@ function editDsColumn(colId, datasetid, tname, income){
 			break;
 		}
 	}
-	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">字段名：</span>"+tmp.name+"<br/><span class=\"inputtext\">显示名：</span><input type=\"text\" name=\"coldispname\" id=\"coldispname\" value=\""+tmp.dispName+"\" class=\"inputform\"><br/><span class=\"inputtext\">类型：</span><select id=\"coltype\" class=\"inputform\">"+tps+"</select><br/><span class=\"inputtext\">来源表：</span>"+tmp.tname+"<br/><span class=\"inputtext\">字段关联：</span>"+(joinInfo==null?"字段无关联":dset.master+"."+joinInfo.col+" -> " + joinInfo.ref+"."+joinInfo.refKey)+(joinInfo!=null?"<br/><span class=\"inputtext\">关联类型：</span>"+(joinInfo.jtype=="all"?"全连接":(joinInfo.jtype=="left"?"左连接":"右连接")):"")+(joinInfo==null?"":"<br/><span class=\"inputtext\">强制连接：</span>"+(joinInfo.force=="y"?"是":"否"))+"</div>";
+	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">字段名：</span>"+tmp.name+"<br/><span class=\"inputtext\">显示名：</span><input type=\"text\" name=\"coldispname\" id=\"coldispname\" value=\""+tmp.dispName+"\" class=\"inputform2\"><br/><span class=\"inputtext\">类型：</span><select id=\"coltype\" class=\"inputform2\">"+tps+"</select><br/><span class=\"inputtext\">来源表：</span>"+tmp.tname+"<br/><span class=\"inputtext\">字段关联：</span>"+(joinInfo==null?"字段无关联":dset.master+"."+joinInfo.col+" -> " + joinInfo.ref+"."+joinInfo.refKey)+(joinInfo!=null?"<br/><span class=\"inputtext\">关联类型：</span>"+(joinInfo.jtype=="all"?"全连接":(joinInfo.jtype=="left"?"左连接":"右连接")):"")+(joinInfo==null?"":"<br/><span class=\"inputtext\">强制连接：</span>"+(joinInfo.force=="y"?"是":"否"))+"</div>";
 	$('#dsColumn_div').dialog({
 		title: '编辑字段信息',
 		width: joinInfo == null ? 350 : 450,
@@ -1904,7 +1908,7 @@ function newcube(isupdate, cubeId){
 			}
 			str = str + "<span class=\"inputtext\">立方体名称：</span><input type=\"text\" class=\"inputform\" name=\"cubename\" id=\"cubename\" value=\""+(cubeObj==null?"":cubeObj.name)+"\"><br>";
 			str = str + "<span class=\"inputtext\">数据集：</span><select class=\"inputform\" id=\"datasetid\" name=\"datasetid\">"+dsls+"</select>"+(isupdate?"(不可更改)":"");
-			str = str + "<br/><table cellspacing=\"0\" cellpadding=\"0\"><tr><td valign=\"top\"><span class=\"inputtext\">备注信息：</span></td><td><textarea rows=\"4\" cols=\"35\" id=\"note\" name=\"note\">"+(cubeObj!=null&&cubeObj.note?cubeObj.note:"")+"</textarea></td></tr></table><br/><font color=\"#999\">(创建好立方体后，即可对立方体进行多维分析。)</font>";
+			str = str + "<br/><table cellspacing=\"0\" cellpadding=\"0\"><tr><td valign=\"top\"><span class=\"inputtext\">备注信息：</span></td><td><textarea class=\"inputform\" style=\"height:80px;\" id=\"note\" name=\"note\">"+(cubeObj!=null&&cubeObj.note?cubeObj.note:"")+"</textarea></td></tr></table><br/><font color=\"#999\">(创建好立方体后，即可对立方体进行多维分析。)</font>";
 			str = str + "</div>";
 			$(pp).html(str);
 		}else if(cubeObj != null && b == 3){ //分表
@@ -1995,7 +1999,7 @@ function newcube(isupdate, cubeId){
 				kpis = kpis + "</ul>";
 			}
 			var rtree = "<ul id=\"cuberighttree\"><li data-options=\"iconCls:'icon-cube'\"><span>数据立方体</span><ul><li data-options=\"iconCls:'icon-dim',id:'cubewd'\"><span>维度</span>"+dims+"</li><li data-options=\"iconCls:'icon-kpi',id:'cubedl'\"><span>度量</span>"+kpis+"</li></ul></li></ul>";			
-			str = str + "<div class=\"cubeleft\"><div class=\"cubetitle\">待选数据字段：</div><ul id=\"cubelefttree\"><li data-options=\"iconCls:'icon-dataset2',attributes:{tp:'root'}\"><span>"+dset.name+"</span><ul>"+treels+"</ul></li></ul></div><div class=\"cubecenter\"><p style=\"height:150px;\"></p><input type=\"button\" onclick=\"ds2cube()\" value=\">\" title=\"选择\"><br><input type=\"button\" title=\"移除\" value=\"<\" onclick=\"cube2ds()\"></div><div class=\"cuberight\"><div class=\"cubetitle\">维度和度量：</div>"+rtree+"</div><div style=\"width:60px;\" class=\"cubecenter\"><a href=\"javascript:;\" id=\"crtdimgroup\" data-options=\"plain:true,iconCls:'icon-add'\">分组</a><a href=\"javascript:editCalcKpi(false);\" id=\"crtcalckpi\" data-options=\"plain:true,iconCls:'icon-add'\">度量</a><a href=\"javascript:editcubecol('"+dset.datasetid+"');\" id=\"dim_editbtn\" data-options=\"plain:true,iconCls:'icon-edit'\">编辑</a><a href=\"javascript:cube2ds();\" id=\"dim_delbtn\" data-options=\"plain:true,iconCls:'icon-cancel'\">删除</a></div>";
+			str = str + "<div class=\"cubeleft\"><div class=\"cubetitle\">待选数据字段：</div><ul id=\"cubelefttree\"><li data-options=\"iconCls:'icon-dataset2',attributes:{tp:'root'}\"><span>"+dset.name+"</span><ul>"+treels+"</ul></li></ul></div><div class=\"cubecenter\"><p style=\"height:150px;\"></p><button type=\"button\" onclick=\"ds2cube()\" title=\"选择\" class=\"btn btn-success btn-circle\">></button><br><br><button type=\"button\" title=\"移除\" onclick=\"cube2ds()\" class=\"btn btn-success btn-circle\"><</button></div><div class=\"cuberight\"><div class=\"cubetitle\">维度和度量：</div>"+rtree+"</div><div style=\"width:60px;\" class=\"cubecenter\"><a href=\"javascript:;\" id=\"crtdimgroup\" data-options=\"plain:true,iconCls:'icon-add'\">分组</a><a href=\"javascript:editCalcKpi(false);\" id=\"crtcalckpi\" data-options=\"plain:true,iconCls:'icon-add2'\">度量</a><a href=\"javascript:editcubecol('"+dset.datasetid+"');\" id=\"dim_editbtn\" data-options=\"plain:true,iconCls:'icon-edit'\">编辑</a><a href=\"javascript:cube2ds();\" id=\"dim_delbtn\" data-options=\"plain:true,iconCls:'icon-cancel'\">删除</a></div>";
 			
 			str = str + "</div>";
 			var pp = $('#cubetabs').tabs('getSelected');
@@ -2006,11 +2010,11 @@ function newcube(isupdate, cubeId){
 				if($("#dsColumn_div").size() == 0){
 					$("<div id=\"dsColumn_div\" class=\"easyui-menu\"></div>").appendTo("body");
 				}
-				var gctx = "<div class=\"textpanel\"><span class=\"inputtext\">分组名称：</span><input type=\"text\" value=\"\" id=\"groupname\" name=\"groupname\" class=\"inputform\"><br/><span class=\"inputtext\">分组类型：</span><select id=\"grouptype\" name=\"grouptype\" class=\"inputform\"><option value=\"\"></option><option value=\"date\">时间</option></select></div>";
+				var gctx = "<div class=\"textpanel\"><span class=\"inputtext\">分组名称：</span><input type=\"text\" value=\"\" id=\"groupname\" name=\"groupname\" class=\"inputform2\"><br/><span class=\"inputtext\">分组类型：</span><select id=\"grouptype\" name=\"grouptype\" class=\"inputform2\"><option value=\"\"></option><option value=\"date\">时间</option></select></div>";
 				$('#dsColumn_div').dialog({
 					title: "创建维度分组",
-					width: 300,
-					height: 150,
+					width: 330,
+					height: 180,
 					closed: false,
 					cache: false,
 					modal: true,
@@ -2200,10 +2204,10 @@ function editCalcKpi(update, kpiId){
 	for(i=0; i<ls.length; i++){
 		var k = ls[i].attributes;
 		if(k.calc != true){
-			kpiStr = kpiStr + "<span name=\""+k.col+"\" aggre=\""+k.aggre+"\" class=\"column\">"+ k.dispName+"</span> ";
+			kpiStr = kpiStr + "<button name=\""+k.col+"\" aggre=\""+k.aggre+"\" class=\"btn btn-primary btn-xs\">"+ k.dispName+"</button> ";
 		}
 	}
-	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">显示名称：</span><input type=\"text\" class=\"inputform\" name=\"kpiname\" id=\"kpiname\" value=\""+(kpi?kpi.attributes.dispName:"")+"\"><br/><table cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td valign=\"top\"><span class=\"inputtext\">表 达 式：</span></td><td><textarea rows=\"2\" style=\"height:52px;\" cols=\"40\" id=\"expression\" name=\"expression\">"+(kpi?kpi.attributes.col:"")+"</textarea></td></tr></tbody></table><div class=\"actColumn\">"+kpiStr+"</div><span class=\"inputtext\">计算方式：</span><select id=\"kpiaggre\" name=\"kpiaggre\" class=\"inputform\">"+tpstr+"</select><br><span class=\"inputtext\">度量单位：</span><input type=\"text\" value=\""+(kpi?kpi.attributes.unit:"")+"\" class=\"inputform\" name=\"kpiunit\" id=\"kpiunit\"><br/><span class=\"inputtext\">格式化：</span>" + ftmstr("kpifmt","inputform",(kpi?kpi.attributes.fmt:"")) + "<br/><span class=\"inputtext\">指标解释：</span><textarea name=\"kpinote\" id=\"kpinote\"  cols=\"25\" style=\"height:32px;\" rows=\"2\">"+(kpi?kpi.attributes.kpinote:"")+"</textarea></div>";
+	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">显示名称：</span><input type=\"text\" class=\"inputform\" name=\"kpiname\" id=\"kpiname\" value=\""+(kpi?kpi.attributes.dispName:"")+"\"><br/><table cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td valign=\"top\"><span class=\"inputtext\">表 达 式：</span></td><td><textarea class=\"inputform\" style=\"height:52px;\" id=\"expression\" name=\"expression\">"+(kpi?kpi.attributes.col:"")+"</textarea></td></tr></tbody></table><div class=\"actColumn\">"+kpiStr+"</div><span class=\"inputtext\">计算方式：</span><select id=\"kpiaggre\" name=\"kpiaggre\" class=\"inputform\">"+tpstr+"</select><br><span class=\"inputtext\">度量单位：</span><input type=\"text\" value=\""+(kpi?kpi.attributes.unit:"")+"\" class=\"inputform\" name=\"kpiunit\" id=\"kpiunit\"><br/><span class=\"inputtext\">格式化：</span>" + ftmstr("kpifmt","inputform",(kpi?kpi.attributes.fmt:"")) + "<br/><span class=\"inputtext\">指标解释：</span><textarea name=\"kpinote\" id=\"kpinote\" class=\"inputform\" style=\"height:32px;\" rows=\"2\">"+(kpi?kpi.attributes.kpinote:"")+"</textarea></div>";
 	if($("#dsColumn_div").size() == 0){
 		$("<div id=\"dsColumn_div\" class=\"easyui-menu\"></div>").appendTo("body");
 	}
@@ -2259,7 +2263,7 @@ function editCalcKpi(update, kpiId){
 				}
 			}]
 	});
-	$("#dsColumn_div .actColumn .column").bind("click", function(){
+	$("#dsColumn_div .actColumn button").bind("click", function(){
 		var txt = $(this).attr("name");
 		var aggre = $(this).attr("aggre");
 		insertText2focus(document.getElementById("expression"), aggre+"(" + txt + ") ");
@@ -2312,7 +2316,7 @@ function editcubecol(datasetid){
 	}
 	$('#dsColumn_div').dialog({
 		title: right.attributes.tp == 'group' ? "编辑分组" : "编辑度量及维度",
-		width: 350,
+		width: 420,
 		height:  right.attributes.tp == 'group' ? 150 :320,
 		closed: false,
 		cache: false,
@@ -2451,7 +2455,7 @@ function editcubecol2(tp, id, node){
 		ctx = "<div class=\"textpanel\">"+(!kpi.calc?"<span class=\"inputtext\">度量字段：</span>"+(kpi.dyna?kpi.col.replace(/@/g,"'"):kpi.col)+"<br/>":"")+"<span class=\"inputtext\">显示名称：</span><input type=\"text\" id=\"kpiname\" name=\"kpiname\" class=\"inputform\" value=\""+kpi.name+"\"><br/>"+(!kpi.calc?"<span class=\"inputtext\">来源表：</span>"+kpi.tname+"<br/>":"") + (kpi.calc?"<table cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td valign=\"top\"><span class=\"inputtext\">表 达 式：</span></td><td><textarea rows=\"2\" style=\"height:52px;\" cols=\"45\" id=\"expression\" name=\"expression\">"+(kpi.col?kpi.col:"")+"</textarea></td></tr></tbody></table><div class=\"actColumn\">"+kpiStr+"</div>":"")
 		+ "<span class=\"inputtext\">计算方式：</span><select id=\"kpiaggre\" name=\"kpiaggre\" class=\"inputform\">"+tpstr+"</select> <br>"
 		+ "<span class=\"inputtext\">度量单位：</span><input type=\"text\" id=\"kpiunit\" name=\"kpiunit\" class=\"inputform\" value=\""+(kpi.unit?kpi.unit:"")+"\"> <br>"
-		+ "<span class=\"inputtext\">格式化：</span>" + ftmstr("kpifmt","inputform",kpi.fmt?kpi.fmt:"") + "<br/><span class=\"inputtext\">指标解释：</span><textarea name=\"kpinote\" id=\"kpinote\"  cols=\"25\" style=\"height:32px;\" rows=\"2\">"+(kpi.kpinote?unescape(kpi.kpinote):"")+"</textarea></div>";
+		+ "<span class=\"inputtext\">格式化：</span>" + ftmstr("kpifmt","inputform",kpi.fmt?kpi.fmt:"") + "<br/><span class=\"inputtext\">指标解释：</span><textarea name=\"kpinote\" id=\"kpinote\" class=\"inputform\" style=\"height:32px;\" rows=\"2\">"+(kpi.kpinote?unescape(kpi.kpinote):"")+"</textarea></div>";
 	}else if(tp == 'group'){
 		var group = findCubeGroupById(cube, id);
 		ctx = "<div class=\"textpanel\"><span class=\"inputtext\">分组名称：</span><input type=\"text\" id=\"groupname\" name=\"groupname\" value=\""+group.name+"\" class=\"inputform\"><br/><span class=\"inputtext\">分组类型：</span><select id=\"grouptype\" name=\"grouptype\" class=\"inputform\"><option value=\"\"></option><option value=\"date\" "+(group.grouptype=="date"?"selected":"")+">时间</option></select></div>";
@@ -2459,15 +2463,15 @@ function editcubecol2(tp, id, node){
 	if($("#dsColumn_div").size() == 0){
 		$("<div id=\"dsColumn_div\" class=\"easyui-menu\"></div>").appendTo("body");
 	}
-	var w = 350;
+	var w = 420;
 	if(tp == 'kpi'){
-		w =  420;
+		w =  450;
 	}
-	var h = 300;
+	var h = 310;
 	if(tp == 'group'){
 		h = 150;
 	}else if(tp == 'kpi'){
-		h =  360;
+		h =  370;
 	}
 	$('#dsColumn_div').dialog({
 		title: tp == 'group' ? "编辑分组" : "编辑度量及维度",

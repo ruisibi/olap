@@ -11,7 +11,7 @@
 </tr>
 	<s:iterator var="e" value="#request.ls" status="statu">
 <tr>
-	<td class='kpiData1 grid3-td'><input type="radio" id="reportId" name="reportId" value="${e.pageId}" /></td>	
+	<td class='kpiData1 grid3-td'><div class="radio radio-info radio-inline"><input type="radio" id="r${statu.index}" name="reportId" value="${e.pageId}" /><label for="r${statu.index}"> </label></div></td>	
  <td class='kpiData1 grid3-td' align="left">${e.pageName}</td>	
  <td class='kpiData1 grid3-td' align="center">
  <%

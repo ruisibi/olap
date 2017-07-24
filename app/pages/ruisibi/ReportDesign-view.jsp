@@ -2,32 +2,29 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="bi" uri="/WEB-INF/common.tld"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <title><s:if test="pageName != null && pageName !=''">${pageName} - </s:if>睿思BI|OLAP多维分析</title>
-   <link rel="shortcut icon" type="image/x-icon" href="../resource/img/rs_favicon.ico">
-   <script type="text/javascript" src="../ext-res/js/jquery.min.js"></script>
-    <script language="javascript" src="../resource/js/bireport.js?v5"></script>
-    <script language="javascript" src="../resource/js/bidata.js?v5"></script>
-    <script language="javascript" src="../resource/js/bichart.js?v5"></script>
-    <script language="javascript" src="../resource/js/bidrill.js?v5"></script> 
-
-	<link rel="stylesheet" type="text/css" href="../ext-res/css/fonts-min.css" />
-	<link rel="stylesheet" type="text/css" href="../ext-res/css/boncbase.css?v3" />
-	<link rel="stylesheet" type="text/css" href="../resource/css/bireport.css?v3" />
-  
-	<script type="text/javascript" src="../ext-res/My97DatePicker/WdatePicker.js"></script>
-	<script language="javascript" src="../resource/js/json.js"></script>
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><s:if test="pageName != null && pageName !=''">${pageName} - </s:if>睿思BI|OLAP多维分析</title>
+<link rel="shortcut icon" type="image/x-icon" href="../resource/img/rs_favicon.ico">
+<link href="../ext-res/css/bootstrap.min.css" rel="stylesheet">
+<link href="../resource/css/style.css" rel="stylesheet">
+<link href="../resource/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<link href="../resource/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<script type="text/javascript" src="../ext-res/js/jquery.min.js"></script>
+<script type="text/javascript" src="../ext-res/js/bootstrap.min.js?v=3.3.6"></script>
+<script language="javascript" src="../resource/js/bireport.js?v5"></script>
+<script language="javascript" src="../resource/js/bidata.js?v5"></script>
+<script language="javascript" src="../resource/js/bichart.js?v5"></script>
+<script language="javascript" src="../resource/js/bidrill.js?v5"></script> 
+<link rel="stylesheet" type="text/css" href="../resource/css/bireport.css?v3" />
+<script type="text/javascript" src="../ext-res/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" src="../resource/js/json.js"></script>
 <link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/gray/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/icon.css">
-	<script type="text/javascript" src="../resource/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../ext-res/js/echarts.min.js"></script>
-   
+<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/icon.css">
+<script type="text/javascript" src="../resource/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../ext-res/js/echarts.min.js"></script>
 </head>
 
 <script language="javascript">
@@ -47,15 +44,6 @@ var curTmpInfo = {"view":true, "share":'${share}'}; //临时对象, share表示�
 curTmpInfo.isupdate = false; //页面是否已经修改
 $(function(){
 	
-	//初始化TAB信息
-	$("#l_tab").tabs({fit:true,border:false});
-	
-	//初始化我的报表
-	loadMyReportTree();
-	
-	//初始化视图
-	initviewTree();
-	
 	//初始化selectdatatree
 	initselectDataTree();
 	
@@ -68,75 +56,86 @@ $(function(){
 		var str = t.type == 'text' ? t.text.replace(/\n/g,"<br>") : null;
 		addComp(t.id, t.name, str, false, t.type, isnewpage ? null : t);
 	}
-	//初始化datatree(数据中心)
-	initmydatatree();
-
 	//判断是否有msg信息
 	<s:if test="msg != null && msg !=''">
 	showmsg('${msg}');
 	</s:if>
+	
+	initOptareaWidth();
 });
 
 </script>
+<body class="gray-bg">
 
-<body class="easyui-layout">
-
-	<div region="north" border="false">
-        
-        <div class="panel-header" style="padding:3px;">
-            <a href="javascript:openreport(true);" id="mb8" class="easyui-linkbutton" plain="true" iconCls="icon-open">打开</a>
-            <a href="javascript:newpage(true)" id="mb1" class="easyui-linkbutton" plain="true" iconCls="icon-newpage" >新建</a>
-            <a href="javascript:;" menu="#saveinfo" id="mb2" class="easyui-menubutton" plain="true" iconCls="icon-save" >保存</a>
-            <a href="javascript:selectAllcube();" id="mb3" class="easyui-linkbutton" plain="true" iconCls="icon-dataset">数据</a>
-            <a href="javascript:void(0)" id="mb4" class="easyui-menubutton" plain="true" iconCls="icon-add" menu="#insertcompmenu" >插入</a>
-            <a href="javascript:exportPage()" id="mb6" class="easyui-linkbutton" plain="true" iconCls="icon-export" >导出</a>
-            <a href="javascript:printData()" id="mb10" class="easyui-linkbutton" plain="true" iconCls="icon-print" >打印</a>
-            <a href="javascript:kpidesc()" id="mb11" class="easyui-linkbutton" plain="true" iconCls="icon-kpidesc" >解释</a>
-            <a href="javascript:helper()" id="mb7" class="easyui-linkbutton" plain="true" iconCls="icon-help" >帮助</a>
-        </div>
+<nav class="navbar navbar-default animated fadeInDown" role="navigation" style="margin-bottom:0px;">
+    <div>
+        <!--向左对齐-->
+        <ul class="nav navbar-nav navbar-left">
+		<li class="dropdown">
+        	<a href="#"  class="dropdown-toggle" data-toggle="dropdown">
+            	文件
+                <b class="caret"></b>
+            </a>
+        	<ul class="dropdown-menu">
+                <li><a href="javascript:openreport(true);">打开</a></li>
+                <li><a href="javascript:newpage(true);">新建</a></li>
+                <li><a href="javascript:savepage(true);">保存</a></li>
+				<li><a href="javascript:saveas(true);">另存</a></li>
+            </ul>
+        </li>
+		<li class="dropdown">
+        	<a href="#"  class="dropdown-toggle" data-toggle="dropdown">
+            	插入
+                <b class="caret"></b>
+            </a>
+        	<ul class="dropdown-menu">
+                <li><a href="javascript:insertTable();">表格</a></li>
+                <li><a href="javascript:insertChart();">图形</a></li>
+                <li><a href="javascript:insertText('insert');">文本</a></li>
+            </ul>
+        </li>
+		<li><a href="javascript:exportPage();">导出</a></li>
+		<li><a href="javascript:printData();">打印</a></li>
+		<li><a href="javascript:kpidesc();">度量解释</a></li>
+		<li><a href="javascript:helper();">帮助</a></li>
+        </ul>
     </div>
+</nav>
+
 	
-	<div region="west" split="true" style="width:220px;" title="对象浏览">
-    	<div id="l_tab" class="easyui-tabs" style="height:auto; width:auto;">
-        	<div title="数据" style="">
-        		<ul id="selectdatatree" class="easyui-tree"></ul>
-            </div>
-            <div title="报表" style="">
-            	<ul id="myreporttree" class="easyui-tree">
-				</ul>  
-            </div>
-            <div title="视图" style="">
-            	<ul id="viewtree" class="easyui-tree">
-				</ul>  
-            </div>
-        </div>
-        
-    </div>
-    
-    <div data-options="region:'south',border:false" style="height:26px; color:#333; overflow:hidden; background-color:#E6EEF8;">
-    	<div class="pfooter">
-            <div align="left" style="float:left; margin:3px 0px 0px 10px;">
-                 建议使用Firefox、 Chrome、 IE8及以上版本浏览器，体验最佳效果
-            </div>
-            <div style="float:right; margin: 3px 20px 0px 0px;">
-                <a href="http://www.ruisitech.com" target="_blank" style="text-decoration:underline">北京睿思科技有限公司(www.ruisitech.com)</a> 版权所有
-            </div>
-        </div>
-    </div>
-    
-	<div region="center" title="操作区" style="padding:5px;" id="optarea">
-     <div id="p_param" class="param" tp="param">
-     <div class="ptabhelpr">
-     	拖拽维度到此处作为页面参数
-     </div>
-     </div>
+	<div class="wrapper wrapper-content">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="ibox">
+					<div class="ibox-title">
+						<h5>数据模型</h5>
+					</div>
+					<div class="ibox-content">
+						<button class="btn btn-block btn-primary" onclick="openreport(true)"><i class="fa fa-cube"></i> 选择模型</button>
+						<p class="text-warning">拖拽数据到表格或图形中展现</p>
+						<ul id="selectdatatree" class="easyui-tree"></ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-9">
+				<div class="ibox">
+					<div class="ibox-content">
+						 <div id="p_param" class="param" tp="param">
+							 <div class="ptabhelpr">
+								拖拽维度到此处作为页面参数
+							 </div>
+							 </div>
+					</div>
+				</div>
+				<div class="ibox" style="margin-bottom:0px;">
+					<div class="ibox-content" id="optarea" style="overflow:auto;">
+						 
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
-<div id="insertcompmenu" style="width:150px;">
-		<div onclick="insertTable()" >插入表格</div>
-		<div onclick="insertChart()" >插入图形...</div>
-        <div onclick="insertText('insert')">插入文本...</div>
-</div>
 
 <div id="pdailog"></div>
 <div class="indicator">==></div>
@@ -191,19 +190,7 @@ $(function(){
     <div onclick="setChartKpi()" id="m_set">属性...</div>
     <div onclick="delChartKpiOrDim()" iconCls="icon-remove">清除</div>
 </div>
-<div id="myreportmenu" class="easyui-menu">
-	<div onclick="deletemyreport()">删除</div>
-    <div onclick="chgreportname()">重命名...</div>
-</div>
-<div id="insertdsinfo" style="width:150px;">
-		<div onclick="newdatasource(false)" >创建数据源...</div>
-		<div onclick="newdataset()" >创建数据集...</div>
-        <div onclick="newcube()">创建立方体...</div>
-</div>
-<div id="saveinfo" style="width:150px;">
-		<div onclick="savepage(true)" >保存</div>
-		<div onclick="saveas(true)" >另存...</div>
-</div>
+
 <!-- 数据 操作菜单 -->
 <div id="mydatasetmenu" class="easyui-menu">
 	<div id="dataset_add" onclick="newdatactx()">新建...</div>
@@ -211,6 +198,5 @@ $(function(){
 	<div id="dataset_del" onclick="deletemydata()">删除</div>
 </div>
 <div id="drillmenu" class="easyui-menu"></div>
-<div class='chartloading' id="Cloading"><div class="ldclose" onclick="hideLoading()"></div><div class="ltxt">Loading...</div></div>
 </body>
 </html>

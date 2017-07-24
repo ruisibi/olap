@@ -1,687 +1,84 @@
-function postpage(pageObj, servid, method, fromMV, subm, check, confirmState, exportDG){
-	var obj = document.forms[pageObj.formId];
-	obj.elements[pageObj.sidKey].value = servid;
-	obj.elements[pageObj.midKey].value = method;
-	obj.elements[pageObj.fromId].value = fromMV;
-	obj.elements[pageObj.exportKey].value = exportDG;
-	obj.method = subm;
-	if(!check){
-		obj.onsubmit = null;
+﻿function msginfo(info, type, func){
+	if(!type){
+		type = "error";
 	}
-	pageObj.needConfirm = confirmState;
-}
-
-//展示遮罩
-function showMark(state){
-	if(jQuery('#markDiv').size() == 0){
-		var newMask=document.createElement("div"); 
-		newMask.id="markDiv"; 
-		newMask.style.position="absolute"; 
-		newMask.style.zIndex="900"; 
-		_scrollWidth=Math.max(document.body.scrollWidth,document.documentElement.scrollWidth); 
-		_scrollHeight=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight); 
-		// _scrollHeight = Math.max(document.body.offsetHeight,document.documentElement.scrollHeight); 
-		newMask.style.width=_scrollWidth+"px"; 
-		newMask.style.height=_scrollHeight+"px"; 
-		newMask.style.top="0px"; 
-		newMask.style.left="0px"; 
-		newMask.style.background="#33393C"; 
-		//newMask.style.background = "#FFFFFF"; 
-		newMask.style.filter="alpha(opacity=40)"; 
-		newMask.style.opacity="0.40"; 
-		newMask.style.display='none'; 
-		document.body.appendChild(newMask); 
-	}
-	if(state == true){
-	 jQuery('#markDiv').css("display","");
-	}else{
-		jQuery('#markDiv').css("display", "none");
-	}
-}
-
-function exportXLS(url){
-	location.href= '../../control/' + url;
-}
-
-//检查checkBox是否勾选
-function checkRadio(ff, targetId, tp){
-	if (tp == 'radio') {
-		var obj = ff.elements[targetId];
-		if (obj == null || obj == undefined) {
-			return false;
-		}
-		if (obj.length == undefined) {
-			return obj.checked;
-		}
-		var isExist = false;
-		for (i = 0; i < obj.length; i++) {
-			if (obj[i].checked == true) {
-				isExist = true;
-				break;
-			}
-		}
-		return isExist;
-	}else{
-		var obj = ff.elements[targetId];
-		if (obj == null || obj == undefined) {
-			return false;
-		}
-		if(obj.value == ''){
-			return false;
-		}
-		return true;
-	}
-}
-
-//改变box close图标
-function chgCloseIcon(ts, target){
-	var st = ts.getAttribute("state");
-	if(st == 2){
-		ts.src = "../ext-res/image/plus.gif";
-		ts.setAttribute("state", 1);
-		$(target).show();
-	}else{
-		ts.src = "../ext-res/image/minus.gif";
-		ts.setAttribute("state", 2);
-		$(target).hide();
-	}
-}
-
-//全选
-function selectAll(ts, targId){
-	var o = ts.form.elements[targId];
-	if(o.length == undefined){
-		o.checked = ts.checked;
-		return;
-	}
-	for(i=0; i<o.length; i++){
-		o[i].checked = ts.checked;
-	}
-}
-	
-
-//分页提交
-function gotopage(vf,str,cp,fromId){
-	var ff = document.forms[vf.formId];
-	ff.elements[cp].value=str;
-	ff.elements[vf.sidKey].value = vf.sidValue;
-	ff.elements[vf.midKey].value = vf.midValue;
-	ff.elements[vf.fromId].value = fromId;
-	ff.method = "post";
-	ff.submit();
-}
-
-//返回日历格式mm/dd/yyyy
-function convertDate(inp, type){
-	var str1,str2,str3;
-	if(inp != ''){
-		str1 = inp.substring(0,4);
-		str2 = inp.substring(4,6);
-		str3 = inp.substring(6,8);
-	}else{
-		var d = new Date();
-		str1 = d.getFullYear();
-		str2 = d.getMonth() + 1;
-		str3 = d.getDate();
-	}
-	if(type == 1){
-		return str2 +'/'+str1;
-	}else{
-		return str2 + '/' + str3 + '/' + str1;
-	}
-}
-
-//级联获取select
-function cascadeParam(url, targ, sel, params){
-	jQuery('#'+targ).bind('change',function(event){
-		jQuery.ajax({'url':url + "&cascade="+sel, type:'post',dataType:'json', data:params+jQuery('#' + targ).val(), success:function(opts){
-			document.getElementById(sel).options.length = 0;
-			for(i=0; i<opts.length; i++){
-				var vl = opts[i].VALUE;
-				if(vl == null){
-					vl = "";
-				}
-				var varItem = new Option(opts[i].TEXT, vl);
-				document.getElementById(sel).options.add(varItem);
-			}
-		}});
-	});
-}
-
-//table ajax 分页
-function gotobyajax(pinfo,dgId, pageSize, currPage, params, fromMVId){
-	var url = pinfo.resPath + "control/" + pinfo.extAction+"?"+pinfo.sidKey+"=ext.sys.fenye.ajax&currPage="+currPage+"&id="+dgId+"&pageSize="+pageSize+"&"+pinfo.fromId+"="+fromMVId;
-	__showLoading();
-	jQuery.ajax({
-	   type: "POST",
-	   url: url,
-	   dataType:"html",
-	   data: params,
-	   success: function(resp){
-	   		__hideLoading();
-		   jQuery("#" + dgId).html(resp);
-	   },
-	   error:function(resp){
-	   		__hideLoading();
-		   jQuery.messager.alert('出错了','系统出错，请联系管理员。','error');
-	   }
-	});
-}
-
-function keygoto(evt, pinfo, dgId, pageSize, currPage, params, fromMVId){
-	evt = window.event || evt;
-    if(evt.keyCode==13){//如果取到的键值是回车
-         gotobyajax(pinfo, dgId, pageSize, currPage, params, fromMVId);       
-     }
-
-}
-
-function keygoto2(evt, vf,str,cp,fromId){
-	evt = window.event || evt;
-    if(evt.keyCode==13){//如果取到的键值是回车
-    	var ff = document.forms[vf.formId];
-		ff.elements[cp].value=str;
-		ff.elements[vf.sidKey].value = vf.sidValue;
-		ff.elements[vf.midKey].value = vf.midValue;
-		ff.elements[vf.fromId].value = fromId;
-		ff.method = "post";
-		//ff.submit();
-     }
-}
-
-
-function linkbycol(url, targetHtml){
-	if(jQuery("#"+targetHtml).size() == 0){
-		alert('配置的 htmlTarget ：' + targetHtml + '未在页面定义.');
-		return;
-	}
-	jQuery("#"+targetHtml).load(url);
-}
-
-
-//table的head排序操作
-function extColOrder(dgId, order, fromMVId, params){
-	if(jQuery('#ext_order_state').val() == 'a'){
-		jQuery('#ext_order_state').val('d');
-	}else{
-		jQuery('#ext_order_state').val('a');
-	}
-	var url = extAction+"?"+sidKey+"=ext.sys.fenye.ajax&ext_col_order="+order+"&id="+dgId+"&ext_order_state="+jQuery('#ext_order_state').val()+"&"+fromId+"="+fromMVId;
-	jQuery.post(url, params, function(resp){
-		jQuery("#"+dgId).html(resp);
-	}, "html");
-}
-
-/**
- * 提交到一个组件
- * @param mvId
- * @param params
- * @return
- */
-function post2Comp(targetId, url, ff, paramNames){
-	var parms = '';
-	for(var i=0; i<paramNames.length; i++){
-		var p = paramNames[i];
-		
-		//采用jQuery方式取值
-		if(jQuery('#'+p).attr('type') == 'radio'){
-			var val = jQuery('input:radio[name='+p+']:checked').val();
-			parms = parms +  p  + "=" + val + "&";
-		}else if(jQuery('#'+p).attr('type') == 'checkbox'){
-			jQuery("input[name='"+p+"']:checkbox:checked").each(function(){ 
-				parms = parms +  p  + "=" + jQuery(this).val() + "&";
-			});
-		}else{
-			var val = jQuery('#'+p).val();
-			parms = parms +  p  + "=" + val + "&";
-		}
-		
-		/**
-		var rets = document.forms[ff.name].elements[p];
-		if(rets.length == 1){
-			parms = parms +  p  + "=" + rets.value+"&";
-		}else{
-			//是checkbox或radio
-			for(var j=0; j<rets.length; j++){
-				if(rets[j].checked){
-					parms = parms +  p  + "=" + rets[j].value+"&";
-				}
-			}
-		}
-		**/
-	}
-	jQuery.post(url, parms, function(resp){
-		jQuery("#"+targetId).html(resp);
-	}, "html");
-}
-
-/***
- * 提交到一个MV
- */
-function post2MV(config){
-	for(i=0; i<config.length; i++){
-		__post2MV(config[i].target, config[i].url, config[i].paramNames, config[i].fname);
-	}
-}
-
-function __post2MV(targetId, url, paramNames, fname){
-	var parms = "";
-	for(var i=0; i<paramNames.length; i++){
-		var p = paramNames[i];
-		
-		//采用jQuery方式取值
-		if(jQuery('#'+p).attr('type') == 'radio'){
-			var val = jQuery('input:radio[name='+p+']:checked').val();
-			parms = parms +  p  + "=" + val + "&";
-		}else{
-			var val = jQuery('#'+p).val();
-			parms = parms +  p  + "=" + val + "&";
-		}
-		
-		/**
-		var rets = document.forms[fname].elements[p];
-		var tp = jQuery(rets).attr('type');
-		if(tp != 'radio' && tp != 'checkbox'){
-			parms = parms +  p  + "=" + rets.value+"&";
-		}else{
-			//是checkbox或radio
-			for(var j=0; j<rets.length; j++){
-				if(rets[j].checked){
-					parms = parms +  p  + "=" + rets[j].value+"&";
-				}
-			}
-		}
-		**/
-		
-	}
-	jQuery(document.getElementById(targetId)).html("数据重新加载中...");
-	jQuery.ajax({
-	   type: "POST",
-	   url: url,
-	   dataType:"html",
-	   data: parms,
-	   success: function(resp){
-		   jQuery(document.getElementById(targetId)).html(resp);
-	   },
-	   error:function(resp){
-		   jQuery.messager.alert('出错了','系统出错，请联系管理员。','error');
-	   }
-	});
-}
-
-/**
- * 通过点击表格更新组件
- * @return
- */
-function tableUpdateComp(config){
-	var obj = jQuery('#' + config.id + ' .row-link');
-	
-	obj.live('click', function(e){
-		var tz = jQuery(this);
-		var a = tz.find('a.lka');
-		if(a.size() > 0){
-			
-			jQuery('#' + config.id + " .row-link").removeClass('link-selected');
-			tz.addClass('link-selected');
-			
-			for(i=0; i<config.url.length; i++){
-				url = config.url[i].url;
-				t = config.url[i].target;
-				
-				jQuery.post(url, a.attr('parms' + i), function(resp){
-					jQuery("#"+t).html(resp);
-				}, "html");
-				
-			}
-		}
-
-	});
-}
-
-function tableCell2MV(config){
-	var obj = jQuery('#' + config.id + ' .cell-link');
-	obj.live('click', function(e){
-			var tz = jQuery(this);
-			location.href = config.url  + '&'+  tz.attr('parms');
-	});
-}
-
-function tableCellUpdateComp(config){
-	var obj = jQuery('#' + config.id + ' .cell-link');
-	obj.live('click', function(e){
-		var tz = jQuery(this);
-		for(i=0; i<config.url.length; i++){
-			url = config.url[i].url;
-			t = config.url[i].target;
-			
-			jQuery.post(url,  tz.attr('parms'), function(resp){
-				jQuery("#"+t).html(resp);
-			}, "html");
+	swal({
+		title:"",
+		text:info,
+		type: type,
+		confirmButtonColor: "#27c24c",
+		confirmButtonText:"确定"
+	},function(){
+		if(func){
+			func();
 		}
 	});
 }
-
-/**
- * 指标定制
- * @return
- */
-function kpiCustomize(treeConfg){
-	var findTreeChildren = function(customize, ret){
-	   	var cm = [], store = [], group = [];
-	
-		for(var i=0;i<customize.length;i++){
-		 
-	         var child = [];
-	         for(var j=0;j<customize[i].kpis.length;j++){
-	          child[j] = {
-	                    id: customize[i].kpis[j].id + '_'+ customize[i].svcId,
-	                    text: customize[i].kpis[j].name,
-	                    leaf: true,
-	                    checked : customize[i].kpis[j].check?true:false
-	                };
-	     	}    
-	     	var currNode = {
-	                    id: customize[i].svcId ,
-	                    text: customize[i].svcName,
-	                    leaf: false
-	                };
-	     		ret[i] = currNode;
-	     		currNode.children = child;
-		}
+function formatDate(dt, fmt){
+	var date = new Date(dt.time);
+	 var o = { 
+		"M+" : date.getMonth()+1,                 //月份 
+		"d+" : date.getDate(),                    //日 
+		"h+" : date.getHours(),                   //小时 
+		"m+" : date.getMinutes(),                 //分 
+		"s+" : date.getSeconds(),                 //秒 
+		"q+" : Math.floor((date.getMonth()+3)/3), //季度 
+		"S"  : date.getMilliseconds()             //毫秒 
+	}; 
+	if(/(y+)/.test(fmt)) {
+			fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length)); 
 	}
- 	var treeChildren = [];
- 	findTreeChildren(treeConfg.customize, treeChildren);
- 	
- 	Ext.DomHelper.append(document.body, '<div class="kpiTree" style="display:none;position:absolute;z-Index:1000;" id="tree'+treeConfg.btnId+'"></div>');
- 	
- 	var saveKpi = function(){
- 		var cols = '';
- 		kpiTree.getRootNode().cascade(function(node){
-            if (node.getUI().isChecked()) {
-                cols += node.id + ';';
-            }
-            return !node.isLeaf();
-        });
- 		
- 		//__showLoading();
- 		Ext.Ajax.request({
- 			 url: treeConfg.kpiCustomizeUrl,
-             params: {
-                 cols: cols
-             },
-             success: function(response){
-            	 __hideLoading();
-            	 //重新加载数据
-				 jQuery.post(treeConfg.dataUrl, {}, function(resp){
-					jQuery("#"+treeConfg.id).html(resp);
-				}, "html");
-             }
- 		});
- 	}
- 	
- 	var kpiTree = new Ext.tree.TreePanel({
-        renderTo: 'tree' + treeConfg.btnId,
-        height: 300,
-        width: 180,
-        tbar: ['->',{text:'保存', handler : saveKpi}, '-', {text:'关闭', handler: function(){
-        	jQuery('#tree' + treeConfg.btnId).hide();
-        }
-        }],
-        useArrows: false,
-        autoScroll: true,
-        animate: false,
-        enableDD: false,
-        containerScroll: true,
-        rootVisible: false,
-        frame: false,
-        loader: new Ext.tree.TreeLoader(),
-        root: new Ext.tree.AsyncTreeNode({
-            expanded: true,
-            children: treeChildren
-        }),
-        listeners: {
-            'click': function(node, event){
-                node.getUI().toggleCheck();
-            },
-            'checkchange': function(node, checked){
-            }
-           
-        }
-    });
-    kpiTree.getRootNode().expand(true);
-    kpiTree.render();
-    jQuery('#'+treeConfg.btnId).bind('click', function(e){
-    	var pos = jQuery('#' + treeConfg.btnId).offset();
-    	var tg = jQuery('#tree' + treeConfg.btnId);
-    	tg.css({'top': pos.top + 20, 'left' : pos.left - 132});
-    	tg.show();
-    });
+	 for(var k in o) {
+		if(new RegExp("("+ k +")").test(fmt)){
+			 fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+		 }
+	 }
+	return fmt; 
 }
-
-function changeTabId(tabId, value){
-	jQuery('#' + tabId).val(value);
-}
-
-/**
- * 可以点击的radio
- * @return
- */
-function radiolink(url, target, divId){
-	var pms = target+"="+jQuery("input[name='"+target+"']:checked").val();
-	jQuery.post(url, pms, function(resp){
-		jQuery("#"+divId).html(resp);
-	}, "html");
-}
-
-function goto2(ff,str,count){
-	if(isNaN(str)){
-		str = 1;
-	}
-	if(str == ''){
-		str = 1;
-	}
-	if(str>count){
-		str = count;
-	}
-	str = str -1;
-	gotopage(ff,str);
-}
-
-/**
- * 维度钻取
- * @return
- */
-function fieldDirll(config){
-	var fields = jQuery('#' + config.table + " td[drillid='"+config.pid+"'] .crossDirll").bind('click', function(e){
-		var thiz = jQuery(this);
-		if(thiz.attr('isopen') == 0){
-			var tabTr = thiz.parent().css('font-weight', 'bold').parent();
-			//获取内容
-			__showLoading();
-			var parms = thiz.attr('parms');
-			if(config.text != undefined && config.text != ""){
-				parms = parms + '&text=' + jQuery.fn.toJSON(config.text);
-			}
-			
-			jQuery.ajax({url: config.url, data: parms, type:'POST', dataType:'html', success: function(resp){
-				jQuery(resp).insertAfter(tabTr);
-				__hideLoading();
-			}});
-			thiz.addClass('crossDirll-open');
-			thiz.attr('isopen', '1');
-		}else{
-			__nodeRemove(thiz.parent().css('font-weight', 'normal'), config);
-			thiz.removeClass('crossDirll-open');
-			thiz.attr('isopen', '0');
-		}
-	});
-}
-
-function __nodeRemove(target, config){
-	var pid = target.children('.crossDirll').attr('pid');
-	jQuery('#' + config.table+' td[drillid="'+pid+'"]').each(function(a, b){
-			__nodeRemove(jQuery(b), config);
-			jQuery(b).parent().remove();
-	});
-}
-
 function __showLoading(){
-	var sload = jQuery('#ext2_Loading');
+	var sload = $('#loadingdiv');
 	if(sload.size() == 0){
-		sload = jQuery('<div id="ext2_Loading" class="ext-el-mask-msg x-mask-loading"><div>请稍后...</div></div>').appendTo('body');
+		sload = $('<div id="loadingdiv" class="sk-spinner sk-spinner-three-bounce" style="position:absolute;z-index:9999"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div>').appendTo('body');
 	}
-	var doc = jQuery(document);
-	var win = jQuery(window);
+	var doc = $(document);
+	var win = $(window);
 	var t = doc.scrollTop() + win.height()/2 - 50;
 	var l = doc.scrollLeft() + win.width()/2 - 50;
 	sload.css({'top':t, 'left':l});
-		
 	sload.show();
 }
-
 function __hideLoading(){
-	jQuery('#ext2_Loading').hide();
+	$("#loadingdiv").remove();
 }
-
 /**
- * 列上加链接
- * 连接面板在页面中只存在一个，id为compLinkPanel
- * @param url
- * @return
- */
-function rowLinkFireTR(config){
-	jQuery('#' + config.id + ' .row-link a.lka').bind('click', function(e){
-		var tz = jQuery(this);
-		if(config.type == 'open'){
-			var panel = null;
-			if(Ext.get('compLinkPanel') == null){
-		    	//创建面板
-				panel = new Ext.Window({
-		    		id: 'compLinkPanel',
-		    		title: '指标分析',
-		    		renderTo: document.body,
-		    		layout: {type: 'absolute'},
-		    		width: 590,
-		    		height: 410,
-		    		draggable: true,
-		    		resizable: false,
-		    		closeAction : 'hide',
-		    		shadow: false,
-		    		autoScroll : true,
-		    		html: "<div id='compLinkPanelctx'></div>"
-		    	});
-		    	panel.render();
-		    }else{
-		    	panel = Ext.getCmp('compLinkPanel');
-		    }
-		    panel.show();
-		}else if(config.type == 'new'){
-			location.href = config.url;
-			return;
-		}else{
-			var tabTr = tz.parent().parent();
-			jQuery('#compLinkPanelctxTr').remove();
-			jQuery("<tr class='row-link' id='compLinkPanelctxTr'><td colspan='"+config.colspan+"'><div class='linkPanelClose' id='linkPanelClose'></div><div id='compLinkPanelctx'></div></td></tr>").insertAfter(tabTr);
-			jQuery('#linkPanelClose').bind('click', function(){
-				jQuery('#compLinkPanelctxTr').remove();
-			});
-		}
-		jQuery("#compLinkPanelctx").load(config.url, tz.attr('parms'));
-	});
-}
-
-
-/**
- * 只用在ispire中
- * 在行联动, use=false时调用的函数,用来组件联动, 页面钻取等方式
- * type = 'insert' 表示钻取页面
- * type = 'linkage' 表示组件联动
- */
-function rowLinkNotUse(config, mvId){
-	//alert(config.type);
-	jQuery('#' + config.id + ' .row-link a.lka').bind('click', function(e){
-		var currEl = jQuery(this);
-		var p = currEl.attr('parms');
-		var tmpParams = p.split('&'), __param = {};
-		for (var i = 0; i < tmpParams.length; i++) {
-			var str = tmpParams[i].split('=');
-			__param[str[0]] = str[1];
-		}
-		var instanceId = mvId.substring(mvId.indexOf('_') + 1, mvId.length);
-		
-		if(config.type == 'linkage'){
-			Bonc.ispire.PageSetting.postEvent(instanceId, __param);
-		}else
-		if(config.type == 'insert'){
-			//钻取页面
-			var tabTr = currEl.parent().parent(),
-			nextTr = tabTr.next(); //下一行
-			if(nextTr.is('.row-embed')){
-				if(nextTr.attr('openFlag') == '0'){ //展开
-					//获取布局器
-					var layout = Bonc.ispire.EmbedUtils.getEmbedInstance(instanceId, config.oldUrl);
-					//移动布局器
-					layout.element.appendTo(jQuery('>td', nextTr));
-					//显示嵌入页面行
-					nextTr.show().attr('openFlag', '1');
-					//更新参数
-					layout.setParam(__param);
-				}else{
-					//隐藏嵌入页面行
-					nextTr.hide().attr('openFlag', '0');
-				}
-			}else{
-				nextTr = jQuery("<tr class='row-link row-embed'><td class='td-embed grid3-td' colspan='"+config.colspan+"'></td></tr>").insertAfter(tabTr);
-				var layout = Bonc.ispire.EmbedUtils.getEmbedInstance(instanceId, config.oldUrl, jQuery('>td', nextTr), __param);
-				if(layout.isExist){ //其他行嵌入页面已经实例化
-					//隐藏原嵌入页面所在行
-					layout.element.parent().parent().hide().attr('openFlag', '0');
-					//移动嵌入页面
-					layout.element.appendTo(jQuery('>td', nextTr));
-					//设置参数
-					layout.setParam(__param);
-				}
-			}
-		}else{
-			alert('未指定操作类型.');
-		}
-		
-	});
-}
-
-/**
- * 在单元格联动， use=false时调用的函数，组件联动
- * @param config
- * @param mvId
- * @return
- */
-function cellLinkNotUse(config, mvId){
-	var obj = jQuery('#' + config.id + ' .cell-link');
-	obj.bind('click', function(e){
-		var currEl = jQuery(this);
-		var p = currEl.attr('parms');
-		var tmpParams = p.split('&'), __param = {};
-		for (var i = 0; i < tmpParams.length; i++) {
-			var str = tmpParams[i].split('=');
-			__param[str[0]] = str[1];
-		}
-		var instanceId = mvId.substring(mvId.indexOf('_') + 1, mvId.length);
-		Bonc.ispire.PageSetting.postEvent(instanceId, __param);
-	});
-}
-function formatCol(val, row){
-	var fmt = crtfmt[this.field];
-	var ret = formatNumber(val, fmt);
-	if(this.finfmt && this.finfmt==true){
-		if(val > 0){
-			ret = "<font class=\"kpi_up\">"+ret+"</font>";
-		}else if(val < 0){
-			ret = "<font class=\"kpi_down\">"+ret+"</font>";
-		}
+配置气泡大小
+转换到 10 到 50
+**/
+function bubbleSize(maxval, minval, val, targetMax){
+	if(maxval == minval){
+		return 40;
 	}
-	return ret;
+	if(!targetMax){
+		targetMax = 50;
+	}
+	var r = (targetMax-10)/(maxval-minval)*(val-minval)+10;
+	return r;
 }
-function formatNumber(num,pattern){
+function formatNumber(num,pattern, shortname){
+ if(!pattern || pattern.length == 0){
+ 	return num;
+ }
+ var shortdw;
+   if(shortname && num > 1000000){
+	 num = num / 1000000;
+	 shortdw = "百万";
+  }else if(shortname && num > 10000){
+	  num = num / 10000;
+	  shortdw = "万";
+  }else if(shortname && num > 1000){
+	  num = num / 1000;
+	  shortdw = "千";
+  }
   if(pattern.indexOf("%") > 0){
 	  num = num * 100;
   }
@@ -755,5 +152,216 @@ function formatNumber(num,pattern){
   if(pattern.indexOf("%") > 0){
 	  r = r + "%";
   } 
+  if(shortdw){
+	  r = r + shortdw;
+  }
   return r;
+}
+function getCalendar(divId, dt, minval, maxval){
+	var url = '../control/Calendar.action';
+	$("#"+divId).load(url, {dt:dt, "max":maxval, "min":minval});
+}
+/**
+日历提交
+**/
+function calendarPost(event, ts,value, cb){
+	$("table.calen td").removeClass("curdt");
+	$(ts).parent().addClass("curdt");
+	if(cb){
+		cb(event, ts, value);
+	}
+}
+function selectyearmonth(){
+	var isopen = $("#selyearmonth").attr("isopen");
+	if(isopen && "y" == isopen){
+		$("#selyearmonth").css("display","none").attr("isopen", "n");
+	}else{
+		$("#selyearmonth").css("display","block").attr("isopen", "y");
+	}
+}
+function postpage(pageObj, servid, method, fromMV, subm, check, confirmState, exportDG, issubmit){
+	var obj = document.forms[pageObj.formId];
+	obj.elements[pageObj.sidKey].value = servid;
+	obj.elements[pageObj.midKey].value = method;
+	obj.elements[pageObj.fromId].value = fromMV;
+	obj.elements[pageObj.exportKey].value = exportDG;
+	obj.method = subm;
+	if(!check){
+		obj.onsubmit = null;
+	}
+	pageObj.needConfirm = confirmState;
+	
+	if(issubmit){
+		//如果需要check 判断 checkRequire 是否返回 true
+		if(check && checkRequire(obj)){
+			obj.submit();
+		}
+		//如果不需要check, 直接提交
+		if(!check){
+			obj.submit();
+		}
+	}
+}
+//分页提交
+function gotopage(vf,str,cp,fromId){
+	var ff = document.forms[vf.formId];
+	ff.elements[cp].value=str;
+	ff.elements[vf.sidKey].value = vf.sidValue;
+	ff.elements[vf.midKey].value = vf.midValue;
+	ff.elements[vf.fromId].value = fromId;
+	ff.method = "post";
+	ff.submit();
+}
+function keygoto(evt, pinfo, dgId, pageSize, currPage, params, fromMVId){
+	evt = window.event || evt;
+    if(evt.keyCode==13){//如果取到的键值是回车
+         gotobyajax(pinfo, dgId, pageSize, currPage, params, fromMVId);       
+     }
+
+}
+
+function keygoto2(evt, vf,str,cp,fromId){
+	evt = window.event || evt;
+    if(evt.keyCode==13){//如果取到的键值是回车
+    	var ff = document.forms[vf.formId];
+		ff.elements[cp].value=str;
+		ff.elements[vf.sidKey].value = vf.sidValue;
+		ff.elements[vf.midKey].value = vf.midValue;
+		ff.elements[vf.fromId].value = fromId;
+		ff.method = "post";
+		//ff.submit();
+     }
+}
+function gotobyajax(pinfo,dgId, pageSize, currPage, params, fromMVId){
+	var url =  "";
+	if(pinfo == null){
+		url =  "../control/extControl?serviceid=ext.sys.fenye.ajax&currPage="+currPage+"&id="+dgId+"&pageSize="+pageSize+"&t_from_id="+fromMVId;
+	}else{
+		url = pinfo.resPath + "control/" + pinfo.extAction+"?"+pinfo.sidKey+"=ext.sys.fenye.ajax&currPage="+currPage+"&id="+dgId+"&pageSize="+pageSize+"&"+pinfo.fromId+"="+fromMVId;
+	}
+	__showLoading();
+	jQuery.ajax({
+	   type: "POST",
+	   url: url,
+	   dataType:"html",
+	   data: params,
+	   success: function(resp){
+	   		__hideLoading();
+		   jQuery("#" + dgId).html(resp);
+	   },
+	   error:function(resp){
+	   		__hideLoading();
+		   jQuery.messager.alert('出错了','系统出错，请联系管理员。','error');
+	   }
+	});
+}
+//检查checkBox是否勾选
+function checkRadio(ff, targetId, tp){
+	if (tp == 'radio') {
+		var obj = ff.elements[targetId];
+		if (obj == null || obj == undefined) {
+			return false;
+		}
+		if (obj.length == undefined) {
+			return obj.checked;
+		}
+		var isExist = false;
+		for (i = 0; i < obj.length; i++) {
+			if (obj[i].checked == true) {
+				isExist = true;
+				break;
+			}
+		}
+		return isExist;
+	}else{
+		var obj = ff.elements[targetId];
+		if (obj == null || obj == undefined) {
+			return false;
+		}
+		if(obj.value == ''){
+			return false;
+		}
+		return true;
+	}
+}
+/***
+ * 提交到一个MV
+ */
+function post2MV(config){
+	for(i=0; i<config.length; i++){
+		__post2MV(config[i].target, config[i].url, config[i].paramNames, config[i].fname);
+	}
+}
+
+function __post2MV(targetId, url, paramNames, fname){
+	var parms = "";
+	for(var i=0; i<paramNames.length; i++){
+		var tp = paramNames[i].type;
+		var p = paramNames[i].name;
+		
+		//采用jQuery方式取值
+		if(tp == 'radio'){
+			var val = jQuery('input:radio[name='+p+']:checked').val();
+			if(!val){
+				val = "";
+			}
+			parms = parms +  p  + "=" + val + "&";
+		}else if(tp == 'checkBox'){
+			$("input[name=\""+p+"\"]:checked").each(function(a, b){
+				var v = $(b).val();
+				parms = parms + p + "=" + v + "&";
+			});
+		}else{
+			var val = null;
+			if(paramNames[i].type == 'mselect'){ //多选需要特殊处理
+				val = jQuery('#'+p).combobox("getValues");
+				jQuery('#'+p).combobox("destroy");
+			}else if(paramNames[i].type == 'tree'){  //tree类型参数特殊处理
+				val = jQuery('#'+p).combobox("getValue");
+				//选择完后需要destory组件, 防止以前的HTML在页面堆积
+				jQuery('#'+p).combobox("destroy");
+			}else{
+				val = jQuery('#'+p).val();
+			}
+			parms = parms +  p  + "=" + val + "&";
+		}
+		
+		/**
+		var rets = document.forms[fname].elements[p];
+		var tp = jQuery(rets).attr('type');
+		if(tp != 'radio' && tp != 'checkbox'){
+			parms = parms +  p  + "=" + rets.value+"&";
+		}else{
+			//是checkbox或radio
+			for(var j=0; j<rets.length; j++){
+				if(rets[j].checked){
+					parms = parms +  p  + "=" + rets[j].value+"&";
+				}
+			}
+		}
+		**/
+		
+	}
+	__showLoading();
+	jQuery.ajax({
+	   type: "POST",
+	   url: url,
+	   dataType:"html",
+	   data: parms,
+	   success: function(resp){
+		   __hideLoading();
+		   $(document.getElementById(targetId)).html(resp);
+	   },
+	   error:function(resp){
+		   __hideLoading();
+		   $.messager.alert('出错了','系统出错，请联系管理员。','error');
+	   }
+	});
+}
+//交叉表的body进行滚动时，header也进行滚动
+function tableBodyscroll(id){
+	$("#"+id+" .lock-dg-body").scroll(function(){
+		var left = $(this).scrollLeft();
+		$("#"+id+" .lock-dg-header").css("margin-left", "-"+left+"px");
+	});
 }

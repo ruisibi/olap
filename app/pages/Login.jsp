@@ -1,29 +1,16 @@
 ﻿<%@page contentType="text/html; charset=UTF-8"%>
 <%@page contentType="text/html; charset=UTF-8"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>睿思BI商业智能产品演示系统 - 用户登录</title>
+<title>睿思BI-OLAP系统 - 用户登录</title>
 <link rel="shortcut icon" type="image/x-icon" href="resource/img/rs_favicon.ico">
-
-<link rel="stylesheet" href="resource/css/ht.css" type="text/css">
-<script type="text/javascript" src="ext-res/js/jquery.js"></script>
-
-<style type="text/css">
-<!--
-body  {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	font-family: "songti";
-	font-size: 12px;
-	background-image: url(resource/img/2loginback.gif);
-}
--->
-</style>
+<link href="ext-res/css/bootstrap.min.css" rel="stylesheet">
+<link href="resource/css/style.css" rel="stylesheet">
+<script type="text/javascript" src="ext-res/js/jquery.min.js"></script>
+<script type="text/javascript" src="ext-res/js/bootstrap.min.js?v=3.3.6"></script>
 <script language="javascript">
 function resetval(ff){
 	ff.userName.value = "";
@@ -48,34 +35,30 @@ function chkpw(ff){
 </head>
 
 <body>
-
 <div class="denglu " id="denglu">
 		<form name="form1" method="post" action="Login!login.action" onsubmit="return chkpw(document.form1)">
-   <table width="556" border="0" align="center" cellpadding="0" cellspacing="0">
+   <table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
 
-      <td height="146" colspan="4" align="left">&nbsp;</td>
+      <td height="146" colspan="4" align="center"><img src="resource/img/rsyun.png"></td>
     </tr>
-     <tr>
-      <td height="18" align="left">&nbsp;</td>
-      <td align="left">&nbsp;</td>
-    </tr>
+   
     <tr>
       <td width="82" rowspan="3" align="left">&nbsp;</td>
       <td width="46" height="43" align="left">帐号：</td>
-      <td width="264" align="left"><input name="userName" type="text" size="24" style="height:20px; font-size:16px; width: 200px;" value="${userName}" /></td>
+      <td width="264" align="left"><input name="userName" type="text" class="form-control" value="${userName}" /></td>
       <td width="164" rowspan="3" align="left">&nbsp;</td>
     </tr>
 
     <tr>
       <td height="31" align="left">口令：</td>
-      <td align="left"><input name="password" type="password" size="24"  style="height:20px; font-size:16px; width: 200px;"/></td>
+      <td align="left"><input name="password" type="password" class="form-control"/></td>
     </tr>
     <tr>
-      <td height="32" align="left">&nbsp;</td>
+      <td height="50" align="left">&nbsp;</td>
       <td align="left">
-      <input name="button3" type="submit" class="houtai1203-2-3" id="button3" value="登录" />
-      <input name="button3" type="button" onclick="resetval(this.form)" class="houtai1203-2-3"  value="清空" />
+      <input name="button3" type="submit" class="btn btn-success m-b" id="button3" value="登 录" />  <br/>
+	  账号/口令： admin/123456
       </td>
     </tr>
 
@@ -105,8 +88,7 @@ function chkpw(ff){
   
   
   <div align="center" style="color:#666; font-size:14px; margin:20px;">
-管理员登陆账号/口令： admin/123456 <br/>
-   © <a href="http://www.ruisitech.com" target="_blank" style="color:#666; text-decoration:none">北京睿思科技有限公司</a> 2013 <a href="http://www.ruisitech.com" target="_blank" style="color:#666; text-decoration:underline">联系我们</a></div>
+   © <a href="http://www.ruisitech.com" target="_blank" >北京睿思科技有限公司</a> 2016 <a href="http://www.ruisitech.com" target="_blank" >联系我们</a></div>
 </div>
 
 </body>

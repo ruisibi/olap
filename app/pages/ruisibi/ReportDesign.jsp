@@ -3,34 +3,28 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="bi" uri="/WEB-INF/common.tld"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <title><s:if test="pageName != null && pageName !=''">${pageName} - </s:if>睿思BI|OLAP多维分析</title>
-   <link rel="shortcut icon" type="image/x-icon" href="../resource/img/rs_favicon.ico">
-   <script type="text/javascript" src="../ext-res/js/jquery.min.js"></script>
-    <!--
-   <script language="javascript" src="../resource/js/rsbi.js?v1"></script>
-   -->
-    <script language="javascript" src="../resource/js/bireport.js?v5"></script>
-    <script language="javascript" src="../resource/js/bidata.js?v5"></script>
-    <script language="javascript" src="../resource/js/bichart.js?v5"></script>
-    <script language="javascript" src="../resource/js/bidrill.js?v5"></script> 
-
-	<link rel="stylesheet" type="text/css" href="../ext-res/css/fonts-min.css" />
-	<link rel="stylesheet" type="text/css" href="../ext-res/css/boncbase.css?v3" />
-	<link rel="stylesheet" type="text/css" href="../resource/css/bireport.css?v3" />
-  
-	<script type="text/javascript" src="../ext-res/My97DatePicker/WdatePicker.js"></script>
-	<script language="javascript" src="../resource/js/json.js"></script>
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><s:if test="pageName != null && pageName !=''">${pageName} - </s:if>睿思BI|OLAP多维分析</title>
+<link rel="shortcut icon" type="image/x-icon" href="../resource/img/rs_favicon.ico">
+<link href="../ext-res/css/bootstrap.min.css" rel="stylesheet">
+<link href="../resource/css/style.css" rel="stylesheet">
+<link href="../resource/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<link href="../resource/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<script type="text/javascript" src="../ext-res/js/jquery.min.js"></script>
+<script language="javascript" src="../resource/js/bireport.js?v5"></script>
+<script language="javascript" src="../resource/js/bidata.js?v5"></script>
+<script language="javascript" src="../resource/js/bichart.js?v5"></script>
+<script language="javascript" src="../resource/js/bidrill.js?v5"></script> 
+<link rel="stylesheet" type="text/css" href="../resource/css/bireport.css?v3" />
+<script type="text/javascript" src="../ext-res/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" src="../resource/js/json.js"></script>
 <link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/gray/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/icon.css">
-	<script type="text/javascript" src="../resource/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../ext-res/js/echarts.min.js"></script>
-   
+<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/icon.css">
+<script type="text/javascript" src="../resource/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../ext-res/js/echarts.min.js"></script>
 </head>
 
 <script language="javascript">
@@ -65,7 +59,7 @@ $(function(){
 
 <body class="easyui-layout">
 
-	<div region="north" border="false" style="background:#efefef;padding:1px">
+	<div region="north" border="false">
 		<div class="panel-header">
             <a href="javascript:openreport(false);" id="mb8" class="easyui-linkbutton" plain="true" iconCls="icon-open">打开</a>
             <a href="javascript:newpage(false)" id="mb1" class="easyui-linkbutton" plain="true" iconCls="icon-newpage" >新建</a>
@@ -103,7 +97,7 @@ $(function(){
     <div data-options="region:'south',border:false" style="height:26px; color:#333; overflow:hidden; background-color:#E6EEF8;">
     	<div class="pfooter">
             <div align="left" style="float:left; margin:3px 0px 0px 10px;">
-                 建议使用Firefox、 Chrome、 IE8及以上版本浏览器，体验最佳效果
+                 建议使用Firefox、 Chrome、 IE9及以上版本浏览器，体验最佳效果
             </div>
             <div style="float:right; margin: 3px 20px 0px 0px;">
                 <a href="http://www.ruisitech.com" target="_blank" style="text-decoration:underline">北京睿思科技有限公司(www.ruisitech.com)</a> 版权所有
@@ -199,9 +193,5 @@ $(function(){
 	<div id="dataset_mod" onclick="editmydata()">编辑...</div>
 	<div id="dataset_del" onclick="deletemydata()">删除</div>
 </div>
-<!--
-<div id="drillmenu" class="easyui-menu"></div>
--->
-<div class='chartloading' id="Cloading"><div class="ldclose" onclick="hideLoading()"></div><div class="ltxt">Loading...</div></div>
 </body>
 </html>

@@ -50,7 +50,7 @@ function insertChart(){
 	$('#pdailog').dialog({
 		title: '插入图形',
 		width: 380,
-		height: 350,
+		height: 376,
 		closed: false,
 		cache: false,
 		modal: true,
@@ -169,7 +169,7 @@ function initChartKpiDrop(id){
 	$("#T" + id + " #xcol, #T" + id +" #ycol, #T"+id+" #scol").droppable({
 		accept:"#selectdatatree .tree-node",
 		onDragEnter:function(e,source){
-			var node = $("#datasettree").tree("getNode", source);
+			var node = $("#selectdatatree").tree("getNode", source);
 			var tp = node.attributes.col_type;
 			if(tp == 1 && ($(this).attr("id") == 'xcol' || $(this).attr("id") == 'scol')){
 				$(source).draggable('proxy').find("span").removeClass("tree-dnd-no");
@@ -645,11 +645,11 @@ function setChartKpi(){
 	}
 	var cube = fundCubeById(kpi.tid);
 	var cubeKpi = findCubeKpiById(cube, dimid);
-	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">度量名称：</span>"+kpi.kpi_name+"<br><span class=\"inputtext\">所属表/字段：</span> "+kpi.tname+" / "+kpi.col_name+"<br><span class=\"inputtext\">度量单位：</span><select id=\"kpiunit\" name=\"kpiunit\" class=\"inputform\"><option value='1'></option><option value='1000'>千</option><option value='10000'>万</option><option value='1000000'>百万</option><option value='100000000'>亿</option></select>"+(kpi.unit?kpi.unit:"")+"<br><span class=\"inputtext\">格 式 化：</span>"+
-		"<select id=\"fmt\" name=\"fmt\" class=\"inputform\"><option value=\"\"></option><option value=\"###,##0\">整数</option><option value=\"###,##0.00\">小数</option><option value=\"0.00%\">百分比</option></select><br/><span class=\"inputtext\">度量解释：</span>"+(cubeKpi.kpinote?unescape(cubeKpi.kpinote):"")+"</div>";
+	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">度量名称：</span>"+kpi.kpi_name+"<br><span class=\"inputtext\">所属表/字段：</span> "+kpi.tname+" / "+kpi.col_name+"<br><span class=\"inputtext\">度量单位：</span><select id=\"kpiunit\" name=\"kpiunit\" class=\"inputform2\"><option value='1'></option><option value='1000'>千</option><option value='10000'>万</option><option value='1000000'>百万</option><option value='100000000'>亿</option></select>"+(kpi.unit?kpi.unit:"")+"<br><span class=\"inputtext\">格 式 化：</span>"+
+		"<select id=\"fmt\" name=\"fmt\" class=\"inputform2\"><option value=\"\"></option><option value=\"###,##0\">整数</option><option value=\"###,##0.00\">小数</option><option value=\"0.00%\">百分比</option></select><br/><span class=\"inputtext\">度量解释：</span>"+(cubeKpi.kpinote?unescape(cubeKpi.kpinote):"")+"</div>";
 	$('#pdailog').dialog({
 		title: '度量属性',
-		width: 320,
+		width: 350,
 		height: 245,
 		closed: false,
 		cache: false,
@@ -717,13 +717,13 @@ function chartfilterDims(){
 	var selectDim = "";
 	var valStr = dim.valStrs ? dim.valStrs.split(",") : [];
 	for(j=0; j<vals.length; j++){
-		selectDim = selectDim + "<div class=\"fltone\"><input type=\"checkbox\" id=\"S"+vals[j]+"\" name=\"dimselcet\" value=\""+vals[j]+"\" desc=\""+valStr[j]+"\"><label for=\"S"+vals[j]+"\">"+valStr[j]+"</label></div>";
+		selectDim = selectDim + "<div class=\"checkbox checkbox-info\"><input type=\"checkbox\" id=\"S"+vals[j]+"\" name=\"dimselcet\" value=\""+vals[j]+"\" desc=\""+valStr[j]+"\"><label for=\"S"+vals[j]+"\">"+valStr[j]+"</label></div>";
 	}
-	ctx = "<div class=\"dxwd\"><div class=\"wdhead\">待选维度</div><input id=\"dimsearch\" style=\"width:230px;\"></input><div class=\"wdlist\" style=\"height:278px;\"></div></div><div class=\"xzwdbtn\"><input type=\"button\" value=\">\" id=\"xzwd\" style=\"margin-top:120px;\" title=\"选择\"><br/><input type=\"button\" value=\"<\" id=\"scwd\" title=\"删除\"></div><div class=\"yxwd\"><div class=\"wdhead\">已选维度</div><div class=\"wdlist\">"+selectDim+"</div></div>";
+	ctx = "<div class=\"dxwd\"><div class=\"wdhead\">待选维度</div><input id=\"dimsearch\" style=\"width:230px;\"></input><div class=\"wdlist\" style=\"height:278px;\"></div></div><div class=\"xzwdbtn\"><button type=\"button\" id=\"xzwd\" style=\"margin-top:120px;\" title=\"选择\" class=\"btn btn-success btn-circle\">></button><br/><br/><button type=\"button\" id=\"scwd\" title=\"删除\" class=\"btn btn-success btn-circle\"><</button></div><div class=\"yxwd\"><div class=\"wdhead\">已选维度</div><div class=\"wdlist\">"+selectDim+"</div></div>";
 	$('#pdailog').dialog({
 		title: name + ' - 维度筛选',
 		width: 546,
-		height: 400,
+		height: 410,
 		closed: false,
 		cache: false,
 		modal: true,
@@ -779,7 +779,7 @@ function chartfilterDims(){
 		}
 		$("#pdailog input[name='dimval']:checkbox:checked").each(function(index, element) {
 			if(!isExist($(element).val())){
-				var str = "<div class=\"fltone\"><input type=\"checkbox\" desc=\""+$(element).attr("desc")+"\" value=\""+$(element).val()+"\" name=\"dimselcet\" id=\"S"+$(element).val()+"\"><label for=\"S"+$(element).val()+"\">"+$(element).attr("desc")+"</label></div>";
+				var str = "<div class=\"checkbox checkbox-info\"><input type=\"checkbox\" desc=\""+$(element).attr("desc")+"\" value=\""+$(element).val()+"\" name=\"dimselcet\" id=\"S"+$(element).val()+"\"><label for=\"S"+$(element).val()+"\">"+$(element).attr("desc")+"</label></div>";
 				$("#pdailog .yxwd .wdlist").append(str);
 			}
         });
