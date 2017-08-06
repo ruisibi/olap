@@ -94,7 +94,6 @@ public final class VDOPUtils {
 			}else{
 				ctx.setAttribute(VdopConstant.USER_CNT, userCnt + 1);
 			}
-			XmlParser.putXmlData();
 		}
 	}
 	
@@ -119,7 +118,6 @@ public final class VDOPUtils {
 		if(userCnt != null){
 			ctx.setAttribute(VdopConstant.USER_CNT, userCnt - 1);
 		}
-		XmlParser.removeXmlData();
 	}
 	
 	public static int getOnlineUser(ServletContext ctx){

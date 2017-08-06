@@ -1,11 +1,9 @@
 package com.ruisi.vdop.ser.ruisibi;
 
-import java.util.Map;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import com.ruisi.ext.engine.cross.OlapWriterInterface;
+import com.ruisi.bi.engine.cross.OlapWriterInterface;
 import com.ruisi.ext.engine.view.context.cross.CrossReportContext;
 import com.ruisi.ext.engine.wrapper.ExtRequest;
 import com.ruisi.ext.engine.wrapper.ExtWriter;

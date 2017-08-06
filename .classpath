@@ -33,7 +33,6 @@
 	<classpathentry kind="lib" path="app/WEB-INF/lib/struts2-codebehind-plugin-2.3.15.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/struts2-core-2.3.15.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/struts2-spring-plugin-2.3.15.1.jar"/>
-	<classpathentry kind="lib" path="app/WEB-INF/lib/xwork-core-2.3.15.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/commons-lang3-3.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/ognl-3.0.6.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/javassist-3.11.0.GA.jar"/>
@@ -48,6 +47,9 @@
 	<classpathentry kind="lib" path="app/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/slf4j-log4j12-1.6.1.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/ext3-jdk5.jar"/>
+	<classpathentry kind="lib" path="app/WEB-INF/lib/dom3-xercesImpl.jar"/>
+	<classpathentry kind="lib" path="app/WEB-INF/lib/dom3-xml-apis.jar"/>
 	<classpathentry kind="lib" path="app/WEB-INF/lib/ojdbc6-12.1.0.2.jar"/>
+	<classpathentry kind="lib" path="app/WEB-INF/lib/xwork-core-2.3.15.1.jar"/>
 	<classpathentry kind="output" path="app/WEB-INF/classes"/>
 </classpath>
