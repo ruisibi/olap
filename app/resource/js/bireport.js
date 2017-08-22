@@ -1983,7 +1983,7 @@ function printData(){
 }
 //导出页面
 function exportPage(){
-	var ctx = "<form name='expff' method='post' action=\"ReportExport.action\" id='expff'><input type='hidden' name='type' id='type'><input type='hidden' name='json' id='json'><div class='exportpanel'><span class='exptp select' tp='html'><img src='../resource/img/export-html.gif'><br>HTML</span>"+
+	var ctx = "<form name='expff' method='post' action=\"ReportExport.action\" id='expff'><input type='hidden' name='type' id='type'><input type='hidden' name='json' id='json'><input type='hidden' name='picinfo' id='picinfo'><div class='exportpanel'><span class='exptp select' tp='html'><img src='../resource/img/export-html.gif'><br>HTML</span>"+
 			"<span class='exptp' tp='csv'><img src='../resource/img/export-csv.gif'><br>CSV</span>" +
 			"<span class='exptp' tp='excel'><img src='../resource/img/export-excel.gif'><br>EXCEL</span>" + 
 			"<span class='exptp' tp='pdf'><img src='../resource/img/export-pdf.gif'><br>PDF</span></div></form>";
@@ -2021,7 +2021,24 @@ function exportPage(){
 								pageInfo.comps[i].tableJson.cols.pop();
 							}
 						}
-						
+						//转化图片
+						var strs = "";
+						if(tp == "pdf" || tp == "excel" || tp == "word"){
+							$("div.chartUStyle").each(function(index, element) {
+								var id = $(this).attr("id");
+								id = id.substring(1, id.length);
+								var chart = echarts.getInstanceByDom(document.getElementById(id));
+								var str = chart.getDataURL({type:'png', pixelRatio:1, backgroundColor: '#fff'});
+								str = str.split(",")[1]; //去除base64标记
+								str = $(this).attr("label") + "," + str; //加上label标记
+								strs = strs  +  str;
+								if(index != $("div.chartUStyle").size() - 1){
+									strs = strs + "@";
+								}
+								
+							});
+						}
+						$("#expff #picinfo").val(strs);
 						$("#expff").submit();
 						$('#pdailog').dialog('close');
 					}

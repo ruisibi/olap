@@ -22,6 +22,7 @@ public class ReportExportAction {
 	
 	private String type; //导出方式 
 	private String json; //报表JSON
+	private String picinfo;
 	
 	public String execute() throws Exception{
 		
@@ -94,4 +95,13 @@ public class ReportExportAction {
 	public void setJson(String json) {
 		this.json = json;
 	}
+
+	public String getPicinfo() {
+		return picinfo;
+	}
+
+	public void setPicinfo(String picinfo) {
+		this.picinfo = picinfo;
+	}
+	
 }

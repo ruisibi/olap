@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="../resource/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
 	<script language="javascript" src="../ext-res/js/sortabletable.js"></script>
     <script type="text/javascript" src="../ext-res/js/echarts.min.js"></script>
-
+	<script type="text/javascript" src="../ext-res/js/ext-base.js"></script>
    
 </head>
 <style>
@@ -36,7 +36,7 @@ jQuery(function(){
 	var prt = function(){
 		print();	
 	}
-	window.setTimeout(prt, 1000);
+	window.setTimeout(prt, 2000);
 });
 </script>
 

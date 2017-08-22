@@ -78,6 +78,7 @@ public class ChartService {
 	
 	public ChartContext json2Chart(){
 		ChartContext ctx = new ChartContextImpl();
+		ctx.setLabel((String)chartJson.get("label"));
 		ctx.setRefDsource(dsourceJson.getString("dsid"));
 		//设置x
 		JSONObject obj = chartJson.getJSONObject("xcol");

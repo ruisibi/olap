@@ -220,7 +220,7 @@ function initChartKpiDrop(id){
 			}
 		
 			json.tid = node.attributes.tid;
-			
+			json.chartJson.label = "T" + id;
 			if(json.kpiJson == undefined){
 				json.kpiJson = [];
 			};
@@ -350,7 +350,7 @@ function initChartByScatter(id){
 			}
 		
 			json.tid = node.attributes.tid;
-			
+			json.chartJson.label = "T" + id;
 			if(json.kpiJson == undefined){
 				json.kpiJson = [];
 			};
