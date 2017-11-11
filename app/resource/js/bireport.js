@@ -1983,14 +1983,14 @@ function printData(){
 }
 //导出页面
 function exportPage(){
-	var ctx = "<form name='expff' method='post' action=\"ReportExport.action\" id='expff'><input type='hidden' name='type' id='type'><input type='hidden' name='json' id='json'><input type='hidden' name='picinfo' id='picinfo'><div class='exportpanel'><span class='exptp select' tp='html'><img src='../resource/img/export-html.gif'><br>HTML</span>"+
+	var ctx = "<div style='padding:5px;'><form name='expff' method='post' action=\"ReportExport.action\" id='expff'><span class=\"inputtext\">导出文件名：</span><input type='text' name='exportName' class='inputform2' value='export'><input type='hidden' name='type' id='type'><input type='hidden' name='json' id='json'><input type='hidden' name='picinfo' id='picinfo'><div class='exportpanel'><span class='exptp select' tp='html'><img src='../resource/img/export-html.gif'><br>HTML</span>"+
 			"<span class='exptp' tp='csv'><img src='../resource/img/export-csv.gif'><br>CSV</span>" +
 			"<span class='exptp' tp='excel'><img src='../resource/img/export-excel.gif'><br>EXCEL</span>" + 
-			"<span class='exptp' tp='pdf'><img src='../resource/img/export-pdf.gif'><br>PDF</span></div></form>";
+			"<span class='exptp' tp='pdf'><img src='../resource/img/export-pdf.gif'><br>PDF</span></div></form></div>";
 	$('#pdailog').dialog({
 		title: '导出数据',
-		width: 310,
-		height: 200,
+		width: 330,
+		height: 220,
 		closed: false,
 		cache: false,
 		modal: true,

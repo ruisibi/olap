@@ -22,10 +22,10 @@ public class ReportExportAction {
 	
 	private String type; //导出方式 
 	private String json; //报表JSON
+	private String exportName; //文件名
 	private String picinfo;
 	
 	public String execute() throws Exception{
-		
 		ExtContext.getInstance().removeMV(ReportService.deftMvId);
 		JSONObject rjson = JSONObject.fromObject(json);
 		ReportService tser = new ReportService();
@@ -35,7 +35,7 @@ public class ReportExportAction {
 		ser.setParams(null);
 		ser.initPreview();
 		
-		String fileName = "file.";
+		String fileName = new String(exportName.getBytes(),"iso-8859-1") + ".";
 		if("html".equals(this.type)){
 			fileName += "html";
 		}else
@@ -102,6 +102,14 @@ public class ReportExportAction {
 
 	public void setPicinfo(String picinfo) {
 		this.picinfo = picinfo;
+	}
+
+	public String getExportName() {
+		return exportName;
+	}
+
+	public void setExportName(String exportName) {
+		this.exportName = exportName;
 	}
 	
 }
